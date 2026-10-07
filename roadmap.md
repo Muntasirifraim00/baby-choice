@@ -3,3 +3,6 @@
 - [x] Reproduce the Baby Clothing reference screen with six demo products.
 - [x] Enable only the navigation between Home, All Categories and Baby Clothing.
 - [x] Verify navigation, images and mobile layout.
+- [x] Reproduce the Baby Shampoo search results screen.
+- [x] Add the Filter & Sort drawer and only its required interaction.
+- [x] Verify the search flow and drawer at mobile size.
