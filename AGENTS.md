@@ -9,6 +9,8 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Keep the Baby Choice demo as a single static index route inside a mobile-width frame; product and category routes are deferred until requested.
+- Keep Baby Choice inside a mobile-width frame with only Home, All Categories and Baby Clothing demo screens; unrelated actions remain inactive.
 - Use individually cropped CDN asset pointers for reference imagery, never render the uploaded full-screen screenshot as the page.
 - Use container-relative dimensions for this fixed-format reference layout so the original proportions remain consistent at every mobile width.
+- Share catalog header, breadcrumbs and bottom navigation across the two catalog screens; use leaf index routing for All Categories so the clothing screen does not nest inside its content.
+- Store reference catalog items in a browser-safe static data module; no persistence or backend is needed for the requested demo.

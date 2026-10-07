@@ -215,3 +215,63 @@ body { margin: 0; background: var(--shop-backdrop); }
 .nav-item { display: flex; flex-direction: column; gap: .8cqw; font-size: 2cqw; color: var(--shop-muted); }
 .nav-item svg { width: 4.6cqw; height: 4.6cqw; stroke-width: 1.6; }
 .nav-item.active { color: var(--shop-purple); }
+.demo-button[href] { cursor: pointer; text-decoration: none; }
+.catalog-screen { min-height: 222.74cqw; }
+.shop-breadcrumb { display: flex; align-items: center; gap: 1.4cqw; height: 5.7cqw; padding: 0 3.4cqw; font-size: 2.25cqw; font-weight: 600; }
+.shop-breadcrumb a { color: var(--shop-purple); text-decoration: none; }
+.shop-breadcrumb svg { width: 2.4cqw; height: 2.4cqw; color: var(--shop-muted); }
+.shop-breadcrumb a:first-child svg { width: 2.9cqw; height: 2.9cqw; }
+.catalog-banner { margin: 0 2.6cqw; }
+.catalog-banner img { width: 100%; height: auto; display: block; border-radius: 1.9cqw; }
+.all-categories-screen .catalog-banner { margin-top: .8cqw; }
+.all-category-grid { margin: 2cqw 2.6cqw 0; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1.4cqw 1.6cqw; }
+.all-category-card { height: 24cqw; min-width: 0; display: flex; flex-direction: column; align-items: stretch; justify-content: start; border: 1px solid var(--shop-line); border-radius: 1.8cqw; padding: .7cqw; overflow: hidden; text-align: left; }
+.all-category-card > img { display: block; width: 100%; height: 16cqw; object-fit: fill; border-radius: 1.4cqw; }
+.all-category-caption { display: grid; grid-template-columns: minmax(0,1fr) 1.4cqw; align-items: center; gap: .3cqw; padding: .7cqw .7cqw 0; }
+.all-category-caption strong { display: block; font-size: 1.85cqw; line-height: 2cqw; font-weight: 600; }
+.all-category-caption small { display: block; font-size: 1.8cqw; line-height: 2.2cqw; color: var(--shop-muted); }
+.all-category-caption svg { width: 2cqw; height: 2cqw; }
+.catalog-promo { margin: 2.2cqw 2.6cqw 0; position: relative; }
+.catalog-promo > img { width: 100%; display: block; border-radius: 2cqw; }
+.catalog-promo-link { position: absolute; left: 4%; bottom: 11%; width: 22%; height: 19%; }
+.all-categories-screen .bottom-nav { margin-top: 7.5cqw; }
+.category-active { background: var(--shop-lilac); border-radius: 3.5cqw; width: 16cqw; justify-self: center; padding: 1cqw 0; margin-top: -.8cqw; }
+.clothing-tabs { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 1.7cqw; margin: 1.8cqw 2.8cqw 0; }
+.clothing-tab { display: flex; flex-direction: column; align-items: stretch; height: 14cqw; border: 1px solid var(--shop-line); border-radius: 1.5cqw; overflow: hidden; padding: .5cqw; }
+.clothing-tab img { width: 100%; height: 9.9cqw; object-fit: fill; border-radius: 1cqw; }
+.clothing-tab span { font-size: 1.8cqw; line-height: 3cqw; font-weight: 600; white-space: nowrap; }
+.clothing-tab.selected { border-color: var(--shop-purple); padding-bottom: 0; }
+.clothing-tab.selected span { background: var(--shop-purple); color: var(--shop-paper); margin-inline: -.5cqw; }
+.clothing-listing { margin: 2.8cqw 2.6cqw 0; }
+.clothing-list-heading { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 1.3cqw; }
+.clothing-list-heading h1 { margin: 0; font-size: 3.5cqw; line-height: 4cqw; font-weight: 800; }
+.clothing-list-heading p { color: var(--shop-muted); font-size: 2.1cqw; line-height: 3cqw; margin: 0; font-weight: 500; }
+.listing-tools { display: flex; gap: 1.8cqw; }
+.sort-control,.filter-control { display: flex; align-items: center; border: 1px solid var(--shop-line); border-radius: 1.9cqw; height: 6cqw; gap: .6cqw; font-weight: 600; font-size: 2.35cqw; padding-inline: 2cqw; }
+.sort-control { width: 19cqw; }
+.sort-control svg:first-child { width: 1.5cqw; height: 2.3cqw; }
+.sort-control svg:last-child { width: 2.3cqw; height: 2.3cqw; margin-left: auto; }
+.filter-control { width: 14.5cqw; background: var(--shop-purple); color: var(--shop-paper); justify-content: center; }
+.filter-control svg { width: 2.5cqw; height: 2.5cqw; }
+.clothing-filters { display: grid; grid-template-columns: .85fr .85fr 1fr 1.1fr .95fr 1.2fr; gap: 1.8cqw; margin: 1.4cqw 4cqw 2.6cqw 0; }
+.clothing-filter { display: flex; align-items: center; justify-content: center; gap: 1.3cqw; height: 5.7cqw; border: 1px solid var(--shop-line); border-radius: 1.8cqw; font-size: 2.2cqw; font-weight: 500; }
+.clothing-filter svg { width: 1.7cqw; height: 1.7cqw; }
+.clothing-product-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.5cqw 1.9cqw; }
+.clothing-product-card { min-width: 0; height: 55.6cqw; border: 1px solid var(--shop-line); border-radius: 2cqw; overflow: hidden; }
+.clothing-product-image { height: 24.3cqw; position: relative; padding: 3.1cqw 2.2cqw 0; }
+.clothing-product-image > img { width: 100%; height: 100%; object-fit: fill; border-radius: 1.1cqw; }
+.clothing-product-image .discount { left: 2.2cqw; top: 1.6cqw; font-size: 1.65cqw; padding: .5cqw 1.4cqw; }
+.clothing-product-image .wishlist-button { width: 3cqw; height: 3cqw; top: 1.8cqw; right: 2cqw; }
+.clothing-product-details { padding: .5cqw 2.2cqw 1.5cqw; }
+.clothing-brand { margin: 0; color: var(--shop-muted); font-size: 1.95cqw; line-height: 2.7cqw; font-weight: 500; }
+.clothing-product-details h2 { font-size: 2.35cqw; font-weight: 500; line-height: 3cqw; height: 6cqw; margin: 0; }
+.clothing-product-details .rating { margin-top: .5cqw; font-size: 1.95cqw; line-height: 3cqw; gap: .7cqw; }
+.clothing-product-details .stars { font-size: 2.4cqw; }
+.clothing-price { display: flex; align-items: center; gap: 1.8cqw; height: 5.5cqw; white-space: nowrap; }
+.clothing-price strong { font-size: 3cqw; font-weight: 700; color: var(--shop-purple); }
+.clothing-price del { font-size: 2cqw; color: var(--shop-muted); }
+.clothing-sizes { display: flex; gap: 1cqw; margin: .8cqw 0 1.5cqw; }
+.clothing-size { border: 1px solid var(--shop-line); border-radius: 1.1cqw; font-size: 1.95cqw; color: var(--shop-muted); line-height: 3.5cqw; padding-inline: 1.1cqw; font-weight: 500; white-space: nowrap; }
+.clothing-add-cart { border: 1.5px solid var(--shop-purple); border-radius: 1.5cqw; height: 5.8cqw; width: 100%; font-size: 2.4cqw; font-weight: 700; display: flex; align-items: center; gap: 1.2cqw; color: var(--shop-purple); }
+.clothing-add-cart svg { width: 2.6cqw; height: 2.6cqw; }
+.clothing-screen .bottom-nav { margin-top: 2.3cqw; }

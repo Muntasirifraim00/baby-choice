@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ShopBottomNav } from "@/components/shop-navigation";
 import { ArrowRight, ChevronLeft, ChevronRight, Heart, House, LayoutGrid, Menu, Phone, Search, ShoppingCart, UserRound, BadgePercent } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png.asset.json";
@@ -62,7 +63,7 @@ function PlaceholderButton({ children, className = "", label }: { children?: Rea
   return <Button type="button" variant="ghost" className={`demo-button ${className}`} aria-label={label} aria-disabled="true" tabIndex={-1}>{children}</Button>;
 }
 function SectionHeading({ title, action }: { title: string; action: string }) {
-  return <div className="section-heading"><h2>{title}</h2><PlaceholderButton label={action} className="section-action">{action}<ArrowRight /></PlaceholderButton></div>;
+  return <div className="section-heading"><h2>{title}</h2>{action === "View All Categories" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/categories">{action}<ArrowRight /></Link></Button> : <PlaceholderButton label={action} className="section-action">{action}<ArrowRight /></PlaceholderButton>}</div>;
 }
 function Index() {
   return (
@@ -82,7 +83,7 @@ function Index() {
         <section className="promo-grid" aria-label="Baby essentials"><div className="promo"><img src={bath.url} alt="Bath Time Essentials. Soft towels, washcloths and more. Shop Now." /><PlaceholderButton label="Shop bath time essentials" className="promo-hit" /></div><div className="promo"><img src={feeding.url} alt="Feeding Made Easy. Bottles, bibs, high chairs and more. Explore Now." /><PlaceholderButton label="Explore feeding essentials" className="promo-hit" /></div></section>
         <section className="products-section"><SectionHeading title="Trending Products" action="View More" /><div className="product-grid">{products.map(product => <article className="product-card" key={product.code}><div className="product-image"><img src={product.image.url} alt={product.title} /><span className="discount">{product.discount}% OFF</span><PlaceholderButton label={`Add ${product.title} to wishlist`} className="wishlist-button"><Heart /></PlaceholderButton></div><div className="product-details"><h3>{product.title}</h3><div className="rating"><span className="stars">★★★★★</span><span>{product.rating}</span></div><p className="product-code">{product.code}</p><div className="price-row"><strong>৳ {product.price}</strong><PlaceholderButton label={`Add ${product.title} to cart`} className="add-cart"><ShoppingCart /></PlaceholderButton></div></div></article>)}</div></section>
         <section className="brands-section"><SectionHeading title="Top Brands" action="View All Brands" /><div className="brand-row"><PlaceholderButton label="Previous brands" className="brand-prev"><ChevronLeft /></PlaceholderButton>{brands.map(([image, name]) => <PlaceholderButton key={name} label={name} className="brand-tile"><img src={image.url} alt={name} /></PlaceholderButton>)}<PlaceholderButton label="Next brands" className="brand-next"><ChevronRight /></PlaceholderButton></div></section>
-        <nav className="bottom-nav" aria-label="Main navigation">{[ [House, "Home"], [LayoutGrid, "Categories"], [BadgePercent, "Offers"], [Heart, "Wishlist"], [UserRound, "Account"] ].map(([Icon, label], i) => { const NavIcon = Icon as typeof House; return <PlaceholderButton key={String(label)} label={String(label)} className={i === 0 ? "nav-item active" : "nav-item"}><NavIcon fill={i === 0 ? "currentColor" : "none"} /><span>{String(label)}</span></PlaceholderButton>; })}</nav>
+        <ShopBottomNav active="Home" />
       </main>
     </div>
   );
