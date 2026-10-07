@@ -6,7 +6,7 @@ import { catalogCategories } from "@/lib/catalog-demo";
 import hero from "@/assets/all-hero.png.asset.json";
 import promo from "@/assets/all-promo.png.asset.json";
 
-export const Route = createFileRoute("/categories")({
+export const Route = createFileRoute("/categories/")({
   component: AllCategories,
   head: () => ({ meta: [
     { title: "All Categories — Baby Choice" },
