@@ -4,7 +4,7 @@ import { ArrowDownUp, ChevronDown, ChevronLeft, ChevronRight, Grid2X2, Heart, Li
 import { Button } from "@/components/ui/button";
 import { DemoControl, ShopBottomNav, ShopHeader } from "@/components/shop-navigation";
 import { shampooProducts } from "@/lib/search-demo";
-import hero from "@/assets/search-hero.png.asset.json";
+import hero from "@/assets/search-clean-hero.png.asset.json";
 
 export const Route = createFileRoute("/search")({
   component: SearchResults,

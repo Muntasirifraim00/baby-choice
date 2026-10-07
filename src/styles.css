@@ -308,7 +308,7 @@ body { margin: 0; background: var(--shop-backdrop); }
 .active-filters button svg { width: 2.1cqw; height: 2.1cqw; }
 .search-product-grid { margin: 0 2cqw; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1.4cqw; }
 .search-product-card { height: 61cqw; border: 1px solid var(--shop-line); border-radius: 1.8cqw; overflow: hidden; min-width: 0; }
-.search-product-image { height: 29cqw; position: relative; }
+.search-product-image { height: 29cqw; position: relative; padding-top: 3.2cqw; }
 .search-product-image > img { width: 100%; height: 100%; object-fit: fill; }
 .search-product-image .discount { font-size: 1.65cqw; top: 1.5cqw; left: 1.5cqw; }
 .search-product-image .wishlist-button { width: 3.1cqw; height: 3.1cqw; }
