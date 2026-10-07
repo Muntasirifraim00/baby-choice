@@ -1,5 +1,8 @@
 const assets = import.meta.glob<{ default: { url: string } }>("../assets/*.jpg.asset.json", { eager: true });
-export const shoppingImage = (name: string) => assets[`../assets/${name}.jpg.asset.json`]?.default.url ?? "";
+export const shoppingImage = (name: string) => {
+ const cleanName = ["next-shampoo", "next-diapers", "next-wipes"].includes(name) ? name.replace("next-", "clean-") : name;
+ return assets[`../assets/${cleanName}.jpg.asset.json`]?.default.url ?? "";
+};
 export const shoppingHead = (title: string, description: string) => ({ meta: [{ title: `${title} — Baby Choice` }, { name: "description", content: description }, { property: "og:title", content: `${title} — Baby Choice` }, { property: "og:description", content: description }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] });
 export const shoppingProducts = [
  {id:"diapers",name:"Pampers New Baby Diapers",description:"Soft & Dry Protection",rating:"4.8 (450)",price:"1,350",old:"1,780",sizes:["S","M","L","XL"],badge:"#1 Trending"},
