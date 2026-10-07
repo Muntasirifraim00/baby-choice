@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as OffersRouteImport } from './routes/offers'
+import { Route as OrderConfirmedRouteImport } from './routes/order-confirmed'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as SupportRouteImport } from './routes/support'
 import { Route as TrendingRouteImport } from './routes/trending'
+import { Route as WishlistRouteImport } from './routes/wishlist'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
 import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
 import { Route as CategoriesBabyClothingRouteImport } from './routes/categories.baby-clothing'
@@ -36,6 +42,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CartRoute = CartRouteImport.update({
   id: '/cart',
   path: '/cart',
@@ -46,9 +62,19 @@ const CheckoutRoute = CheckoutRouteImport.update({
   path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OffersRoute = OffersRouteImport.update({
   id: '/offers',
   path: '/offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderConfirmedRoute = OrderConfirmedRouteImport.update({
+  id: '/order-confirmed',
+  path: '/order-confirmed',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -56,9 +82,19 @@ const SearchRoute = SearchRouteImport.update({
   path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrendingRoute = TrendingRouteImport.update({
   id: '/trending',
   path: '/trending',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WishlistRoute = WishlistRouteImport.update({
+  id: '/wishlist',
+  path: '/wishlist',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandsIndexRoute = BrandsIndexRouteImport.update({
@@ -140,11 +176,17 @@ const CheckoutAddressNewRoute = CheckoutAddressNewRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRouteWithChildren
+  '/login': typeof LoginRoute
   '/offers': typeof OffersRoute
+  '/order-confirmed': typeof OrderConfirmedRoute
   '/search': typeof SearchRoute
+  '/support': typeof SupportRoute
   '/trending': typeof TrendingRouteWithChildren
+  '/wishlist': typeof WishlistRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/checkout/address': typeof CheckoutAddressRouteWithChildren
   '/checkout/payment': typeof CheckoutPaymentRoute
@@ -163,9 +205,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/cart': typeof CartRoute
+  '/login': typeof LoginRoute
   '/offers': typeof OffersRoute
+  '/order-confirmed': typeof OrderConfirmedRoute
   '/search': typeof SearchRoute
+  '/support': typeof SupportRoute
+  '/wishlist': typeof WishlistRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/checkout/review': typeof CheckoutReviewRoute
@@ -184,11 +232,17 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/checkout': typeof CheckoutRouteWithChildren
+  '/login': typeof LoginRoute
   '/offers': typeof OffersRoute
+  '/order-confirmed': typeof OrderConfirmedRoute
   '/search': typeof SearchRoute
+  '/support': typeof SupportRoute
   '/trending': typeof TrendingRouteWithChildren
+  '/wishlist': typeof WishlistRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/checkout/address': typeof CheckoutAddressRouteWithChildren
   '/checkout/payment': typeof CheckoutPaymentRoute
@@ -209,11 +263,17 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/account'
     | '/cart'
     | '/checkout'
+    | '/login'
     | '/offers'
+    | '/order-confirmed'
     | '/search'
+    | '/support'
     | '/trending'
+    | '/wishlist'
     | '/categories/baby-clothing'
     | '/checkout/address'
     | '/checkout/payment'
@@ -232,9 +292,15 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/account'
     | '/cart'
+    | '/login'
     | '/offers'
+    | '/order-confirmed'
     | '/search'
+    | '/support'
+    | '/wishlist'
     | '/categories/baby-clothing'
     | '/checkout/payment'
     | '/checkout/review'
@@ -252,11 +318,17 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/account'
     | '/cart'
     | '/checkout'
+    | '/login'
     | '/offers'
+    | '/order-confirmed'
     | '/search'
+    | '/support'
     | '/trending'
+    | '/wishlist'
     | '/categories/baby-clothing'
     | '/checkout/address'
     | '/checkout/payment'
@@ -276,11 +348,17 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AccountRoute: typeof AccountRoute
   CartRoute: typeof CartRoute
   CheckoutRoute: typeof CheckoutRouteWithChildren
+  LoginRoute: typeof LoginRoute
   OffersRoute: typeof OffersRoute
+  OrderConfirmedRoute: typeof OrderConfirmedRoute
   SearchRoute: typeof SearchRoute
+  SupportRoute: typeof SupportRoute
   TrendingRoute: typeof TrendingRouteWithChildren
+  WishlistRoute: typeof WishlistRoute
   CategoriesBabyClothingRoute: typeof CategoriesBabyClothingRoute
   ProductJohnsonsBabyShampooRoute: typeof ProductJohnsonsBabyShampooRoute
   BrandsIndexRoute: typeof BrandsIndexRoute
@@ -299,6 +377,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cart': {
       id: '/cart'
       path: '/cart'
@@ -313,11 +405,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/offers': {
       id: '/offers'
       path: '/offers'
       fullPath: '/offers'
       preLoaderRoute: typeof OffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order-confirmed': {
+      id: '/order-confirmed'
+      path: '/order-confirmed'
+      fullPath: '/order-confirmed'
+      preLoaderRoute: typeof OrderConfirmedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search': {
@@ -327,11 +433,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trending': {
       id: '/trending'
       path: '/trending'
       fullPath: '/trending'
       preLoaderRoute: typeof TrendingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wishlist': {
+      id: '/wishlist'
+      path: '/wishlist'
+      fullPath: '/wishlist'
+      preLoaderRoute: typeof WishlistRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brands/': {
@@ -490,11 +610,17 @@ const TrendingRouteWithChildren = TrendingRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AccountRoute: AccountRoute,
   CartRoute: CartRoute,
   CheckoutRoute: CheckoutRouteWithChildren,
+  LoginRoute: LoginRoute,
   OffersRoute: OffersRoute,
+  OrderConfirmedRoute: OrderConfirmedRoute,
   SearchRoute: SearchRoute,
+  SupportRoute: SupportRoute,
   TrendingRoute: TrendingRouteWithChildren,
+  WishlistRoute: WishlistRoute,
   CategoriesBabyClothingRoute: CategoriesBabyClothingRoute,
   ProductJohnsonsBabyShampooRoute: ProductJohnsonsBabyShampooRoute,
   BrandsIndexRoute: BrandsIndexRoute,
