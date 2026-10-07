@@ -10,12 +10,16 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CartRouteImport } from './routes/cart'
 import { Route as OffersRouteImport } from './routes/offers'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as TrendingRouteImport } from './routes/trending'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
 import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
 import { Route as CategoriesBabyClothingRouteImport } from './routes/categories.baby-clothing'
 import { Route as ProductJohnsonsBabyShampooRouteImport } from './routes/product.johnsons-baby-shampoo'
+import { Route as TrendingIndexRouteImport } from './routes/trending.index'
+import { Route as TrendingPopularRouteImport } from './routes/trending.popular'
 import { Route as BrandsJohnsonsIndexRouteImport } from './routes/brands.johnsons.index'
 import { Route as BrandsJohnsonsProductsRouteImport } from './routes/brands.johnsons.products'
 import { Route as BrandsJohnsonsStoryRouteImport } from './routes/brands.johnsons.story'
@@ -23,6 +27,11 @@ import { Route as BrandsJohnsonsStoryRouteImport } from './routes/brands.johnson
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OffersRoute = OffersRouteImport.update({
@@ -33,6 +42,11 @@ const OffersRoute = OffersRouteImport.update({
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrendingRoute = TrendingRouteImport.update({
+  id: '/trending',
+  path: '/trending',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandsIndexRoute = BrandsIndexRouteImport.update({
@@ -56,6 +70,16 @@ const ProductJohnsonsBabyShampooRoute =
     path: '/product/johnsons-baby-shampoo',
     getParentRoute: () => rootRouteImport,
   } as any)
+const TrendingIndexRoute = TrendingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TrendingRoute,
+} as any)
+const TrendingPopularRoute = TrendingPopularRouteImport.update({
+  id: '/popular',
+  path: '/popular',
+  getParentRoute: () => TrendingRoute,
+} as any)
 const BrandsJohnsonsIndexRoute = BrandsJohnsonsIndexRouteImport.update({
   id: '/brands/johnsons/',
   path: '/brands/johnsons/',
@@ -74,24 +98,31 @@ const BrandsJohnsonsStoryRoute = BrandsJohnsonsStoryRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cart': typeof CartRoute
   '/offers': typeof OffersRoute
   '/search': typeof SearchRoute
+  '/trending': typeof TrendingRouteWithChildren
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
+  '/trending/popular': typeof TrendingPopularRoute
   '/brands/': typeof BrandsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
+  '/trending/': typeof TrendingIndexRoute
   '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
   '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
   '/brands/johnsons/': typeof BrandsJohnsonsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cart': typeof CartRoute
   '/offers': typeof OffersRoute
   '/search': typeof SearchRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
+  '/trending/popular': typeof TrendingPopularRoute
   '/brands': typeof BrandsIndexRoute
   '/categories': typeof CategoriesIndexRoute
+  '/trending': typeof TrendingIndexRoute
   '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
   '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
   '/brands/johnsons': typeof BrandsJohnsonsIndexRoute
@@ -99,12 +130,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cart': typeof CartRoute
   '/offers': typeof OffersRoute
   '/search': typeof SearchRoute
+  '/trending': typeof TrendingRouteWithChildren
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
+  '/trending/popular': typeof TrendingPopularRoute
   '/brands/': typeof BrandsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
+  '/trending/': typeof TrendingIndexRoute
   '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
   '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
   '/brands/johnsons/': typeof BrandsJohnsonsIndexRoute
@@ -113,36 +148,47 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cart'
     | '/offers'
     | '/search'
+    | '/trending'
     | '/categories/baby-clothing'
     | '/product/johnsons-baby-shampoo'
+    | '/trending/popular'
     | '/brands/'
     | '/categories/'
+    | '/trending/'
     | '/brands/johnsons/products'
     | '/brands/johnsons/story'
     | '/brands/johnsons/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/cart'
     | '/offers'
     | '/search'
     | '/categories/baby-clothing'
     | '/product/johnsons-baby-shampoo'
+    | '/trending/popular'
     | '/brands'
     | '/categories'
+    | '/trending'
     | '/brands/johnsons/products'
     | '/brands/johnsons/story'
     | '/brands/johnsons'
   id:
     | '__root__'
     | '/'
+    | '/cart'
     | '/offers'
     | '/search'
+    | '/trending'
     | '/categories/baby-clothing'
     | '/product/johnsons-baby-shampoo'
+    | '/trending/popular'
     | '/brands/'
     | '/categories/'
+    | '/trending/'
     | '/brands/johnsons/products'
     | '/brands/johnsons/story'
     | '/brands/johnsons/'
@@ -150,8 +196,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CartRoute: typeof CartRoute
   OffersRoute: typeof OffersRoute
   SearchRoute: typeof SearchRoute
+  TrendingRoute: typeof TrendingRouteWithChildren
   CategoriesBabyClothingRoute: typeof CategoriesBabyClothingRoute
   ProductJohnsonsBabyShampooRoute: typeof ProductJohnsonsBabyShampooRoute
   BrandsIndexRoute: typeof BrandsIndexRoute
@@ -170,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/offers': {
       id: '/offers'
       path: '/offers'
@@ -182,6 +237,13 @@ declare module '@tanstack/react-router' {
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trending': {
+      id: '/trending'
+      path: '/trending'
+      fullPath: '/trending'
+      preLoaderRoute: typeof TrendingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brands/': {
@@ -212,6 +274,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductJohnsonsBabyShampooRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trending/': {
+      id: '/trending/'
+      path: '/'
+      fullPath: '/trending/'
+      preLoaderRoute: typeof TrendingIndexRouteImport
+      parentRoute: typeof TrendingRoute
+    }
+    '/trending/popular': {
+      id: '/trending/popular'
+      path: '/popular'
+      fullPath: '/trending/popular'
+      preLoaderRoute: typeof TrendingPopularRouteImport
+      parentRoute: typeof TrendingRoute
+    }
     '/brands/johnsons/': {
       id: '/brands/johnsons/'
       path: '/brands/johnsons'
@@ -236,10 +312,26 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface TrendingRouteChildren {
+  TrendingPopularRoute: typeof TrendingPopularRoute
+  TrendingIndexRoute: typeof TrendingIndexRoute
+}
+
+const TrendingRouteChildren: TrendingRouteChildren = {
+  TrendingPopularRoute: TrendingPopularRoute,
+  TrendingIndexRoute: TrendingIndexRoute,
+}
+
+const TrendingRouteWithChildren = TrendingRoute._addFileChildren(
+  TrendingRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CartRoute: CartRoute,
   OffersRoute: OffersRoute,
   SearchRoute: SearchRoute,
+  TrendingRoute: TrendingRouteWithChildren,
   CategoriesBabyClothingRoute: CategoriesBabyClothingRoute,
   ProductJohnsonsBabyShampooRoute: ProductJohnsonsBabyShampooRoute,
   BrandsIndexRoute: BrandsIndexRoute,
