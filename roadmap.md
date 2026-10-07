@@ -8,3 +8,7 @@
 - [x] Verify the search flow and drawer at mobile size.
 - [x] Johnson's product detail page (from search)
 - [x] All Brands, Johnson's brand/story/all products, Offers screens
+- [ ] Reproduce both Trending Products reference screens.
+- [ ] Reproduce the empty Shopping Cart reference.
+- [ ] Reproduce Checkout, Address Selection, Add New Address, Payment Method and Order Review.
+- [ ] Wire demo navigation and verify all eight screens.
