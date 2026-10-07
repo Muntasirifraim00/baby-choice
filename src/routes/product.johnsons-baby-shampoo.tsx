@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, ChevronLeft, ChevronRight, Droplet, Headphones, House, Leaf, Minus, Plus, RefreshCw, Search, ShieldCheck, ShoppingCart, Smile, Truck, Zap, CircleCheck, Heart } from "lucide-react";
 import { DemoControl, ShopBottomNav } from "@/components/shop-navigation";
+import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png.asset.json";
 import main from "@/assets/pd-main.png.asset.json";
 import thumbs from "@/assets/pd-thumbs.png.asset.json";
@@ -34,7 +35,7 @@ function ProductPage() {
       <Link to="/search" aria-label="Back" className="pd-back"><ChevronLeft /></Link>
       <img src={logo.url} className="pd-logo" alt="Baby Choice — Everything for Your Little One" />
       <DemoControl label="Search" className="pd-circle"><Search /></DemoControl>
-      <DemoControl label="Cart, 3 items" className="pd-circle"><ShoppingCart fill="currentColor" /><span className="pd-count">3</span></DemoControl>
+      <Button asChild variant="ghost" className="demo-button pd-circle"><Link to="/cart" aria-label="Shopping Cart"><ShoppingCart fill="currentColor" /><span className="pd-count">3</span></Link></Button>
     </header>
     <nav className="pd-crumb"><Link to="/" aria-label="Home"><House /></Link><ChevronRight /><span>Baby Care</span><ChevronRight /><Link to="/search">Baby Shampoo</Link><ChevronRight /><span>Johnson&apos;s Baby Shampoo</span></nav>
     <section className="pd-top">
@@ -50,7 +51,7 @@ function ProductPage() {
         <h3>Quantity</h3>
         <div className="pd-qty"><div><Minus /><b>1</b><Plus /></div><p><CircleCheck fill="currentColor" stroke="white" /><strong>In Stock</strong><small>Ready to ship</small></p></div>
         <DemoControl label="Add to Cart" className="pd-cart"><ShoppingCart />Add to Cart</DemoControl>
-        <DemoControl label="Buy Now" className="pd-buy"><Zap />Buy Now</DemoControl>
+        <Button asChild variant="ghost" className="demo-button pd-buy"><Link to="/checkout"><Zap />Buy Now</Link></Button>
         <div className="pd-trust">
           <span><ShieldCheck fill="currentColor" stroke="white" /><small>100%</small>Original Product</span>
           <span><Truck />Fast Delivery</span><span><RefreshCw />Easy Returns</span><span><Headphones />24/7 Support</span>
