@@ -16,11 +16,11 @@ export function ShopHeader() {
   </header><Button variant="ghost" asChild className="search-bar search-link"><Link to="/search"><Search /><span>Search for baby products, brands, or categories...</span><span className="search-submit"><Search /></span></Link></Button></>;
 }
 
-export function ShopBottomNav({ active = "Categories" }: { active?: "Home" | "Categories" }) {
+export function ShopBottomNav({ active = "Categories" }: { active?: "Home" | "Categories" | "Offers" | "none" }) {
   return <nav className="bottom-nav" aria-label="Main navigation">
     <Button variant="ghost" asChild className={`demo-button nav-item ${active === "Home" ? "active" : ""}`}><Link to="/" aria-label="Home"><House fill={active === "Home" ? "currentColor" : "none"} /><span>Home</span></Link></Button>
     <Button variant="ghost" asChild className={`demo-button nav-item ${active === "Categories" ? "active category-active" : ""}`}><Link to="/categories" aria-label="Categories"><LayoutGrid fill={active === "Categories" ? "currentColor" : "none"} /><span>Categories</span></Link></Button>
-    <DemoControl label="Offers" className="nav-item"><BadgePercent /><span>Offers</span></DemoControl>
+    <Button variant="ghost" asChild className={`demo-button nav-item ${active === "Offers" ? "active" : ""}`}><Link to="/offers" aria-label="Offers"><BadgePercent /><span>Offers</span></Link></Button>
     <DemoControl label="Wishlist" className="nav-item"><Heart /><span>Wishlist</span></DemoControl>
     <DemoControl label="Account" className="nav-item"><UserRound /><span>Account</span></DemoControl>
   </nav>;

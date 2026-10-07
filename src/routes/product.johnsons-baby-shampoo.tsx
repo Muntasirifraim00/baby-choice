@@ -72,6 +72,6 @@ function ProductPage() {
     <section className="pd-like"><div className="pd-like-head"><h2>You May Also Like</h2><span>See All <ArrowRight /></span></div>
       <div className="pd-like-grid">{likes.map(l => <article key={l.name}><img src={l.img.url} alt={`Johnson's ${l.name}`} /><h4>Johnson&apos;s<br />{l.name}</h4><div className="pd-rating sm"><span>★★★★★</span>{l.r}</div><div className="pd-price sm"><strong>৳ {l.p}</strong><del>৳ {l.o}</del></div></article>)}</div>
     </section>
-    <ShopBottomNav active={"none" as never} />
+    <ShopBottomNav active="none" />
   </main></div>;
 }

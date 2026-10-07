@@ -10,19 +10,34 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OffersRouteImport } from './routes/offers'
 import { Route as SearchRouteImport } from './routes/search'
+import { Route as BrandsIndexRouteImport } from './routes/brands.index'
 import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
 import { Route as CategoriesBabyClothingRouteImport } from './routes/categories.baby-clothing'
 import { Route as ProductJohnsonsBabyShampooRouteImport } from './routes/product.johnsons-baby-shampoo'
+import { Route as BrandsJohnsonsIndexRouteImport } from './routes/brands.johnsons.index'
+import { Route as BrandsJohnsonsProductsRouteImport } from './routes/brands.johnsons.products'
+import { Route as BrandsJohnsonsStoryRouteImport } from './routes/brands.johnsons.story'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OffersRoute = OffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandsIndexRoute = BrandsIndexRouteImport.update({
+  id: '/brands/',
+  path: '/brands/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriesIndexRoute = CategoriesIndexRouteImport.update({
@@ -41,59 +56,109 @@ const ProductJohnsonsBabyShampooRoute =
     path: '/product/johnsons-baby-shampoo',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BrandsJohnsonsIndexRoute = BrandsJohnsonsIndexRouteImport.update({
+  id: '/brands/johnsons/',
+  path: '/brands/johnsons/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandsJohnsonsProductsRoute = BrandsJohnsonsProductsRouteImport.update({
+  id: '/brands/johnsons/products',
+  path: '/brands/johnsons/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandsJohnsonsStoryRoute = BrandsJohnsonsStoryRouteImport.update({
+  id: '/brands/johnsons/story',
+  path: '/brands/johnsons/story',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/offers': typeof OffersRoute
   '/search': typeof SearchRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
+  '/brands/': typeof BrandsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
+  '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
+  '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
+  '/brands/johnsons/': typeof BrandsJohnsonsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/offers': typeof OffersRoute
   '/search': typeof SearchRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
+  '/brands': typeof BrandsIndexRoute
   '/categories': typeof CategoriesIndexRoute
+  '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
+  '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
+  '/brands/johnsons': typeof BrandsJohnsonsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/offers': typeof OffersRoute
   '/search': typeof SearchRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
+  '/brands/': typeof BrandsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
+  '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
+  '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
+  '/brands/johnsons/': typeof BrandsJohnsonsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/offers'
     | '/search'
     | '/categories/baby-clothing'
     | '/product/johnsons-baby-shampoo'
+    | '/brands/'
     | '/categories/'
+    | '/brands/johnsons/products'
+    | '/brands/johnsons/story'
+    | '/brands/johnsons/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/offers'
     | '/search'
     | '/categories/baby-clothing'
     | '/product/johnsons-baby-shampoo'
+    | '/brands'
     | '/categories'
+    | '/brands/johnsons/products'
+    | '/brands/johnsons/story'
+    | '/brands/johnsons'
   id:
     | '__root__'
     | '/'
+    | '/offers'
     | '/search'
     | '/categories/baby-clothing'
     | '/product/johnsons-baby-shampoo'
+    | '/brands/'
     | '/categories/'
+    | '/brands/johnsons/products'
+    | '/brands/johnsons/story'
+    | '/brands/johnsons/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OffersRoute: typeof OffersRoute
   SearchRoute: typeof SearchRoute
   CategoriesBabyClothingRoute: typeof CategoriesBabyClothingRoute
   ProductJohnsonsBabyShampooRoute: typeof ProductJohnsonsBabyShampooRoute
+  BrandsIndexRoute: typeof BrandsIndexRoute
   CategoriesIndexRoute: typeof CategoriesIndexRoute
+  BrandsJohnsonsProductsRoute: typeof BrandsJohnsonsProductsRoute
+  BrandsJohnsonsStoryRoute: typeof BrandsJohnsonsStoryRoute
+  BrandsJohnsonsIndexRoute: typeof BrandsJohnsonsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -105,11 +170,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/offers': {
+      id: '/offers'
+      path: '/offers'
+      fullPath: '/offers'
+      preLoaderRoute: typeof OffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search': {
       id: '/search'
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brands/': {
+      id: '/brands/'
+      path: '/brands'
+      fullPath: '/brands/'
+      preLoaderRoute: typeof BrandsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categories/': {
@@ -133,15 +212,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductJohnsonsBabyShampooRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brands/johnsons/': {
+      id: '/brands/johnsons/'
+      path: '/brands/johnsons'
+      fullPath: '/brands/johnsons/'
+      preLoaderRoute: typeof BrandsJohnsonsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brands/johnsons/products': {
+      id: '/brands/johnsons/products'
+      path: '/brands/johnsons/products'
+      fullPath: '/brands/johnsons/products'
+      preLoaderRoute: typeof BrandsJohnsonsProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brands/johnsons/story': {
+      id: '/brands/johnsons/story'
+      path: '/brands/johnsons/story'
+      fullPath: '/brands/johnsons/story'
+      preLoaderRoute: typeof BrandsJohnsonsStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OffersRoute: OffersRoute,
   SearchRoute: SearchRoute,
   CategoriesBabyClothingRoute: CategoriesBabyClothingRoute,
   ProductJohnsonsBabyShampooRoute: ProductJohnsonsBabyShampooRoute,
+  BrandsIndexRoute: BrandsIndexRoute,
   CategoriesIndexRoute: CategoriesIndexRoute,
+  BrandsJohnsonsProductsRoute: BrandsJohnsonsProductsRoute,
+  BrandsJohnsonsStoryRoute: BrandsJohnsonsStoryRoute,
+  BrandsJohnsonsIndexRoute: BrandsJohnsonsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
