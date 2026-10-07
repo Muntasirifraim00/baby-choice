@@ -58,7 +58,7 @@ const products = [
   { image: product4, title: "Baby Hooded Towel for Newborns (Soft...", discount: 10, rating: "4.8 (198)", code: "11876", price: "790" },
 ];
 const brands = [ [brand1, "Aptamil"], [brand2, "Nestlé"], [brand3, "Sudocrem"], [brand4, "Pampers"], [brand5, "Carter's"], [brand6, "Johnson's"], [brand7, "Philips Avent"] ] as const;
-function PlaceholderButton({ children, className = "", label }: { children: React.ReactNode; className?: string; label: string }) {
+function PlaceholderButton({ children, className = "", label }: { children?: React.ReactNode; className?: string; label: string }) {
   return <Button type="button" variant="ghost" className={`demo-button ${className}`} aria-label={label} aria-disabled="true" tabIndex={-1}>{children}</Button>;
 }
 function SectionHeading({ title, action }: { title: string; action: string }) {
