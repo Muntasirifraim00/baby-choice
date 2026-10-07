@@ -24,9 +24,9 @@ const CategoriesIndexRoute = CategoriesIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriesBabyClothingRoute = CategoriesBabyClothingRouteImport.update({
-  id: '/baby-clothing',
-  path: '/baby-clothing',
-  getParentRoute: () => CategoriesRoute,
+  id: '/categories/baby-clothing',
+  path: '/categories/baby-clothing',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -55,6 +55,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CategoriesBabyClothingRoute: typeof CategoriesBabyClothingRoute
   CategoriesIndexRoute: typeof CategoriesIndexRoute
 }
 
@@ -76,16 +77,17 @@ declare module '@tanstack/react-router' {
     }
     '/categories/baby-clothing': {
       id: '/categories/baby-clothing'
-      path: '/baby-clothing'
+      path: '/categories/baby-clothing'
       fullPath: '/categories/baby-clothing'
       preLoaderRoute: typeof CategoriesBabyClothingRouteImport
-      parentRoute: typeof CategoriesRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CategoriesBabyClothingRoute: CategoriesBabyClothingRoute,
   CategoriesIndexRoute: CategoriesIndexRoute,
 }
 export const routeTree = rootRouteImport
