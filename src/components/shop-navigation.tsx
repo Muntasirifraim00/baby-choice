@@ -13,7 +13,7 @@ export function ShopHeader() {
     <DemoControl label="Menu" className="menu-button"><Menu /></DemoControl>
     <img src={logo.url} className="shop-logo" alt="Baby Choice — Everything for Your Little One" />
     <div className="header-tools"><DemoControl label="Call Baby Choice" className="header-circle"><Phone fill="currentColor" /></DemoControl><DemoControl label="Cart, 3 items" className="header-circle"><ShoppingCart fill="currentColor" /><span className="cart-count">3</span></DemoControl></div>
-  </header><div className="search-bar"><Search /><span>Search for baby products, brands, or categories...</span><DemoControl label="Search" className="search-submit"><Search /></DemoControl></div></>;
+  </header><Button variant="ghost" asChild className="search-bar search-link"><Link to="/search"><Search /><span>Search for baby products, brands, or categories...</span><span className="search-submit"><Search /></span></Link></Button></>;
 }
 
 export function ShopBottomNav({ active = "Categories" }: { active?: "Home" | "Categories" }) {

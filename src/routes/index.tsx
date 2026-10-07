@@ -74,7 +74,7 @@ function Index() {
           <img src={logo.url} className="shop-logo" alt="Baby Choice — Everything for Your Little One" />
           <div className="header-tools"><PlaceholderButton label="Call Baby Choice" className="header-circle"><Phone fill="currentColor" /></PlaceholderButton><PlaceholderButton label="Cart, 3 items" className="header-circle"><ShoppingCart fill="currentColor" /><span className="cart-count">3</span></PlaceholderButton></div>
         </header>
-        <div className="search-bar"><Search /><span>Search for baby products, brands, or categories...</span><PlaceholderButton label="Search" className="search-submit"><Search /></PlaceholderButton></div>
+        <Button variant="ghost" asChild className="search-bar search-link"><Link to="/search"><Search /><span>Search for baby products, brands, or categories...</span><span className="search-submit"><Search /></span></Link></Button>
         <section className="hero-banner" aria-label="Baby Choice — Happy Babies Happier Tomorrows"><img src={hero.url} alt="Baby Choice. Everything for Your Little One. Safe & Gentle, Premium Quality, Baby Friendly, Fast Delivery. Shop Now. Happy Babies Happier Tomorrows." /><PlaceholderButton label="Shop Now" className="hero-shop-hit" /></section>
         <section className="service-strip" aria-label="Shopping benefits">{[
           [service1, "Fast & Reliable", "Delivery"], [service2, "100% Original", "Products"], [service3, "Easy", "Returns"], [service4, "Dedicated", "Support"],
