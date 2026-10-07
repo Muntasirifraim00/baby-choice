@@ -63,7 +63,7 @@ function PlaceholderButton({ children, className = "", label }: { children?: Rea
   return <Button type="button" variant="ghost" className={`demo-button ${className}`} aria-label={label} aria-disabled="true" tabIndex={-1}>{children}</Button>;
 }
 function SectionHeading({ title, action }: { title: string; action: string }) {
-  return <div className="section-heading"><h2>{title}</h2>{action === "View All Brands" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/brands">{action}<ArrowRight /></Link></Button> : action === "View All Categories" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/categories">{action}<ArrowRight /></Link></Button> : <PlaceholderButton label={action} className="section-action">{action}<ArrowRight /></PlaceholderButton>}</div>;
+  return <div className="section-heading"><h2>{title}</h2>{action === "View More" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/trending">{action}<ArrowRight /></Link></Button> : action === "View All Brands" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/brands">{action}<ArrowRight /></Link></Button> : action === "View All Categories" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/categories">{action}<ArrowRight /></Link></Button> : <PlaceholderButton label={action} className="section-action">{action}<ArrowRight /></PlaceholderButton>}</div>;
 }
 function Index() {
   return (
@@ -72,7 +72,7 @@ function Index() {
         <header className="shop-header">
           <PlaceholderButton label="Menu" className="menu-button"><Menu /></PlaceholderButton>
           <img src={logo.url} className="shop-logo" alt="Baby Choice — Everything for Your Little One" />
-          <div className="header-tools"><PlaceholderButton label="Call Baby Choice" className="header-circle"><Phone fill="currentColor" /></PlaceholderButton><PlaceholderButton label="Cart, 3 items" className="header-circle"><ShoppingCart fill="currentColor" /><span className="cart-count">3</span></PlaceholderButton></div>
+          <div className="header-tools"><PlaceholderButton label="Call Baby Choice" className="header-circle"><Phone fill="currentColor" /></PlaceholderButton><Button asChild variant="ghost" className="demo-button header-circle"><Link to="/cart" aria-label="Shopping Cart"><ShoppingCart fill="currentColor" /><span className="cart-count">3</span></Link></Button></div>
         </header>
         <Button variant="ghost" asChild className="search-bar search-link"><Link to="/search"><Search /><span>Search for baby products, brands, or categories...</span><span className="search-submit"><Search /></span></Link></Button>
         <section className="hero-banner" aria-label="Baby Choice — Happy Babies Happier Tomorrows"><img src={hero.url} alt="Baby Choice. Everything for Your Little One. Safe & Gentle, Premium Quality, Baby Friendly, Fast Delivery. Shop Now. Happy Babies Happier Tomorrows." /><PlaceholderButton label="Shop Now" className="hero-shop-hit" /></section>

@@ -9,9 +9,12 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Keep Baby Choice inside a mobile-width frame with Home, All Categories, Baby Clothing and Baby Shampoo search demo screens; unrelated actions remain inactive.
+- Keep all requested Baby Choice demo screens inside a mobile-width frame; unrelated actions remain inactive to preserve reference scope.
 - Use individually cropped CDN asset pointers for reference imagery, never render the uploaded full-screen screenshot as the page.
 - Use container-relative dimensions for this fixed-format reference layout so the original proportions remain consistent at every mobile width.
 - Share catalog header, breadcrumbs and bottom navigation across the two catalog screens; use leaf index routing for All Categories so the clothing screen does not nest inside its content.
 - Store reference catalog items in a browser-safe static data module; no persistence or backend is needed for the requested demo.
 - Keep search filters as temporary UI state inside the search screen; the demo does not need persistence or backend filtering.
+- Rebuild new shopping and checkout references with shared presentation components, browser-safe static product data and cropped imagery; real text and controls preserve accessibility.
+- Use leaf index routes beneath checkout and address layouts, keeping every child reachable through an unconditional Outlet.
+- Keep checkout fields and selections temporary and order placement inactive; the references demonstrate screens rather than processing customer data or payments.
