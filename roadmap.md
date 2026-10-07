@@ -6,3 +6,4 @@
 - [x] Reproduce the Baby Shampoo search results screen.
 - [x] Add the Filter & Sort drawer and only its required interaction.
 - [x] Verify the search flow and drawer at mobile size.- [x] Johnson's product detail page (from search)
+- [x] All Brands, Johnson's brand/story/all products, Offers screens
