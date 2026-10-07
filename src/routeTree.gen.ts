@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
 import { Route as CategoriesBabyClothingRouteImport } from './routes/categories.baby-clothing'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,9 +18,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CategoriesRoute = CategoriesRouteImport.update({
-  id: '/categories',
-  path: '/categories',
+const CategoriesIndexRoute = CategoriesIndexRouteImport.update({
+  id: '/categories/',
+  path: '/categories/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriesBabyClothingRoute = CategoriesBabyClothingRouteImport.update({
@@ -31,31 +31,31 @@ const CategoriesBabyClothingRoute = CategoriesBabyClothingRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/categories': typeof CategoriesRouteWithChildren
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
+  '/categories/': typeof CategoriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/categories': typeof CategoriesRouteWithChildren
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
+  '/categories': typeof CategoriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/categories': typeof CategoriesRouteWithChildren
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
+  '/categories/': typeof CategoriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/categories' | '/categories/baby-clothing'
+  fullPaths: '/' | '/categories/baby-clothing' | '/categories/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/categories' | '/categories/baby-clothing'
-  id: '__root__' | '/' | '/categories' | '/categories/baby-clothing'
+  to: '/' | '/categories/baby-clothing' | '/categories'
+  id: '__root__' | '/' | '/categories/baby-clothing' | '/categories/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CategoriesRoute: typeof CategoriesRouteWithChildren
+  CategoriesIndexRoute: typeof CategoriesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -67,11 +67,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/categories': {
-      id: '/categories'
+    '/categories/': {
+      id: '/categories/'
       path: '/categories'
-      fullPath: '/categories'
-      preLoaderRoute: typeof CategoriesRouteImport
+      fullPath: '/categories/'
+      preLoaderRoute: typeof CategoriesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categories/baby-clothing': {
@@ -84,21 +84,9 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface CategoriesRouteChildren {
-  CategoriesBabyClothingRoute: typeof CategoriesBabyClothingRoute
-}
-
-const CategoriesRouteChildren: CategoriesRouteChildren = {
-  CategoriesBabyClothingRoute: CategoriesBabyClothingRoute,
-}
-
-const CategoriesRouteWithChildren = CategoriesRoute._addFileChildren(
-  CategoriesRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CategoriesRoute: CategoriesRouteWithChildren,
+  CategoriesIndexRoute: CategoriesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
