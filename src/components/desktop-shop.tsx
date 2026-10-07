@@ -1,0 +1,119 @@
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, ChevronRight, Heart, House, Phone, Search, ShoppingCart, Star, Truck, UserRound } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { DemoControl } from "@/components/shop-navigation";
+import { catalogCategories } from "@/lib/catalog-demo";
+import type { ReactNode } from "react";
+import logo from "@/assets/logo.png.asset.json";
+import hero from "@/assets/hero.png.asset.json";
+import allHero from "@/assets/all-hero.png.asset.json";
+import allPromo from "@/assets/all-promo.png.asset.json";
+import bath from "@/assets/bath.png.asset.json";
+import feeding from "@/assets/feeding.png.asset.json";
+import c1 from "@/assets/category-1.png.asset.json";
+import c2 from "@/assets/category-2.png.asset.json";
+import c3 from "@/assets/category-3.png.asset.json";
+import c4 from "@/assets/category-4.png.asset.json";
+import c5 from "@/assets/category-5.png.asset.json";
+import c6 from "@/assets/category-6.png.asset.json";
+import c7 from "@/assets/category-7.png.asset.json";
+import c8 from "@/assets/category-8.png.asset.json";
+import p1 from "@/assets/product-1.png.asset.json";
+import p2 from "@/assets/product-2.png.asset.json";
+import p3 from "@/assets/product-3.png.asset.json";
+import p4 from "@/assets/product-4.png.asset.json";
+import b1 from "@/assets/brand-1.png.asset.json";
+import b2 from "@/assets/brand-2.png.asset.json";
+import b3 from "@/assets/brand-3.png.asset.json";
+import b4 from "@/assets/brand-4.png.asset.json";
+import b5 from "@/assets/brand-5.png.asset.json";
+import b6 from "@/assets/brand-6.png.asset.json";
+import b7 from "@/assets/brand-7.png.asset.json";
+import s1 from "@/assets/service-1.png.asset.json";
+import s2 from "@/assets/service-2.png.asset.json";
+import s3 from "@/assets/service-3.png.asset.json";
+import s4 from "@/assets/service-4.png.asset.json";
+
+const homeCats = [[c1, "Onesies & Bodysuits"], [c2, "Panjabi & Pajamas"], [c3, "Girls Party Dresses"], [c4, "Swaddle & Receiving"], [c5, "Baby Formula & Milk"], [c6, "Hair, Body & Skin Care"], [c7, "Strollers & Prams"], [c8, "High Chairs & Boosters"]] as const;
+const products = [
+  { image: p1, title: "Sudocrem – Antiseptic Healing Nappy Rash Cream", discount: 12, rating: "4.8 (320)", code: "14004BG", price: "890" },
+  { image: p2, title: "Carter's Honey Cotton Baby Wash Cloth Towel", discount: 20, rating: "4.7 (210)", code: "11882", price: "650" },
+  { image: p3, title: "Aptamil Advance Follow On Milk Powder", discount: 15, rating: "4.9 (425)", code: "10120", price: "2,450" },
+  { image: p4, title: "Baby Hooded Towel for Newborns (Soft)", discount: 10, rating: "4.8 (198)", code: "11876", price: "790" },
+];
+const brands = [[b1, "Aptamil"], [b2, "Nestlé"], [b3, "Sudocrem"], [b4, "Pampers"], [b5, "Carter's"], [b6, "Johnson's"], [b7, "Philips Avent"]] as const;
+const services = [[s1, "Fast & Reliable Delivery"], [s2, "100% Original Products"], [s3, "Easy Returns"], [s4, "Dedicated Support"]] as const;
+
+function DeskHeader({ active }: { active: "home" | "categories" }) {
+  return <header className="dk-header">
+    <div className="dk-topbar"><div className="dk-wrap"><span><Truck />Free delivery on orders over ৳3,000</span><span><Phone />+880 1712 345678</span></div></div>
+    <div className="dk-wrap dk-main">
+      <Link to="/" aria-label="Baby Choice home"><img src={logo.url} alt="Baby Choice — Everything for Your Little One" className="dk-logo" /></Link>
+      <Link to="/search" className="dk-search"><Search /><span>Search for baby products, brands, or categories...</span><b>Search</b></Link>
+      <div className="dk-icons">
+        <Link to="/wishlist" aria-label="Wishlist"><Heart /><span>Wishlist</span></Link>
+        <Link to="/account" aria-label="Account"><UserRound /><span>Account</span></Link>
+        <Link to="/cart" aria-label="Shopping Cart" className="dk-cart"><ShoppingCart /><i>3</i><span>Cart</span></Link>
+      </div>
+    </div>
+    <nav className="dk-nav"><div className="dk-wrap">
+      <Link to="/" className={active === "home" ? "on" : ""}>Home</Link>
+      <Link to="/categories" className={active === "categories" ? "on" : ""}>All Categories</Link>
+      <Link to="/categories/baby-clothing">Baby Clothing</Link>
+      <Link to="/trending">Trending</Link>
+      <Link to="/brands">Brands</Link>
+      <Link to="/offers">Offers</Link>
+      <Link to="/about">About & Contact</Link>
+    </div></nav>
+  </header>;
+}
+
+function DeskFooter() {
+  return <footer className="dk-footer"><div className="dk-wrap">
+    <div><img src={logo.url} alt="Baby Choice" className="dk-logo" /><p>Safe, gentle and premium-quality products for every little one, delivered across Bangladesh.</p></div>
+    <div><h4>Shop</h4><Link to="/categories">All Categories</Link><Link to="/trending">Trending</Link><Link to="/brands">Brands</Link><Link to="/offers">Offers</Link></div>
+    <div><h4>Account</h4><Link to="/account">My Account</Link><Link to="/wishlist">Wishlist</Link><Link to="/cart">Cart</Link><Link to="/support">Support</Link></div>
+    <div><h4>Contact</h4><p>House 25, Road 10, Dhanmondi, Dhaka 1209</p><p>support@babychoice.com</p><p>+880 1712 345678</p></div>
+  </div><p className="dk-copy">© 2026 Baby Choice. All rights reserved.</p></footer>;
+}
+
+function Heading({ title, to, action }: { title: string; to: "/categories" | "/trending" | "/brands"; action: string }) {
+  return <div className="dk-heading"><h2>{title}</h2><Link to={to}>{action}<ArrowRight /></Link></div>;
+}
+
+function Shell({ active, children }: { active: "home" | "categories"; children: ReactNode }) {
+  return <div className="desktop-view"><DeskHeader active={active} /><main className="dk-wrap dk-body">{children}</main><DeskFooter /></div>;
+}
+
+export function DesktopHome() {
+  return <Shell active="home">
+    <section className="dk-hero"><img src={hero.url} alt="Baby Choice — Happy Babies Happier Tomorrows. Shop Now." /></section>
+    <section className="dk-services">{services.map(([img, t]) => <div key={t}><img src={img.url} alt="" /><p>{t}</p></div>)}</section>
+    <Heading title="Shop By Category" to="/categories" action="View All Categories" />
+    <section className="dk-cats">{homeCats.map(([img, n]) => <DemoControl key={n} label={n} className="dk-cat"><img src={img.url} alt={n} /><span>{n}<ChevronRight /></span></DemoControl>)}</section>
+    <section className="dk-promos"><img src={bath.url} alt="Bath Time Essentials. Shop Now." /><img src={feeding.url} alt="Feeding Made Easy. Explore Now." /></section>
+    <Heading title="Trending Products" to="/trending" action="View More" />
+    <section className="dk-products">{products.map(p => <article key={p.code} className="dk-product">
+      <div className="dk-pimg"><img src={p.image.url} alt={p.title} /><em>{p.discount}% OFF</em><DemoControl label={`Wishlist ${p.title}`} className="dk-heart"><Heart /></DemoControl></div>
+      <h3>{p.title}</h3><div className="dk-rating"><Star />{p.rating}</div><small>{p.code}</small>
+      <div className="dk-price"><strong>৳ {p.price}</strong><DemoControl label={`Add ${p.title} to cart`} className="dk-add"><ShoppingCart />Add</DemoControl></div>
+    </article>)}</section>
+    <Heading title="Top Brands" to="/brands" action="View All Brands" />
+    <section className="dk-brands">{brands.map(([img, n]) => <Link key={n} to="/brands" aria-label={n}><img src={img.url} alt={n} /></Link>)}</section>
+  </Shell>;
+}
+
+export function DesktopCategories() {
+  return <Shell active="categories">
+    <nav className="dk-crumb" aria-label="Breadcrumb"><Link to="/" aria-label="Home"><House /></Link><ChevronRight /><span>All Categories</span></nav>
+    <section className="dk-cat-hero"><img src={allHero.url} alt="All Categories. Explore everything your baby needs in one place." /></section>
+    <div className="dk-heading"><h2>All Categories <small>{catalogCategories.length} categories</small></h2></div>
+    <section className="dk-allcats">{catalogCategories.map((c, i) => {
+      const inner = <><img src={c.image.url} alt={c.name} /><span><span><strong>{c.name}</strong><small>{c.count} Items</small></span><ChevronRight /></span></>;
+      return i === 0
+        ? <Button key={c.name} asChild variant="ghost" className="demo-button dk-allcat"><Link to="/categories/baby-clothing">{inner}</Link></Button>
+        : <DemoControl key={c.name} label={c.name} className="dk-allcat">{inner}</DemoControl>;
+    })}</section>
+    <section className="dk-cat-promo"><Link to="/categories/baby-clothing" aria-label="Shop Now"><img src={allPromo.url} alt="Find Everything Your Baby Needs. Shop Now." /></Link></section>
+  </Shell>;
+}

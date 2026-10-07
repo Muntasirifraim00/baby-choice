@@ -18,3 +18,4 @@
 - Rebuild new shopping and checkout references with shared presentation components, browser-safe static product data and cropped imagery; real text and controls preserve accessibility.
 - Use leaf index routes beneath checkout and address layouts, keeping every child reachable through an unconditional Outlet.
 - Keep checkout fields and selections temporary and order placement inactive; the references demonstrate screens rather than processing customer data or payments.
+- Desktop layouts (≥1024px) live in src/components/desktop-shop.tsx and render beside the mobile frame, which CSS hides on desktop; mobile screens stay untouched.

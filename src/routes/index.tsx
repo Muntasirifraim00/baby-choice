@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ShopBottomNav } from "@/components/shop-navigation";
 import { ArrowRight, ChevronLeft, ChevronRight, Heart, House, LayoutGrid, Menu, Phone, Search, ShoppingCart, UserRound, BadgePercent } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DesktopHome } from "@/components/desktop-shop";
 import logo from "@/assets/logo.png.asset.json";
 import hero from "@/assets/hero.png.asset.json";
 import bath from "@/assets/bath.png.asset.json";
@@ -66,7 +67,7 @@ function SectionHeading({ title, action }: { title: string; action: string }) {
   return <div className="section-heading"><h2>{title}</h2>{action === "View More" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/trending">{action}<ArrowRight /></Link></Button> : action === "View All Brands" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/brands">{action}<ArrowRight /></Link></Button> : action === "View All Categories" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/categories">{action}<ArrowRight /></Link></Button> : <PlaceholderButton label={action} className="section-action">{action}<ArrowRight /></PlaceholderButton>}</div>;
 }
 function Index() {
-  return (
+  return (<><DesktopHome />
     <div className="mobile-frame">
       <main className="baby-screen">
         <header className="shop-header">
@@ -85,6 +86,6 @@ function Index() {
         <section className="brands-section"><SectionHeading title="Top Brands" action="View All Brands" /><div className="brand-row"><PlaceholderButton label="Previous brands" className="brand-prev"><ChevronLeft /></PlaceholderButton>{brands.map(([image, name]) => <PlaceholderButton key={name} label={name} className="brand-tile"><img src={image.url} alt={name} /></PlaceholderButton>)}<PlaceholderButton label="Next brands" className="brand-next"><ChevronRight /></PlaceholderButton></div></section>
         <ShopBottomNav active="Home" />
       </main>
-    </div>
+    </div></>
   );
 }

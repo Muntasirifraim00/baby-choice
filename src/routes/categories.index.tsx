@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DemoControl, ShopHeader, ShopBottomNav, ShopBreadcrumb } from "@/components/shop-navigation";
+import { DesktopCategories } from "@/components/desktop-shop";
 import { catalogCategories } from "@/lib/catalog-demo";
 import hero from "@/assets/all-hero.png.asset.json";
 import promo from "@/assets/all-promo.png.asset.json";
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/categories/")({
 });
 
 function AllCategories() {
-  return <div className="mobile-frame"><main className="baby-screen catalog-screen all-categories-screen">
+  return <><DesktopCategories /><div className="mobile-frame"><main className="baby-screen catalog-screen all-categories-screen">
     <ShopHeader /><ShopBreadcrumb />
     <section className="catalog-banner"><img src={hero.url} alt="All Categories. Explore everything your baby needs in one place. Safe & Gentle, Premium Quality, Baby Friendly, Fast Delivery." /></section>
     <section className="all-category-grid" aria-label="All Categories">{catalogCategories.map((category, index) => {
@@ -29,5 +30,5 @@ function AllCategories() {
     })}</section>
     <section className="catalog-promo"><img src={promo.url} alt="Find Everything Your Baby Needs. Top brands, best quality and great prices all in one place. Shop Now. Happy Babies Happier Tomorrows." /><Button variant="ghost" asChild className="demo-button catalog-promo-link"><Link to="/categories/baby-clothing" aria-label="Shop Now" /></Button></section>
     <ShopBottomNav />
-  </main></div>;
+  </main></div></>;
 }
