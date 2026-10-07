@@ -10,7 +10,7 @@ export type RefLink = { to: string; box: [number, number, number, number]; label
 export function RefScreen({ name, cuts, links, alt, active = "none" }: { name: string; cuts: number[]; links: RefLink[]; alt: string[]; active?: "Home" | "Categories" | "Offers" | "none" }) {
   return <div className="mobile-frame"><main className="baby-screen ref-screen">
     {cuts.slice(0, -1).map((y0, i) => {
-      const y1 = cuts[i + 1];
+      const y1 = cuts[i + 1] ?? y0;
       return <section key={y0} className="ref-strip">
         <img src={url(name, i)} alt={alt[i] ?? ""} />
         {links.filter(l => l.box[1] >= y0 && l.box[1] < y1).map(l => <Link key={l.label} to={l.to} aria-label={l.label} className="ref-hit" style={{ left: `${l.box[0] / 8.5}%`, width: `${l.box[2] / 8.5}%`, top: `${((l.box[1] - y0) / (y1 - y0)) * 100}%`, height: `${(l.box[3] / (y1 - y0)) * 100}%` }} />)}
