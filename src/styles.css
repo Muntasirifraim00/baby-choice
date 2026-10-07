@@ -420,3 +420,6 @@ body { margin: 0; background: var(--shop-backdrop); }
 .pd-like h4{font-size:calc(var(--u)*18);font-weight:500;margin:calc(var(--u)*12) 0 0;line-height:1.35}
 .pd-rating.sm{font-size:calc(var(--u)*15);margin:calc(var(--u)*4) 0}.pd-price.sm strong{font-size:calc(var(--u)*27)}.pd-price.sm del{font-size:calc(var(--u)*17)}.pd-price.sm{gap:calc(var(--u)*14)}
 .pd-tabs span{padding:0 calc(var(--u)*12) calc(var(--u)*18);white-space:nowrap}.pd-tabs span:first-child{padding-inline:calc(var(--u)*33)}
+.ref-screen{background:#fff;padding-bottom:calc(100cqw*130/850)}
+.ref-strip{position:relative;line-height:0}.ref-strip img{width:100%;display:block}
+.ref-hit{position:absolute;display:block;border-radius:8px}.ref-hit:focus-visible{outline:2px solid #5b2bd6}
