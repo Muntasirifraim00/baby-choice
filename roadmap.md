@@ -1,14 +1,1 @@
 # Requested work
-- [x] Reproduce the All Categories reference screen.
-- [x] Reproduce the Baby Clothing reference screen with six demo products.
-- [x] Enable only the navigation between Home, All Categories and Baby Clothing.
-- [x] Verify navigation, images and mobile layout.
-- [x] Reproduce the Baby Shampoo search results screen.
-- [x] Add the Filter & Sort drawer and only its required interaction.
-- [x] Verify the search flow and drawer at mobile size.
-- [x] Johnson's product detail page (from search)
-- [x] All Brands, Johnson's brand/story/all products, Offers screens
-- [x] Reproduce both Trending Products reference screens.
-- [x] Reproduce the empty Shopping Cart reference.
-- [x] Reproduce Checkout, Address Selection, Add New Address, Payment Method and Order Review.
-- [x] Wire demo navigation and verify all eight screens.
