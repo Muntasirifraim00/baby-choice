@@ -12,7 +12,7 @@ export function ShopHeader() {
   return <><header className="shop-header">
     <DemoControl label="Menu" className="menu-button"><Menu /></DemoControl>
     <img src={logo.url} className="shop-logo" alt="Baby Choice — Everything for Your Little One" />
-    <div className="header-tools"><DemoControl label="Call Baby Choice" className="header-circle"><Phone fill="currentColor" /></DemoControl><DemoControl label="Cart, 3 items" className="header-circle"><ShoppingCart fill="currentColor" /><span className="cart-count">3</span></DemoControl></div>
+    <div className="header-tools"><DemoControl label="Call Baby Choice" className="header-circle"><Phone fill="currentColor" /></DemoControl><Button asChild variant="ghost" className="demo-button header-circle"><Link to="/cart" aria-label="Shopping Cart"><ShoppingCart fill="currentColor" /><span className="cart-count">3</span></Link></Button></div>
   </header><Button variant="ghost" asChild className="search-bar search-link"><Link to="/search"><Search /><span>Search for baby products, brands, or categories...</span><span className="search-submit"><Search /></span></Link></Button></>;
 }
 

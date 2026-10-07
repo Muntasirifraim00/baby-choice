@@ -11,18 +11,25 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CartRouteImport } from './routes/cart'
+import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as OffersRouteImport } from './routes/offers'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as TrendingRouteImport } from './routes/trending'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
 import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
 import { Route as CategoriesBabyClothingRouteImport } from './routes/categories.baby-clothing'
+import { Route as CheckoutIndexRouteImport } from './routes/checkout.index'
+import { Route as CheckoutAddressRouteImport } from './routes/checkout.address'
+import { Route as CheckoutPaymentRouteImport } from './routes/checkout.payment'
+import { Route as CheckoutReviewRouteImport } from './routes/checkout.review'
 import { Route as ProductJohnsonsBabyShampooRouteImport } from './routes/product.johnsons-baby-shampoo'
 import { Route as TrendingIndexRouteImport } from './routes/trending.index'
 import { Route as TrendingPopularRouteImport } from './routes/trending.popular'
 import { Route as BrandsJohnsonsIndexRouteImport } from './routes/brands.johnsons.index'
 import { Route as BrandsJohnsonsProductsRouteImport } from './routes/brands.johnsons.products'
 import { Route as BrandsJohnsonsStoryRouteImport } from './routes/brands.johnsons.story'
+import { Route as CheckoutAddressIndexRouteImport } from './routes/checkout.address.index'
+import { Route as CheckoutAddressNewRouteImport } from './routes/checkout.address.new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -32,6 +39,11 @@ const IndexRoute = IndexRouteImport.update({
 const CartRoute = CartRouteImport.update({
   id: '/cart',
   path: '/cart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OffersRoute = OffersRouteImport.update({
@@ -64,6 +76,26 @@ const CategoriesBabyClothingRoute = CategoriesBabyClothingRouteImport.update({
   path: '/categories/baby-clothing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CheckoutIndexRoute = CheckoutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CheckoutRoute,
+} as any)
+const CheckoutAddressRoute = CheckoutAddressRouteImport.update({
+  id: '/address',
+  path: '/address',
+  getParentRoute: () => CheckoutRoute,
+} as any)
+const CheckoutPaymentRoute = CheckoutPaymentRouteImport.update({
+  id: '/payment',
+  path: '/payment',
+  getParentRoute: () => CheckoutRoute,
+} as any)
+const CheckoutReviewRoute = CheckoutReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => CheckoutRoute,
+} as any)
 const ProductJohnsonsBabyShampooRoute =
   ProductJohnsonsBabyShampooRouteImport.update({
     id: '/product/johnsons-baby-shampoo',
@@ -95,22 +127,39 @@ const BrandsJohnsonsStoryRoute = BrandsJohnsonsStoryRouteImport.update({
   path: '/brands/johnsons/story',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CheckoutAddressIndexRoute = CheckoutAddressIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CheckoutAddressRoute,
+} as any)
+const CheckoutAddressNewRoute = CheckoutAddressNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => CheckoutAddressRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
+  '/checkout': typeof CheckoutRouteWithChildren
   '/offers': typeof OffersRoute
   '/search': typeof SearchRoute
   '/trending': typeof TrendingRouteWithChildren
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
+  '/checkout/address': typeof CheckoutAddressRouteWithChildren
+  '/checkout/payment': typeof CheckoutPaymentRoute
+  '/checkout/review': typeof CheckoutReviewRoute
   '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
   '/trending/popular': typeof TrendingPopularRoute
   '/brands/': typeof BrandsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
+  '/checkout/': typeof CheckoutIndexRoute
   '/trending/': typeof TrendingIndexRoute
   '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
   '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
+  '/checkout/address/new': typeof CheckoutAddressNewRoute
   '/brands/johnsons/': typeof BrandsJohnsonsIndexRoute
+  '/checkout/address/': typeof CheckoutAddressIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,49 +167,68 @@ export interface FileRoutesByTo {
   '/offers': typeof OffersRoute
   '/search': typeof SearchRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
+  '/checkout/payment': typeof CheckoutPaymentRoute
+  '/checkout/review': typeof CheckoutReviewRoute
   '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
   '/trending/popular': typeof TrendingPopularRoute
   '/brands': typeof BrandsIndexRoute
   '/categories': typeof CategoriesIndexRoute
+  '/checkout': typeof CheckoutIndexRoute
   '/trending': typeof TrendingIndexRoute
   '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
   '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
+  '/checkout/address/new': typeof CheckoutAddressNewRoute
   '/brands/johnsons': typeof BrandsJohnsonsIndexRoute
+  '/checkout/address': typeof CheckoutAddressIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cart': typeof CartRoute
+  '/checkout': typeof CheckoutRouteWithChildren
   '/offers': typeof OffersRoute
   '/search': typeof SearchRoute
   '/trending': typeof TrendingRouteWithChildren
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
+  '/checkout/address': typeof CheckoutAddressRouteWithChildren
+  '/checkout/payment': typeof CheckoutPaymentRoute
+  '/checkout/review': typeof CheckoutReviewRoute
   '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
   '/trending/popular': typeof TrendingPopularRoute
   '/brands/': typeof BrandsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
+  '/checkout/': typeof CheckoutIndexRoute
   '/trending/': typeof TrendingIndexRoute
   '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
   '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
+  '/checkout/address/new': typeof CheckoutAddressNewRoute
   '/brands/johnsons/': typeof BrandsJohnsonsIndexRoute
+  '/checkout/address/': typeof CheckoutAddressIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/cart'
+    | '/checkout'
     | '/offers'
     | '/search'
     | '/trending'
     | '/categories/baby-clothing'
+    | '/checkout/address'
+    | '/checkout/payment'
+    | '/checkout/review'
     | '/product/johnsons-baby-shampoo'
     | '/trending/popular'
     | '/brands/'
     | '/categories/'
+    | '/checkout/'
     | '/trending/'
     | '/brands/johnsons/products'
     | '/brands/johnsons/story'
+    | '/checkout/address/new'
     | '/brands/johnsons/'
+    | '/checkout/address/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -168,35 +236,48 @@ export interface FileRouteTypes {
     | '/offers'
     | '/search'
     | '/categories/baby-clothing'
+    | '/checkout/payment'
+    | '/checkout/review'
     | '/product/johnsons-baby-shampoo'
     | '/trending/popular'
     | '/brands'
     | '/categories'
+    | '/checkout'
     | '/trending'
     | '/brands/johnsons/products'
     | '/brands/johnsons/story'
+    | '/checkout/address/new'
     | '/brands/johnsons'
+    | '/checkout/address'
   id:
     | '__root__'
     | '/'
     | '/cart'
+    | '/checkout'
     | '/offers'
     | '/search'
     | '/trending'
     | '/categories/baby-clothing'
+    | '/checkout/address'
+    | '/checkout/payment'
+    | '/checkout/review'
     | '/product/johnsons-baby-shampoo'
     | '/trending/popular'
     | '/brands/'
     | '/categories/'
+    | '/checkout/'
     | '/trending/'
     | '/brands/johnsons/products'
     | '/brands/johnsons/story'
+    | '/checkout/address/new'
     | '/brands/johnsons/'
+    | '/checkout/address/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CartRoute: typeof CartRoute
+  CheckoutRoute: typeof CheckoutRouteWithChildren
   OffersRoute: typeof OffersRoute
   SearchRoute: typeof SearchRoute
   TrendingRoute: typeof TrendingRouteWithChildren
@@ -223,6 +304,13 @@ declare module '@tanstack/react-router' {
       path: '/cart'
       fullPath: '/cart'
       preLoaderRoute: typeof CartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/offers': {
@@ -267,6 +355,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoriesBabyClothingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/checkout/': {
+      id: '/checkout/'
+      path: '/'
+      fullPath: '/checkout/'
+      preLoaderRoute: typeof CheckoutIndexRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
+    '/checkout/address': {
+      id: '/checkout/address'
+      path: '/address'
+      fullPath: '/checkout/address'
+      preLoaderRoute: typeof CheckoutAddressRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
+    '/checkout/payment': {
+      id: '/checkout/payment'
+      path: '/payment'
+      fullPath: '/checkout/payment'
+      preLoaderRoute: typeof CheckoutPaymentRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
+    '/checkout/review': {
+      id: '/checkout/review'
+      path: '/review'
+      fullPath: '/checkout/review'
+      preLoaderRoute: typeof CheckoutReviewRouteImport
+      parentRoute: typeof CheckoutRoute
+    }
     '/product/johnsons-baby-shampoo': {
       id: '/product/johnsons-baby-shampoo'
       path: '/product/johnsons-baby-shampoo'
@@ -309,8 +425,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandsJohnsonsStoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/checkout/address/': {
+      id: '/checkout/address/'
+      path: '/'
+      fullPath: '/checkout/address/'
+      preLoaderRoute: typeof CheckoutAddressIndexRouteImport
+      parentRoute: typeof CheckoutAddressRoute
+    }
+    '/checkout/address/new': {
+      id: '/checkout/address/new'
+      path: '/new'
+      fullPath: '/checkout/address/new'
+      preLoaderRoute: typeof CheckoutAddressNewRouteImport
+      parentRoute: typeof CheckoutAddressRoute
+    }
   }
 }
+
+interface CheckoutAddressRouteChildren {
+  CheckoutAddressNewRoute: typeof CheckoutAddressNewRoute
+  CheckoutAddressIndexRoute: typeof CheckoutAddressIndexRoute
+}
+
+const CheckoutAddressRouteChildren: CheckoutAddressRouteChildren = {
+  CheckoutAddressNewRoute: CheckoutAddressNewRoute,
+  CheckoutAddressIndexRoute: CheckoutAddressIndexRoute,
+}
+
+const CheckoutAddressRouteWithChildren = CheckoutAddressRoute._addFileChildren(
+  CheckoutAddressRouteChildren,
+)
+
+interface CheckoutRouteChildren {
+  CheckoutAddressRoute: typeof CheckoutAddressRouteWithChildren
+  CheckoutPaymentRoute: typeof CheckoutPaymentRoute
+  CheckoutReviewRoute: typeof CheckoutReviewRoute
+  CheckoutIndexRoute: typeof CheckoutIndexRoute
+}
+
+const CheckoutRouteChildren: CheckoutRouteChildren = {
+  CheckoutAddressRoute: CheckoutAddressRouteWithChildren,
+  CheckoutPaymentRoute: CheckoutPaymentRoute,
+  CheckoutReviewRoute: CheckoutReviewRoute,
+  CheckoutIndexRoute: CheckoutIndexRoute,
+}
+
+const CheckoutRouteWithChildren = CheckoutRoute._addFileChildren(
+  CheckoutRouteChildren,
+)
 
 interface TrendingRouteChildren {
   TrendingPopularRoute: typeof TrendingPopularRoute
@@ -329,6 +491,7 @@ const TrendingRouteWithChildren = TrendingRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CartRoute: CartRoute,
+  CheckoutRoute: CheckoutRouteWithChildren,
   OffersRoute: OffersRoute,
   SearchRoute: SearchRoute,
   TrendingRoute: TrendingRouteWithChildren,
