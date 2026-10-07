@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
 import { Route as CategoriesBabyClothingRouteImport } from './routes/categories.baby-clothing'
+import { Route as ProductJohnsonsBabyShampooRouteImport } from './routes/product.johnsons-baby-shampoo'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,17 +35,25 @@ const CategoriesBabyClothingRoute = CategoriesBabyClothingRouteImport.update({
   path: '/categories/baby-clothing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductJohnsonsBabyShampooRoute =
+  ProductJohnsonsBabyShampooRouteImport.update({
+    id: '/product/johnsons-baby-shampoo',
+    path: '/product/johnsons-baby-shampoo',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/search': typeof SearchRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
+  '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
   '/categories/': typeof CategoriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/search': typeof SearchRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
+  '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
   '/categories': typeof CategoriesIndexRoute
 }
 export interface FileRoutesById {
@@ -52,21 +61,38 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/search': typeof SearchRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
+  '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
   '/categories/': typeof CategoriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/search' | '/categories/baby-clothing' | '/categories/'
+  fullPaths:
+    | '/'
+    | '/search'
+    | '/categories/baby-clothing'
+    | '/product/johnsons-baby-shampoo'
+    | '/categories/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/search' | '/categories/baby-clothing' | '/categories'
+  to:
+    | '/'
+    | '/search'
+    | '/categories/baby-clothing'
+    | '/product/johnsons-baby-shampoo'
+    | '/categories'
   id:
-    '__root__' | '/' | '/search' | '/categories/baby-clothing' | '/categories/'
+    | '__root__'
+    | '/'
+    | '/search'
+    | '/categories/baby-clothing'
+    | '/product/johnsons-baby-shampoo'
+    | '/categories/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SearchRoute: typeof SearchRoute
   CategoriesBabyClothingRoute: typeof CategoriesBabyClothingRoute
+  ProductJohnsonsBabyShampooRoute: typeof ProductJohnsonsBabyShampooRoute
   CategoriesIndexRoute: typeof CategoriesIndexRoute
 }
 
@@ -100,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoriesBabyClothingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/product/johnsons-baby-shampoo': {
+      id: '/product/johnsons-baby-shampoo'
+      path: '/product/johnsons-baby-shampoo'
+      fullPath: '/product/johnsons-baby-shampoo'
+      preLoaderRoute: typeof ProductJohnsonsBabyShampooRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SearchRoute: SearchRoute,
   CategoriesBabyClothingRoute: CategoriesBabyClothingRoute,
+  ProductJohnsonsBabyShampooRoute: ProductJohnsonsBabyShampooRoute,
   CategoriesIndexRoute: CategoriesIndexRoute,
 }
 export const routeTree = rootRouteImport
