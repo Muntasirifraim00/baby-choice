@@ -26,9 +26,9 @@ function Account() {
   return <ShoppingShell crumb="My Account" title="My Account" className="ac" active="Account">
     <p className="ac-sub">Manage your profile, orders and preferences.</p>
     <section className="ac-profile">
-      <div className="ac-avatar"><img src={avatar} alt="Sara Ahmed profile photo" width={816} height={816} /><Link to="/account/settings" aria-label="Change photo"><Camera /></Link></div>
+      <div className="ac-avatar"><img src={avatar} alt="Sara Ahmed profile photo" width={816} height={816} /><Link to={"/account/settings" as "/"} aria-label="Change photo"><Camera /></Link></div>
       <div className="ac-info"><h2>Sara Ahmed</h2><p><Phone />+880 1712 345678</p><p><Mail />saraahmed@gmail.com</p></div>
-      <Link to="/account/settings" className="ac-edit"><Pencil />Edit Profile</Link>
+      <Link to={"/account/settings" as "/"} className="ac-edit"><Pencil />Edit Profile</Link>
     </section>
     <section className="ac-stats">{stats.map(({ i: Icon, n, t, c, to }) => <Link key={t} to={(to ?? "/account/orders") as "/"} className="ac-stat"><i className={`ac-c-${c}`}><Icon /></i><b>{n}</b><small>{t}</small></Link>)}</section>
     <nav className="ac-rows" aria-label="Account menu">

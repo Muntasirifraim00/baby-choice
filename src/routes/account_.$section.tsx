@@ -27,7 +27,7 @@ const orders = [
 
 function Section() {
   const { section } = Route.useParams();
-  const [title, sub] = titles[section];
+  const [title, sub] = titles[section] ?? ["Account", ""];
   const [prefs, setPrefs] = useState({ "Order updates": true, "Offers & deals": true, "New arrivals": false, "SMS alerts": true, "Email newsletter": false });
   return <ShoppingShell crumb={`My Account › ${title}`} title={title} className="ac" active="Account">
     <p className="ac-sub">{sub}</p>
