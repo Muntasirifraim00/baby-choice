@@ -4,6 +4,7 @@
 @import "./styles/desktop-reference.css";
 @import "./styles/desktop-pages.css";
 @import "./styles/desktop-nav.css";
+@import "./styles/home-brands.css";
 
 @custom-variant dark (&:is(.dark *));
 
