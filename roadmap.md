@@ -1,4 +1,5 @@
 # Requested work
+- [ ] Replace homepage banners with two stacked, animated three-image sliders and verify navigation.
 - [x] Make every screen live with real text, working buttons and add to cart for all products
 - [x] Match the new product-page reference with Baby Choice branding and working purchase controls.
 - [x] Add the reference-style menu with working destinations and closing controls.
