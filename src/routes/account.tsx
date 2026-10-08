@@ -1,28 +1,39 @@
-import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Bell, ChevronRight, CreditCard, Headphones, Heart, LogOut, MapPin, Package, Pencil, Settings, UserRound } from "lucide-react";
-import { toast } from "sonner";
+import { Bell, Camera, ChevronRight, ClipboardList, CreditCard, Headphones, Heart, LogOut, Mail, MapPin, Package, Pencil, Phone, Settings, CircleCheck, Truck } from "lucide-react";
 import { ShoppingShell } from "@/components/shopping-reference";
 import { useCart } from "@/lib/cart-store";
 import { liveHead } from "@/lib/live-head";
+import avatar from "@/assets/account-avatar.jpg";
 
 export const Route = createFileRoute("/account")({ head: () => liveHead("My Account", "Manage your Baby Choice orders, wishlist, addresses and payment methods."), component: Account });
 
+const rows = [
+  { i: ClipboardList, t: "My Orders", d: "View and track your orders", to: "/account/orders", c: "purple" },
+  { i: Heart, t: "My Wishlist", d: "View your saved products", to: "/wishlist", c: "pink" },
+  { i: MapPin, t: "Address Book", d: "Manage your delivery addresses", to: "/checkout/address", c: "blue" },
+  { i: CreditCard, t: "Payment Methods", d: "Manage your payment options", to: "/checkout/payment", c: "green" },
+  { i: Bell, t: "Notifications", d: "Manage your notification preferences", to: "/account/notifications", c: "yellow" },
+  { i: Settings, t: "Account Settings", d: "Update your account details", to: "/account/settings", c: "purple" },
+  { i: Headphones, t: "Help & Support", d: "Get help or contact us", to: "/support", c: "pink" },
+] as const;
+
 function Account() {
   const { wish } = useCart();
-  const [notify, setNotify] = useState(true);
-  const menu = [
-    { i: Package, t: "My Orders", to: "/order-confirmed" }, { i: Heart, t: "My Wishlist", to: "/wishlist" }, { i: MapPin, t: "Address Book", to: "/checkout/address" },
-    { i: CreditCard, t: "Payment Methods", to: "/checkout/payment" }, { i: Settings, t: "Account Settings", to: "/login" }, { i: Headphones, t: "Help & Support", to: "/support" },
+  const stats = [
+    { i: Package, n: "5", t: "Total Orders", c: "pink" }, { i: Truck, n: "2", t: "In Progress", c: "green" },
+    { i: CircleCheck, n: "3", t: "Delivered", c: "purple" }, { i: Heart, n: String(wish.length), t: "Wishlist Items", c: "pink", to: "/wishlist" },
   ];
-  return <ShoppingShell crumb="My Account" className="lv" active="Account">
-    <h1 className="lv-title">My Account</h1>
-    <section className="lv-card lv-profile"><span className="lv-avatar"><UserRound /></span><div><h2>Sara Ahmed</h2><p>+880 1712 345678</p><p>saraahmed@gmail.com</p></div><button type="button" className="lv-btn ghost" onClick={() => toast("Profile editing is available after login.")}><Pencil />Edit Profile</button></section>
-    <div className="lv-grid4 lv-stats">{[["5", "Total Orders", "/order-confirmed"], ["2", "In Progress", "/order-confirmed"], ["3", "Delivered", "/order-confirmed"], [String(wish.length), "Wishlist Items", "/wishlist"]].map(([n, t, to]) => <Link key={t} to={to as "/"} className="lv-tile"><b>{n}</b><small>{t}</small></Link>)}</div>
-    <nav className="lv-card lv-list">
-      {menu.map(({ i: Icon, t, to }) => <Link key={t} to={to as "/"}><i><Icon /></i><span>{t}</span><ChevronRight /></Link>)}
-      <button type="button" onClick={() => { setNotify(v => !v); toast(notify ? "Notifications turned off" : "Notifications turned on"); }}><i><Bell /></i><span>Notifications</span><em className={`lv-switch ${notify ? "on" : ""}`} aria-label={notify ? "On" : "Off"} /></button>
+  return <ShoppingShell crumb="My Account" title="My Account" className="ac" active="Account">
+    <p className="ac-sub">Manage your profile, orders and preferences.</p>
+    <section className="ac-profile">
+      <div className="ac-avatar"><img src={avatar} alt="Sara Ahmed profile photo" width={816} height={816} /><Link to="/account/settings" aria-label="Change photo"><Camera /></Link></div>
+      <div className="ac-info"><h2>Sara Ahmed</h2><p><Phone />+880 1712 345678</p><p><Mail />saraahmed@gmail.com</p></div>
+      <Link to="/account/settings" className="ac-edit"><Pencil />Edit Profile</Link>
+    </section>
+    <section className="ac-stats">{stats.map(({ i: Icon, n, t, c, to }) => <Link key={t} to={(to ?? "/account/orders") as "/"} className="ac-stat"><i className={`ac-c-${c}`}><Icon /></i><b>{n}</b><small>{t}</small></Link>)}</section>
+    <nav className="ac-rows" aria-label="Account menu">
+      {rows.map(({ i: Icon, t, d, to, c }) => <Link key={t} to={to as "/"} className="ac-row"><i className={`ac-c-${c}`}><Icon /></i><span><b>{t}</b><small>{d}</small></span><ChevronRight /></Link>)}
+      <Link to="/login" className="ac-row ac-logout"><i><LogOut /></i><span><b>Logout</b><small>Sign out from your account</small></span><ChevronRight /></Link>
     </nav>
-    <Link to="/login" className="lv-btn ghost wide"><LogOut />Logout</Link>
   </ShoppingShell>;
 }
