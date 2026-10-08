@@ -1,6 +1,6 @@
 # Requested work
-- [ ] Build and verify desktop versions of every page while preserving mobile layouts.
-- [ ] Match homepage trending cards to the supplied reference, two per mobile row, with colorful product imagery and quantity controls; verify all 20 cards.
+- [x] Build and verify desktop versions of every page while preserving mobile layouts.
+- [x] Apply reference-inspired homepage trending cards, two per mobile row, with colorful product imagery and quantity controls; verify all 20 cards. Exact artwork differs from the supplied reference as already disclosed.
 - [x] Show 20 homepage trending products in three columns with improved cards and verify cart/navigation.
 - [x] Replace homepage banners with two stacked, animated three-image sliders and verify navigation.
 - [x] Make every screen live with real text, working buttons and add to cart for all products
