@@ -953,3 +953,5 @@ button.ac-row{grid-template-columns:1fr auto}
 .sr-cart .sr-benefits{background:var(--shop-paper);box-shadow:0 calc(var(--su)*8) calc(var(--su)*24) rgba(90,60,160,.1);border:1px solid var(--shop-line)}
 .sr-cart .sr-benefits>span+span{border-left-color:var(--shop-line)}
 .sr-cart .sr-like-heading h2{font-size:calc(var(--su)*34);background:linear-gradient(120deg,var(--shop-ink),var(--shop-purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lv-cart .co-item-price{flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
+.lv-cart .co-item-price del{white-space:nowrap}
