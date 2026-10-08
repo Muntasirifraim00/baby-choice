@@ -3,6 +3,14 @@ import playmat from "@/assets/gen-playmat.jpg";
 import stroller from "@/assets/gen-stroller.jpg";
 import giftset from "@/assets/gen-giftset.jpg";
 import feeding from "@/assets/gen-feeding.jpg";
+import rattle from "@/assets/gen-rattle.jpg";
+import teddy from "@/assets/gen-teddy.jpg";
+import carrier from "@/assets/gen-carrier.jpg";
+import highchair from "@/assets/gen-highchair.jpg";
+import thermometer from "@/assets/gen-thermometer.jpg";
+import walker from "@/assets/gen-walker.jpg";
+import stacking from "@/assets/gen-stacking.jpg";
+import breastpump from "@/assets/gen-breastpump.jpg";
 
 const pointers = import.meta.glob<{ default: { url: string } }>("../assets/*.asset.json", { eager: true });
 const a = (file: string) => pointers[`../assets/${file}.asset.json`]?.default.url ?? "";
@@ -52,6 +60,19 @@ export const products: Product[] = [
   p("baby-clothing-set", "Baby Choice", "Baby Clothing Set", "Soft Cotton 5 Pcs", "Clothing", 4.8, 160, 1190, 1450, ["0-3M", "3-6M", "6-12M"], a("category-1.png")),
   p("baby-play-mat", "Baby Choice", "Baby Play Mat", "Activity Gym with Toys", "Toys", 4.8, 120, 1590, 1980, ["One Size"], playmat, { badge: "Popular" }),
   p("baby-stroller", "Baby Choice", "Baby Stroller", "Lightweight & Foldable", "Baby Care", 4.9, 88, 4990, 5990, ["Standard"], stroller),
+  p("baby-rattle-set", "Baby Choice", "Baby Rattle Set", "5 Pcs Colorful Rattles", "Toys", 4.7, 154, 450, 590, ["5 Pieces"], rattle, { badge: "Popular" }),
+  p("soft-teddy-bear", "Baby Choice", "Soft Teddy Bear", "Plush Cuddle Toy", "Toys", 4.8, 132, 690, 890, ["Small", "Medium"], teddy),
+  p("stacking-rings-toy", "Baby Choice", "Stacking Rings Tower", "Early Learning Toy", "Toys", 4.7, 118, 390, 490, ["7 Rings"], stacking),
+  p("baby-activity-walker", "Baby Choice", "Baby Activity Walker", "With Music & Toys", "Toys", 4.8, 96, 2450, 2950, ["Standard"], walker, { badge: "New" }),
+  p("baby-carrier", "Baby Choice", "Baby Carrier Sling", "Ergonomic & Soft", "Baby Care", 4.8, 142, 1890, 2290, ["One Size"], carrier),
+  p("baby-high-chair", "Baby Choice", "Baby High Chair", "Adjustable with Tray", "Baby Care", 4.8, 110, 3490, 4290, ["Standard"], highchair, { badge: "Best Seller" }),
+  p("baby-diaper-bag", "Baby Choice", "Baby Diaper Bag", "Multi-Pocket Travel Bag", "Baby Care", 4.7, 128, 1590, 1990, ["Standard"], a("category-14.png")),
+  p("digital-baby-thermometer", "Baby Choice", "Digital Baby Thermometer", "Fast & Accurate Reading", "Health", 4.8, 210, 350, 450, ["One Size"], thermometer),
+  p("electric-breast-pump", "Baby Choice", "Electric Breast Pump", "Double Pump with Display", "Health", 4.8, 176, 3990, 4890, ["Standard"], breastpump, { badge: "Top Rated" }),
+  p("baby-first-aid-kit", "Baby Choice", "Baby First Aid Kit", "Essential Care Set", "Health", 4.7, 94, 890, 1090, ["12 Pieces"], a("category-13.png")),
+  p("baby-nail-care-set", "Baby Choice", "Baby Nail Care Set", "Safe Trimming Kit", "Health", 4.6, 88, 420, 550, ["4 Pieces"], a("category-12.png")),
+  p("huggies-diapers-pack", "Huggies", "Huggies Baby Diapers", "Dry Comfort Protection", "Diapers", 4.7, 260, 1250, 1490, ["S", "M", "L", "XL"], a("next-diapers.jpg")),
+  p("molfix-baby-diapers", "Molfix", "Molfix Baby Diapers", "Soft & Breathable", "Diapers", 4.6, 190, 1150, 1390, ["S", "M", "L", "XL"], a("category-3.png")),
 ];
 
 export const getProduct = (slug: string) => products.find(x => x.slug === slug);
