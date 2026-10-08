@@ -32,8 +32,6 @@ import { Route as CheckoutAddressRouteImport } from './routes/checkout.address'
 import { Route as CheckoutPaymentRouteImport } from './routes/checkout.payment'
 import { Route as CheckoutReviewRouteImport } from './routes/checkout.review'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
-import { Route as TrendingIndexRouteImport } from './routes/trending.index'
-import { Route as TrendingPopularRouteImport } from './routes/trending.popular'
 import { Route as BrandsJohnsonsIndexRouteImport } from './routes/brands.johnsons.index'
 import { Route as BrandsJohnsonsProductsRouteImport } from './routes/brands.johnsons.products'
 import { Route as BrandsJohnsonsStoryRouteImport } from './routes/brands.johnsons.story'
@@ -155,16 +153,6 @@ const ProductSlugRoute = ProductSlugRouteImport.update({
   path: '/product/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TrendingIndexRoute = TrendingIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => TrendingRoute,
-} as any)
-const TrendingPopularRoute = TrendingPopularRouteImport.update({
-  id: '/popular',
-  path: '/popular',
-  getParentRoute: () => TrendingRoute,
-} as any)
 const BrandsJohnsonsIndexRoute = BrandsJohnsonsIndexRouteImport.update({
   id: '/brands/johnsons/',
   path: '/brands/johnsons/',
@@ -202,7 +190,7 @@ export interface FileRoutesByFullPath {
   '/order-confirmed': typeof OrderConfirmedRoute
   '/search': typeof SearchRoute
   '/support': typeof SupportRoute
-  '/trending': typeof TrendingRouteWithChildren
+  '/trending': typeof TrendingRoute
   '/wishlist': typeof WishlistRoute
   '/account/$section': typeof AccountSectionRoute
   '/brands/$brand': typeof BrandsBrandRoute
@@ -212,11 +200,9 @@ export interface FileRoutesByFullPath {
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/checkout/review': typeof CheckoutReviewRoute
   '/product/$slug': typeof ProductSlugRoute
-  '/trending/popular': typeof TrendingPopularRoute
   '/brands/': typeof BrandsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
   '/checkout/': typeof CheckoutIndexRoute
-  '/trending/': typeof TrendingIndexRoute
   '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
   '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
   '/checkout/address/new': typeof CheckoutAddressNewRoute
@@ -233,6 +219,7 @@ export interface FileRoutesByTo {
   '/order-confirmed': typeof OrderConfirmedRoute
   '/search': typeof SearchRoute
   '/support': typeof SupportRoute
+  '/trending': typeof TrendingRoute
   '/wishlist': typeof WishlistRoute
   '/account/$section': typeof AccountSectionRoute
   '/brands/$brand': typeof BrandsBrandRoute
@@ -241,11 +228,9 @@ export interface FileRoutesByTo {
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/checkout/review': typeof CheckoutReviewRoute
   '/product/$slug': typeof ProductSlugRoute
-  '/trending/popular': typeof TrendingPopularRoute
   '/brands': typeof BrandsIndexRoute
   '/categories': typeof CategoriesIndexRoute
   '/checkout': typeof CheckoutIndexRoute
-  '/trending': typeof TrendingIndexRoute
   '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
   '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
   '/checkout/address/new': typeof CheckoutAddressNewRoute
@@ -264,7 +249,7 @@ export interface FileRoutesById {
   '/order-confirmed': typeof OrderConfirmedRoute
   '/search': typeof SearchRoute
   '/support': typeof SupportRoute
-  '/trending': typeof TrendingRouteWithChildren
+  '/trending': typeof TrendingRoute
   '/wishlist': typeof WishlistRoute
   '/account_/$section': typeof AccountSectionRoute
   '/brands/$brand': typeof BrandsBrandRoute
@@ -274,11 +259,9 @@ export interface FileRoutesById {
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/checkout/review': typeof CheckoutReviewRoute
   '/product/$slug': typeof ProductSlugRoute
-  '/trending/popular': typeof TrendingPopularRoute
   '/brands/': typeof BrandsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
   '/checkout/': typeof CheckoutIndexRoute
-  '/trending/': typeof TrendingIndexRoute
   '/brands/johnsons/products': typeof BrandsJohnsonsProductsRoute
   '/brands/johnsons/story': typeof BrandsJohnsonsStoryRoute
   '/checkout/address/new': typeof CheckoutAddressNewRoute
@@ -308,11 +291,9 @@ export interface FileRouteTypes {
     | '/checkout/payment'
     | '/checkout/review'
     | '/product/$slug'
-    | '/trending/popular'
     | '/brands/'
     | '/categories/'
     | '/checkout/'
-    | '/trending/'
     | '/brands/johnsons/products'
     | '/brands/johnsons/story'
     | '/checkout/address/new'
@@ -329,6 +310,7 @@ export interface FileRouteTypes {
     | '/order-confirmed'
     | '/search'
     | '/support'
+    | '/trending'
     | '/wishlist'
     | '/account/$section'
     | '/brands/$brand'
@@ -337,11 +319,9 @@ export interface FileRouteTypes {
     | '/checkout/payment'
     | '/checkout/review'
     | '/product/$slug'
-    | '/trending/popular'
     | '/brands'
     | '/categories'
     | '/checkout'
-    | '/trending'
     | '/brands/johnsons/products'
     | '/brands/johnsons/story'
     | '/checkout/address/new'
@@ -369,11 +349,9 @@ export interface FileRouteTypes {
     | '/checkout/payment'
     | '/checkout/review'
     | '/product/$slug'
-    | '/trending/popular'
     | '/brands/'
     | '/categories/'
     | '/checkout/'
-    | '/trending/'
     | '/brands/johnsons/products'
     | '/brands/johnsons/story'
     | '/checkout/address/new'
@@ -392,7 +370,7 @@ export interface RootRouteChildren {
   OrderConfirmedRoute: typeof OrderConfirmedRoute
   SearchRoute: typeof SearchRoute
   SupportRoute: typeof SupportRoute
-  TrendingRoute: typeof TrendingRouteWithChildren
+  TrendingRoute: typeof TrendingRoute
   WishlistRoute: typeof WishlistRoute
   AccountSectionRoute: typeof AccountSectionRoute
   BrandsBrandRoute: typeof BrandsBrandRoute
@@ -569,20 +547,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/trending/': {
-      id: '/trending/'
-      path: '/'
-      fullPath: '/trending/'
-      preLoaderRoute: typeof TrendingIndexRouteImport
-      parentRoute: typeof TrendingRoute
-    }
-    '/trending/popular': {
-      id: '/trending/popular'
-      path: '/popular'
-      fullPath: '/trending/popular'
-      preLoaderRoute: typeof TrendingPopularRouteImport
-      parentRoute: typeof TrendingRoute
-    }
     '/brands/johnsons/': {
       id: '/brands/johnsons/'
       path: '/brands/johnsons'
@@ -653,20 +617,6 @@ const CheckoutRouteWithChildren = CheckoutRoute._addFileChildren(
   CheckoutRouteChildren,
 )
 
-interface TrendingRouteChildren {
-  TrendingPopularRoute: typeof TrendingPopularRoute
-  TrendingIndexRoute: typeof TrendingIndexRoute
-}
-
-const TrendingRouteChildren: TrendingRouteChildren = {
-  TrendingPopularRoute: TrendingPopularRoute,
-  TrendingIndexRoute: TrendingIndexRoute,
-}
-
-const TrendingRouteWithChildren = TrendingRoute._addFileChildren(
-  TrendingRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -678,7 +628,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrderConfirmedRoute: OrderConfirmedRoute,
   SearchRoute: SearchRoute,
   SupportRoute: SupportRoute,
-  TrendingRoute: TrendingRouteWithChildren,
+  TrendingRoute: TrendingRoute,
   WishlistRoute: WishlistRoute,
   AccountSectionRoute: AccountSectionRoute,
   BrandsBrandRoute: BrandsBrandRoute,
