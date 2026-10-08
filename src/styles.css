@@ -654,3 +654,4 @@ body { margin: 0; background: var(--shop-backdrop); }
 .lv-profile{flex-wrap:wrap}.lv-profile .lv-btn{margin-left:auto}
 .co-panel .lv-p{padding:2cqw 3cqw 0}
 .co-item>div>small{display:block;line-height:1.3}
+.lv>.lv-btn.wide{width:auto;display:flex}
