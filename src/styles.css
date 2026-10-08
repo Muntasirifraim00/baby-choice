@@ -973,3 +973,9 @@ button.ac-row{grid-template-columns:1fr auto}
 .service-item:nth-child(2) img{animation-delay:.4s}.service-item:nth-child(3) img{animation-delay:.8s}.service-item:nth-child(4) img{animation-delay:1.2s}
 .service-item:hover img{transform:scale(1.12) rotate(-4deg)}
 .service-item p{font-size:1.95cqw;font-weight:800;line-height:2.5cqw;color:var(--shop-ink)}
+
+/* ===== All Categories: home-style cards ===== */
+.all-category-grid .all-category-card{height:auto;min-height:27.6cqw;border:none;align-items:center;justify-content:flex-start;padding:2.3cqw 1cqw 1.6cqw;text-align:center}
+.all-category-grid .all-category-card>img{display:none}
+.all-category-count{display:block;margin-top:.5cqw;font-size:1.6cqw;font-weight:700;color:var(--shop-purple);opacity:.85}
+.all-category-grid .category-explore{margin-top:.9cqw}
