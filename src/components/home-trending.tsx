@@ -25,7 +25,7 @@ export function HomeTrendingGrid() {
         <h3><ProductLink slug={product.slug}>{product.name}</ProductLink></h3>
         <div className="ht-rating"><Star fill="currentColor" /><strong>{product.rating}</strong><span>({product.reviews})</span></div>
         <div className="ht-prices"><strong>৳ {tk(product.price)}</strong><del>৳ {tk(product.old)}</del></div>
-        <AddToCartButton product={product} size={product.sizes[0]} className="ht-add"><ShoppingCart /><span>Add to Cart</span></AddToCartButton>
+        <AddToCartButton product={product} size={product.sizes[0] ?? ""} className="ht-add"><ShoppingCart /><span>Add to Cart</span></AddToCartButton>
       </div>
     </article>)}
   </div>;
