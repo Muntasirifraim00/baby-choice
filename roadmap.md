@@ -1,4 +1,5 @@
 # Requested work
+- [x] Show 20 homepage trending products in three columns with improved cards and verify cart/navigation.
 - [x] Replace homepage banners with two stacked, animated three-image sliders and verify navigation.
 - [x] Make every screen live with real text, working buttons and add to cart for all products
 - [x] Match the new product-page reference with Baby Choice branding and working purchase controls.
