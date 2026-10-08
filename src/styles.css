@@ -958,3 +958,5 @@ button.ac-row{grid-template-columns:1fr auto}
 .lv-cart .co-item-price{overflow:visible;gap:calc(var(--su)*10)}
 .lv-cart .co-item-price strong{font-size:calc(var(--su)*26)}
 .lv-cart .co-item-price del{font-size:calc(var(--su)*17)}
+.lv-cart .co-item-price{grid-column:2}
+.lv-cart .co-item>img{grid-row:1/4}
