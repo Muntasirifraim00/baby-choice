@@ -25,7 +25,9 @@ export function DesktopPageLayout({ children }: { children: ReactNode }) {
     <div className={`desktop-page-body ${account ? "desktop-account-layout" : ""}`}>
       {account && <aside className="desktop-account-sidebar desktop-chrome" aria-label="Account navigation">
         <h2>My Account</h2>
-        {accountLinks.map(({ to, label, icon: Icon }) => <Link key={to} to={to} className={path === to ? "selected" : ""}><Icon />{label}</Link>)}
+        {accountLinks.map(({ to, label, icon: Icon }) => to.startsWith("/account/")
+          ? <Link key={to} to="/account/$section" params={{ section: to.slice("/account/".length) }} className={path === to ? "selected" : ""}><Icon />{label}</Link>
+          : <Link key={to} to={to === "/account/orders" || to === "/account/notifications" || to === "/account/settings" ? "/account" : to} className={path === to ? "selected" : ""}><Icon />{label}</Link>)}
       </aside>}
       {children}
     </div>
