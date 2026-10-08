@@ -4,7 +4,7 @@ import { ArrowRight, BadgePercent, ChevronRight, Crown, FileText, Gift, Globe, H
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import logo from "@/assets/logo.png.asset.json";
-import baby from "@/assets/gen-teddy.jpg";
+import baby from "@/assets/menu-baby.jpg";
 
 const MenuContext = createContext<(() => void) | null>(null);
 const groups = [
@@ -42,14 +42,14 @@ export function ShopMenuProvider({ children }: { children: ReactNode }) {
           <nav aria-label="Baby Choice menu">{groups.map(group => <section key={group.title} className="bc-menu-group">
             {group.title && <h2>{group.title}</h2>}
             {group.items.map(item => <Button asChild variant="ghost" key={item.name} className={`bc-menu-item ${pathname === item.to && !("hash" in item) ? "is-active" : ""}`}>
-              <Link to={item.to} hash={"hash" in item ? item.hash : undefined} onClick={() => setOpen(false)}><item.icon /><span>{item.name}</span><ChevronRight /></Link>
+              <Link to={item.to} hash={"hash" in item ? item.hash : ""} onClick={() => setOpen(false)}><item.icon /><span>{item.name}</span><ChevronRight /></Link>
             </Button>)}
           </section>)}</nav>
           <div className="bc-menu-preferences">
             <label><Globe /><span>Language</span><select aria-label="Language" defaultValue="en"><option value="en">English</option></select><ChevronRight /></label>
             <label><Coins /><span>Currency</span><select aria-label="Currency" defaultValue="BDT"><option value="BDT">BDT (৳)</option></select><ChevronRight /></label>
           </div>
-          <section className="bc-menu-promo"><div><h2><span>Special Offers</span><br />Just for Your Little One</h2><p>Get the best deals on baby products</p><Button asChild><Link to="/offers" onClick={() => setOpen(false)}>Shop Now<ArrowRight /></Link></Button></div><img src={baby} alt="Soft teddy bear" /></section>
+          <section className="bc-menu-promo"><div><h2><span>Special Offers</span><br />Just for Your Little One</h2><p>Get the best deals on baby products</p><Button asChild><Link to="/offers" onClick={() => setOpen(false)}>Shop Now<ArrowRight /></Link></Button></div><img src={baby} alt="Baby in a pink outfit" loading="lazy" width={768} height={768} /></section>
         </div>
       </SheetContent>
     </Sheet>
