@@ -1,5 +1,6 @@
 import { HomeTrendingGrid } from "@/components/home-trending";
 import { HomeCategorySection } from "@/components/home-categories";
+import { HomeBrands } from "@/components/home-brands";
 import { getProduct } from "@/lib/products";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ShopBottomNav } from "@/components/shop-navigation";
@@ -81,7 +82,7 @@ function Index() {
         <HomeCategorySection />
         <section className="promo-grid" aria-label="Baby essentials"><div className="promo"><img src={bath.url} alt="Bath Time Essentials. Soft towels, washcloths and more. Shop Now." /><Link to="/categories/$cat" params={{ cat: "bath-and-hygiene" }} aria-label="Shop bath time essentials" className="demo-button promo-hit" /></div><div className="promo"><img src={feeding.url} alt="Feeding Made Easy. Bottles, bibs, high chairs and more. Explore Now." /><Link to="/categories/$cat" params={{ cat: "feeding-and-nursing" }} aria-label="Explore feeding essentials" className="demo-button promo-hit" /></div></section>
         <section className="products-section"><SectionHeading title="Trending Products" action="View More" /><HomeTrendingGrid /></section>
-        <section className="brands-section"><SectionHeading title="Top Brands" action="View All Brands" /><div className="brand-row"><Button type="button" variant="ghost" aria-label="Previous brands" className="demo-button brand-prev" onClick={e => e.currentTarget.parentElement?.scrollBy({ left: -200, behavior: "smooth" })}><ChevronLeft /></Button>{brands.map(([image, name]) => <Button key={name} asChild variant="ghost" className="demo-button brand-tile">{name === "Johnson's" ? <Link to="/brands/johnsons" aria-label={name}><img src={image.url} alt={name} /></Link> : <Link to="/brands/$brand" params={{ brand: slugify(name) }} aria-label={name}><img src={image.url} alt={name} /></Link>}</Button>)}<Button type="button" variant="ghost" aria-label="Next brands" className="demo-button brand-next" onClick={e => e.currentTarget.parentElement?.scrollBy({ left: 200, behavior: "smooth" })}><ChevronRight /></Button></div></section>
+        <HomeBrands />
         <ShopBottomNav active="Home" />
       </main>
     </div></>

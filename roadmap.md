@@ -1,4 +1,5 @@
 # Requested work
+- [x] Enlarge homepage Top Brands into an animated automatic grid slider on mobile and desktop; verified logos, autoplay/pause, next controls, brand links and reduced motion at 320/487/1280px.
 - [x] Polish shared desktop navigation/search and match homepage category cards across desktop/mobile, with three categories per mobile row; search, links and 320/390/1024/1280px checked.
 - [x] Build and verify desktop versions of every page while preserving mobile layouts.
 - [x] Apply reference-inspired homepage trending cards, two per mobile row, with colorful product imagery and quantity controls; verify all 20 cards. Exact artwork differs from the supplied reference as already disclosed.

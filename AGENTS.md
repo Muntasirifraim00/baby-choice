@@ -26,4 +26,5 @@
 - Use one root-mounted menu provider for shared menu triggers and one home-category mapping for mobile/desktop links and exact category product listings, preventing destination drift.
 - Share the homepage banner sliders between mobile and desktop, using supplied CDN images and client-only autoplay effects to keep artwork and navigation consistent.
 - Share homepage category artwork, links and card markup between desktop and mobile; only sizing and grid columns vary to prevent design drift.
+- Share one homepage brand-grid carousel across mobile and desktop with client-only autoplay and reduced-motion/focus pause, keeping logos and brand destinations aligned.
 - Use a shared homepage-only trending grid sourced from the static catalog and existing cart controls so desktop/mobile selection stays aligned without changing other listings.

@@ -1,5 +1,6 @@
 import { HomeTrendingGrid } from "@/components/home-trending";
 import { HomeCategorySection } from "@/components/home-categories";
+import { HomeBrands } from "@/components/home-brands";
 import { getProduct } from "@/lib/products";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowRight, ChevronRight, Heart, House, Phone, Search, ShoppingCart, Star, Truck, UserRound } from "lucide-react";
@@ -93,8 +94,7 @@ export function DesktopHome() {
     <section className="dk-promos"><img src={bath.url} alt="Bath Time Essentials. Shop Now." /><img src={feeding.url} alt="Feeding Made Easy. Explore Now." /></section>
     <Heading title="Trending Products" to="/trending" action="View More" />
     <HomeTrendingGrid />
-    <Heading title="Top Brands" to="/brands" action="View All Brands" />
-    <section className="dk-brands">{brands.map(([img, n]) => <Link key={n} to="/brands" aria-label={n}><img src={img.url} alt={n} /></Link>)}</section>
+    <HomeBrands />
   </Shell>;
 }
 
