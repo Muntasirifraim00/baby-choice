@@ -1,8 +1,9 @@
+import { HomeTrendingGrid } from "@/components/home-trending";
 import { getProduct } from "@/lib/products";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronRight, Heart, House, Phone, Search, ShoppingCart, Star, Truck, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AddToCartButton, CartCount, WishButton } from "@/components/live";
+import { CartCount } from "@/components/live";
 import { slugify } from "@/lib/live-head";
 import { catalogCategories } from "@/lib/catalog-demo";
 import { homeCategories } from "@/lib/home-categories";
@@ -22,10 +23,6 @@ const c5 = { url: getProduct("aptamil-advance-follow-on-milk")!.image };
 const c6 = { url: getProduct("johnsons-baby-lotion")!.image };
 const c7 = { url: getProduct("baby-stroller")!.image };
 const c8 = { url: getProduct("baby-high-chair")!.image };
-const p1 = { url: getProduct("sudocrem-nappy-rash-cream")!.image };
-const p2 = { url: getProduct("carters-honey-cotton-wash-cloth")!.image };
-const p3 = { url: getProduct("aptamil-advance-follow-on-milk")!.image };
-const p4 = { url: getProduct("baby-hooded-towel")!.image };
 import b1 from "@/assets/brand-1.png.asset.json";
 import b2 from "@/assets/brand-2.png.asset.json";
 import b3 from "@/assets/brand-3.png.asset.json";
@@ -39,12 +36,7 @@ import s3 from "@/assets/service-3.png.asset.json";
 import s4 from "@/assets/service-4.png.asset.json";
 
 const homeCats = [[c1, "Onesies & Bodysuits"], [c2, "Panjabi & Pajamas"], [c3, "Girls Party Dresses"], [c4, "Swaddle & Receiving"], [c5, "Baby Formula & Milk"], [c6, "Hair, Body & Skin Care"], [c7, "Strollers & Prams"], [c8, "High Chairs & Boosters"]] as const;
-const products = [
-  { slug: "sudocrem-nappy-rash-cream", image: p1, title: "Sudocrem – Antiseptic Healing Nappy Rash Cream", discount: 12, rating: "4.8 (320)", code: "14004BG", price: "890" },
-  { slug: "carters-honey-cotton-wash-cloth", image: p2, title: "Carter's Honey Cotton Baby Wash Cloth Towel", discount: 20, rating: "4.7 (210)", code: "11882", price: "650" },
-  { slug: "aptamil-advance-follow-on-milk", image: p3, title: "Aptamil Advance Follow On Milk Powder", discount: 15, rating: "4.9 (425)", code: "10120", price: "2,450" },
-  { slug: "baby-hooded-towel", image: p4, title: "Baby Hooded Towel for Newborns (Soft)", discount: 10, rating: "4.8 (198)", code: "11876", price: "790" },
-];
+
 const brands = [[b1, "Aptamil"], [b2, "Nestlé"], [b3, "Sudocrem"], [b4, "Pampers"], [b5, "Carter's"], [b6, "Johnson's"], [b7, "Philips Avent"]] as const;
 const services = [[s1, "Fast & Reliable Delivery"], [s2, "100% Original Products"], [s3, "Easy Returns"], [s4, "Dedicated Support"]] as const;
 
@@ -98,11 +90,7 @@ export function DesktopHome() {
     <section className="dk-cats">{homeCats.map(([img, n], index) => <Link key={n} to="/categories/$cat" params={{ cat: homeCategories[index]?.slug ?? "baby-clothing" }} className="demo-button dk-cat"><img src={img.url} alt={n} /><span>{n}<ChevronRight /></span></Link>)}</section>
     <section className="dk-promos"><img src={bath.url} alt="Bath Time Essentials. Shop Now." /><img src={feeding.url} alt="Feeding Made Easy. Explore Now." /></section>
     <Heading title="Trending Products" to="/trending" action="View More" />
-    <section className="dk-products">{products.map(p => <article key={p.code} className="dk-product">
-      <div className="dk-pimg"><img src={p.image.url} alt={p.title} /><em>{p.discount}% OFF</em><WishButton slug={p.slug} className="dk-heart" /></div>
-      <h3>{p.title}</h3><div className="dk-rating"><Star />{p.rating}</div><small>{p.code}</small>
-      <div className="dk-price"><strong>৳ {p.price}</strong><AddToCartButton slug={p.slug} className="dk-add"><ShoppingCart />Add</AddToCartButton></div>
-    </article>)}</section>
+    <HomeTrendingGrid />
     <Heading title="Top Brands" to="/brands" action="View All Brands" />
     <section className="dk-brands">{brands.map(([img, n]) => <Link key={n} to="/brands" aria-label={n}><img src={img.url} alt={n} /></Link>)}</section>
   </Shell>;
