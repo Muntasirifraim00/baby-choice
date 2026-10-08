@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronRight, Heart, House, LayoutGrid, List, Menu, Search, ShoppingCart } from "lucide-react";
+import { ArrowRight, ChevronRight, House, LayoutGrid, List, Menu, Search, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DemoControl, ShopBottomNav } from "@/components/shop-navigation";
+import { ShopBottomNav } from "@/components/shop-navigation";
 import logo from "@/assets/logo.png.asset.json";
-import { shoppingImage, type ShoppingProduct } from "@/lib/shopping-demo";
+import { type ShoppingProduct } from "@/lib/shopping-demo";
 import type { ReactNode } from "react";
 import { CartCount, LiveCard } from "@/components/live";
 import { products } from "@/lib/products";
