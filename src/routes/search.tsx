@@ -75,6 +75,13 @@ function SearchResults() {
     return r;
   }, [q, filters, sort]); // eslint-disable-line react-hooks/exhaustive-deps
   const run = (v: string) => { setInput(v); setQ(v); };
+  const typing = input !== q;
+  const suggestions = useMemo(() => {
+    const v = input.trim();
+    if (v.length < 2) return [];
+    return products.filter(p => matches(p, v)).slice(0, 8);
+  }, [input]);
+  const popular = useMemo(() => [...products].sort((a, b) => b.rating - a.rating).slice(0, 8), []);
   const chips = [...filters.brands.map(b => ({ label: `Brand: ${b}`, clear: () => setFilters({ ...filters, brands: filters.brands.filter(x => x !== b) }) })),
     ...(filters.category !== "All" ? [{ label: `Category: ${filters.category}`, clear: () => setFilters({ ...filters, category: "All" }) }] : []),
     ...(filters.minRating ? [{ label: `Rating: ${filters.minRating}★+`, clear: () => setFilters({ ...filters, minRating: 0 }) }] : []),
