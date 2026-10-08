@@ -1,4 +1,5 @@
 # Requested work
+- [ ] Improve shared mobile header and animated search; replace add-to-cart popup with a flying dot and verify cart updates.
 - [x] Enlarge homepage Top Brands into an animated automatic grid slider on mobile and desktop; verified logos, autoplay/pause, next controls, brand links and reduced motion at 320/487/1280px.
 - [x] Polish shared desktop navigation/search and match homepage category cards across desktop/mobile, with three categories per mobile row; search, links and 320/390/1024/1280px checked.
 - [x] Build and verify desktop versions of every page while preserving mobile layouts.

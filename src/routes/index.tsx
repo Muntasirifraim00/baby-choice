@@ -3,7 +3,7 @@ import { HomeCategorySection } from "@/components/home-categories";
 import { HomeBrands } from "@/components/home-brands";
 import { getProduct } from "@/lib/products";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ShopBottomNav } from "@/components/shop-navigation";
+import { ShopBottomNav, ShopHeader } from "@/components/shop-navigation";
 import { MenuButton } from "@/components/shop-menu";
 import { homeCategories } from "@/lib/home-categories";
 import { ArrowRight, ChevronLeft, ChevronRight, Heart, House, LayoutGrid, Menu, Phone, Search, ShoppingCart, UserRound, BadgePercent } from "lucide-react";
@@ -69,12 +69,7 @@ function Index() {
   return (<><DesktopHome />
     <div className="mobile-frame">
       <main className="baby-screen">
-        <header className="shop-header">
-          <MenuButton className="demo-button menu-button" />
-          <Link to="/" aria-label="Baby Choice home" className="shop-logo-link"><img src={logo.url} className="shop-logo" alt="Baby Choice — Everything for Your Little One" /></Link>
-          <div className="header-tools"><Button asChild variant="ghost" className="demo-button header-circle"><a href="tel:+8801712345678" aria-label="Call Baby Choice"><Phone fill="currentColor" /></a></Button><Button asChild variant="ghost" className="demo-button header-circle"><Link to="/cart" aria-label="Shopping Cart"><ShoppingCart fill="currentColor" /><CartCount className="cart-count" /></Link></Button></div>
-        </header>
-        <Button variant="ghost" asChild className="search-bar search-link"><Link to="/search"><Search /><span>Search for baby products, brands, or categories...</span><span className="search-submit"><Search /></span></Link></Button>
+        <ShopHeader />
         <HomeBanners />
         <section className="service-strip" aria-label="Shopping benefits">{[
           [service1, "Fast & Reliable", "Delivery"], [service2, "100% Original", "Products"], [service3, "Easy", "Returns"], [service4, "Dedicated", "Support"],

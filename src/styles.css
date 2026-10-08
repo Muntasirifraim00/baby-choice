@@ -5,6 +5,7 @@
 @import "./styles/desktop-pages.css";
 @import "./styles/desktop-nav.css";
 @import "./styles/home-brands.css";
+@import "./styles/mobile-header.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -66,6 +67,10 @@
 }
 
 :root {
+  --shop-header-surface: linear-gradient(115deg, var(--shop-paper) 45%, var(--shop-lilac));
+  --shop-header-action: linear-gradient(135deg, var(--shop-purple), var(--shop-pink));
+  --shop-header-ring: color-mix(in oklab, var(--shop-purple) 16%, transparent);
+  --shop-flight-shadow: 0 0 0 5px color-mix(in oklab, var(--shop-pink) 18%, transparent), 0 0 20px color-mix(in oklab, var(--shop-pink) 40%, transparent);
   --shop-nav-soft: oklch(0.97 0.018 6);
   --shop-nav-shadow: 0 4px 18px oklch(0.18 0.049 280 / 5%);
   --shop-ink: oklch(0.18 0.049 280);

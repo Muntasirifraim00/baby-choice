@@ -7,7 +7,8 @@ import { getProduct, tk, type Product } from "@/lib/products";
 
 export function CartCount({ className = "" }: { className?: string }) {
   const { lines } = useCart();
-  return <span className={className}>{lines.reduce((n, l) => n + l.qty, 0)}</span>;
+  const count = lines.reduce((n, l) => n + l.qty, 0);
+  return <span key={count} className={`${className} cart-count-update`} aria-live="polite" aria-label={`${count} items in cart`}>{count}</span>;
 }
 
 export function WishButton({ slug, className = "" }: { slug: string; className?: string }) {
@@ -21,7 +22,7 @@ export function AddToCartButton({ product, slug, size, qty = 1, className = "", 
   const [done, setDone] = useState(false);
   const x = product ?? (slug ? getProduct(slug) : undefined);
   if (!x) return null;
-  return <Button type="button" variant="ghost" className={`demo-button ${className}`} aria-label={`Add ${x.name} to Cart`} onClick={e => { e.preventDefault(); add(x, size, qty); setDone(true); setTimeout(() => setDone(false), 1400); }}>{done ? <><Check />Added</> : children ?? <><ShoppingCart />Add to Cart</>}</Button>;
+  return <Button type="button" variant="ghost" className={`demo-button ${className}`} aria-label={`Add ${x.name} to Cart`} onClick={e => { e.preventDefault(); add(x, size, qty, e.currentTarget); setDone(true); setTimeout(() => setDone(false), 1400); }}>{done ? <><Check />Added</> : children ?? <><ShoppingCart />Add to Cart</>}</Button>;
 }
 
 export function ProductLink({ slug, className = "", children, label }: { slug: string; className?: string; children: ReactNode; label?: string }) {

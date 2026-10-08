@@ -11,11 +11,11 @@ export function DemoControl({ children, label, className = "" }: { children?: Re
 }
 
 export function ShopHeader() {
-  return <><header className="shop-header">
+  return <div className="mobile-shop-masthead"><header className="shop-header">
     <MenuButton className="demo-button menu-button" />
     <Link to="/" aria-label="Baby Choice home" className="shop-logo-link"><img src={logo.url} className="shop-logo" alt="Baby Choice — Everything for Your Little One" /></Link>
     <div className="header-tools"><Button asChild variant="ghost" className="demo-button header-circle"><a href="tel:+8801712345678" aria-label="Call Baby Choice"><Phone fill="currentColor" /></a></Button><Button asChild variant="ghost" className="demo-button header-circle"><Link to="/cart" aria-label="Shopping Cart"><ShoppingCart fill="currentColor" /><CartCount className="cart-count" /></Link></Button></div>
-  </header><Button variant="ghost" asChild className="search-bar search-link"><Link to="/search"><Search /><span>Search for baby products, brands, or categories...</span><span className="search-submit"><Search /></span></Link></Button></>;
+  </header><Button variant="ghost" asChild className="search-bar search-link"><Link to="/search" aria-label="Search baby products"><Search /><span>Search products, brands & more…</span><span className="search-submit"><Search /></span></Link></Button></div>;
 }
 
 export function ShopBottomNav({ active = "Categories" }: { active?: "Home" | "Categories" | "Offers" | "Wishlist" | "Account" | "none" }) {
