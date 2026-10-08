@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { AddToCartButton, CartCount, WishButton } from "@/components/live";
 import { slugify } from "@/lib/live-head";
 import { catalogCategories } from "@/lib/catalog-demo";
+import { homeCategories } from "@/lib/home-categories";
+import { MenuButton } from "@/components/shop-menu";
 import type { ReactNode } from "react";
 import logo from "@/assets/logo.png.asset.json";
 import hero from "@/assets/hero.png.asset.json";
@@ -58,6 +60,7 @@ function DeskHeader({ active }: { active: "home" | "categories" }) {
       </div>
     </div>
     <nav className="dk-nav"><div className="dk-wrap">
+      <MenuButton />
       <Link to="/" className={active === "home" ? "on" : ""}>Home</Link>
       <Link to="/categories" className={active === "categories" ? "on" : ""}>All Categories</Link>
       <Link to="/categories/baby-clothing">Baby Clothing</Link>
@@ -91,7 +94,7 @@ export function DesktopHome() {
     <section className="dk-hero"><img src={hero.url} alt="Baby Choice — Happy Babies Happier Tomorrows. Shop Now." /></section>
     <section className="dk-services">{services.map(([img, t]) => <div key={t}><img src={img.url} alt="" /><p>{t}</p></div>)}</section>
     <Heading title="Shop By Category" to="/categories" action="View All Categories" />
-    <section className="dk-cats">{homeCats.map(([img, n]) => <Link key={n} to="/categories" className="demo-button dk-cat"><img src={img.url} alt={n} /><span>{n}<ChevronRight /></span></Link>)}</section>
+    <section className="dk-cats">{homeCats.map(([img, n], index) => <Link key={n} to="/categories/$cat" params={{ cat: homeCategories[index]?.slug ?? "baby-clothing" }} className="demo-button dk-cat"><img src={img.url} alt={n} /><span>{n}<ChevronRight /></span></Link>)}</section>
     <section className="dk-promos"><img src={bath.url} alt="Bath Time Essentials. Shop Now." /><img src={feeding.url} alt="Feeding Made Easy. Explore Now." /></section>
     <Heading title="Trending Products" to="/trending" action="View More" />
     <section className="dk-products">{products.map(p => <article key={p.code} className="dk-product">
