@@ -432,6 +432,8 @@ body { margin: 0; background: var(--shop-backdrop); }
 .sr-header{height:calc(var(--su)*78);display:grid;grid-template-columns:20% 50% 30%;align-items:center;padding:0 calc(var(--su)*29)}
 .sr-header>button{width:calc(var(--su)*32);height:calc(var(--su)*32);color:var(--shop-purple)}
 .sr-header>img{width:calc(var(--su)*292);height:calc(var(--su)*72);justify-self:center;object-fit:contain}
+.sr-logo-link{display:flex;justify-content:center;align-items:center;min-width:0}
+.sr-logo-link>img{width:calc(var(--su)*292);height:calc(var(--su)*72);object-fit:contain}
 .sr-header>div{display:flex;gap:calc(var(--su)*18);justify-content:flex-end}
 .sr-circle{width:calc(var(--su)*58);height:calc(var(--su)*58);border-radius:50%;padding:calc(var(--su)*15);background:var(--shop-lilac);color:var(--shop-purple);position:relative}
 .sr-circle svg{width:100%;height:100%}.sr-circle span{position:absolute;right:calc(var(--su)*-5);top:calc(var(--su)*-7);width:calc(var(--su)*29);height:calc(var(--su)*29);display:grid;place-items:center;border-radius:50%;background:var(--shop-pink);color:var(--shop-paper);font-size:calc(var(--su)*17)}
