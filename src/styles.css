@@ -162,6 +162,7 @@ body { margin: 0; background: var(--shop-backdrop); }
 .shop-header { height: 11.7cqw; display: grid; grid-template-columns: 16% minmax(0,1fr) 23%; align-items: center; padding-inline: 3cqw; }
 .menu-button { width: 4.4cqw; height: 4.4cqw; color: var(--shop-purple); }
 .shop-logo { width: 43cqw; height: 10.1cqw; object-fit: contain; justify-self: center; }
+.shop-logo-link { display: flex; justify-content: center; align-items: center; min-width: 0; }
 .header-tools { display: flex; gap: 2.6cqw; justify-content: flex-end; }
 .header-circle { width: 7.5cqw; height: 7.5cqw; border-radius: 50%; background: var(--shop-lilac); color: var(--shop-purple); padding: 2cqw; position: relative; }
 .cart-count { position: absolute; right: -.4cqw; top: -.9cqw; width: 3.8cqw; height: 3.8cqw; border-radius: 50%; background: var(--shop-pink); color: var(--shop-paper); display: grid; place-items: center; font-size: 2.4cqw; }
