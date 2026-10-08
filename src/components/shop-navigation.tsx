@@ -3,6 +3,7 @@ import { BadgePercent, ChevronRight, Heart, House, LayoutGrid, Menu, Phone, Sear
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png.asset.json";
 import type { ReactNode } from "react";
+import { CartCount } from "@/components/live";
 
 export function DemoControl({ children, label, className = "" }: { children?: ReactNode; label: string; className?: string }) {
   return <Button type="button" variant="ghost" className={`demo-button ${className}`} aria-label={label} aria-disabled="true" tabIndex={-1}>{children}</Button>;
@@ -10,9 +11,9 @@ export function DemoControl({ children, label, className = "" }: { children?: Re
 
 export function ShopHeader() {
   return <><header className="shop-header">
-    <DemoControl label="Menu" className="menu-button"><Menu /></DemoControl>
+    <Button asChild variant="ghost" className="demo-button menu-button"><Link to="/categories" aria-label="Menu"><Menu /></Link></Button>
     <img src={logo.url} className="shop-logo" alt="Baby Choice — Everything for Your Little One" />
-    <div className="header-tools"><DemoControl label="Call Baby Choice" className="header-circle"><Phone fill="currentColor" /></DemoControl><Button asChild variant="ghost" className="demo-button header-circle"><Link to="/cart" aria-label="Shopping Cart"><ShoppingCart fill="currentColor" /><span className="cart-count">3</span></Link></Button></div>
+    <div className="header-tools"><Button asChild variant="ghost" className="demo-button header-circle"><a href="tel:+8801712345678" aria-label="Call Baby Choice"><Phone fill="currentColor" /></a></Button><Button asChild variant="ghost" className="demo-button header-circle"><Link to="/cart" aria-label="Shopping Cart"><ShoppingCart fill="currentColor" /><CartCount className="cart-count" /></Link></Button></div>
   </header><Button variant="ghost" asChild className="search-bar search-link"><Link to="/search"><Search /><span>Search for baby products, brands, or categories...</span><span className="search-submit"><Search /></span></Link></Button></>;
 }
 
