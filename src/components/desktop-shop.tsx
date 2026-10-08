@@ -37,10 +37,10 @@ import s4 from "@/assets/service-4.png.asset.json";
 
 const homeCats = [[c1, "Onesies & Bodysuits"], [c2, "Panjabi & Pajamas"], [c3, "Girls Party Dresses"], [c4, "Swaddle & Receiving"], [c5, "Baby Formula & Milk"], [c6, "Hair, Body & Skin Care"], [c7, "Strollers & Prams"], [c8, "High Chairs & Boosters"]] as const;
 const products = [
-  { image: p1, title: "Sudocrem – Antiseptic Healing Nappy Rash Cream", discount: 12, rating: "4.8 (320)", code: "14004BG", price: "890" },
-  { image: p2, title: "Carter's Honey Cotton Baby Wash Cloth Towel", discount: 20, rating: "4.7 (210)", code: "11882", price: "650" },
-  { image: p3, title: "Aptamil Advance Follow On Milk Powder", discount: 15, rating: "4.9 (425)", code: "10120", price: "2,450" },
-  { image: p4, title: "Baby Hooded Towel for Newborns (Soft)", discount: 10, rating: "4.8 (198)", code: "11876", price: "790" },
+  { slug: "sudocrem-nappy-rash-cream", image: p1, title: "Sudocrem – Antiseptic Healing Nappy Rash Cream", discount: 12, rating: "4.8 (320)", code: "14004BG", price: "890" },
+  { slug: "carters-honey-cotton-wash-cloth", image: p2, title: "Carter's Honey Cotton Baby Wash Cloth Towel", discount: 20, rating: "4.7 (210)", code: "11882", price: "650" },
+  { slug: "aptamil-advance-follow-on-milk", image: p3, title: "Aptamil Advance Follow On Milk Powder", discount: 15, rating: "4.9 (425)", code: "10120", price: "2,450" },
+  { slug: "baby-hooded-towel", image: p4, title: "Baby Hooded Towel for Newborns (Soft)", discount: 10, rating: "4.8 (198)", code: "11876", price: "790" },
 ];
 const brands = [[b1, "Aptamil"], [b2, "Nestlé"], [b3, "Sudocrem"], [b4, "Pampers"], [b5, "Carter's"], [b6, "Johnson's"], [b7, "Philips Avent"]] as const;
 const services = [[s1, "Fast & Reliable Delivery"], [s2, "100% Original Products"], [s3, "Easy Returns"], [s4, "Dedicated Support"]] as const;
