@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ShopBottomNav, ShopHeader } from "@/components/shop-navigation";
 import { AddToCartButton, ProductLink, WishButton } from "@/components/live";
 import { off, products, tk, type Product } from "@/lib/products";
-import hero from "@/assets/search-clean-hero.png.asset.json";
 
 export const Route = createFileRoute("/search")({
   component: SearchResults,
