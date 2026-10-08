@@ -1,7 +1,26 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { RefScreen, searchHit, productHit } from "@/components/ref-screen";
-const t = "My Wishlist — Baby Choice", d = "Your saved Baby Choice products for later.";
-export const Route = createFileRoute("/wishlist")({
-  head: () => ({ meta: [{ title: t }, { name: "description", content: d }, { property: "og:title", content: t }, { property: "og:description", content: d }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
-  component: () => <RefScreen name="wishlist" active="Wishlist" cuts={[0,130,320,765,1165,1530,1690]} alt={["Baby Choice header","My Wishlist — 8 items","Pampers diapers and Johnson’s shampoo","Huggies wipes and Aptamil formula","Feeding set and clothing set","Play mat and stroller"]} links={[searchHit, { to: "/cart", box: [750, 18, 66, 62], label: "Cart" }, { to: "/", box: [28, 92, 34, 30], label: "Home" }, { to: "/account", box: [90, 100, 100, 30], label: "My Account" }, productHit([435, 333, 382, 345])]} />,
-});
+import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ShoppingCart, Trash2 } from "lucide-react";
+import { ShoppingShell } from "@/components/shopping-reference";
+import { ProductGrid } from "@/components/live";
+import { useCart } from "@/lib/cart-store";
+import { liveHead } from "@/lib/live-head";
+import { getProduct, type Product } from "@/lib/products";
+
+export const Route = createFileRoute("/wishlist")({ head: () => liveHead("My Wishlist", "Your saved baby products — move them to cart any time."), component: Wishlist });
+
+function Wishlist() {
+  const { wish, moveAllToCart, clearWish } = useCart();
+  const [sort, setSort] = useState("Newest");
+  let items = wish.map(getProduct).filter((x): x is Product => !!x);
+  if (sort === "Price: Low to High") items = [...items].sort((a, b) => a.price - b.price);
+  if (sort === "Price: High to Low") items = [...items].sort((a, b) => b.price - a.price);
+  return <ShoppingShell crumb="My Wishlist" className="lv" active="Wishlist">
+    <h1 className="lv-title">My Wishlist</h1><p className="lv-sub">{items.length} items</p>
+    {items.length > 0 ? <>
+      <div className="lv-toolbar"><button type="button" className="lv-btn" onClick={moveAllToCart}><ShoppingCart />Move All to Cart</button><button type="button" className="lv-btn ghost" onClick={clearWish}><Trash2 />Clear All</button>
+        <label className="lv-select"><span>Sort by:</span><select value={sort} onChange={e => setSort(e.target.value)} aria-label="Sort wishlist"><option>Newest</option><option>Price: Low to High</option><option>Price: High to Low</option></select></label></div>
+      <ProductGrid items={items} two />
+    </> : <div className="lv-empty"><p>Your wishlist is empty. Tap the heart on any product to save it here.</p><Link to="/trending" className="lv-btn">Browse Products</Link></div>}
+  </ShoppingShell>;
+}

@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DemoControl, ShopHeader, ShopBottomNav, ShopBreadcrumb } from "@/components/shop-navigation";
+import { ShopHeader, ShopBottomNav, ShopBreadcrumb } from "@/components/shop-navigation";
 import { DesktopCategories } from "@/components/desktop-shop";
 import { catalogCategories } from "@/lib/catalog-demo";
+import { slugify } from "@/lib/live-head";
 import hero from "@/assets/all-hero.png.asset.json";
 import promo from "@/assets/all-promo.png.asset.json";
 
@@ -26,7 +27,7 @@ function AllCategories() {
       const contents = <><img src={category.image.url} alt={category.name} /><span className="all-category-caption"><span><strong>{category.name}</strong><small>{category.count} Items</small></span><ChevronRight /></span></>;
       return index === 0
         ? <Button key={category.name} variant="ghost" asChild className="demo-button all-category-card"><Link to="/categories/baby-clothing" aria-label="Baby Clothing">{contents}</Link></Button>
-        : <DemoControl key={category.name} label={category.name} className="all-category-card">{contents}</DemoControl>;
+        : <Button key={category.name} variant="ghost" asChild className="demo-button all-category-card"><Link to="/categories/$cat" params={{ cat: slugify(category.name) }} aria-label={category.name}>{contents}</Link></Button>;
     })}</section>
     <section className="catalog-promo"><img src={promo.url} alt="Find Everything Your Baby Needs. Top brands, best quality and great prices all in one place. Shop Now. Happy Babies Happier Tomorrows." /><Button variant="ghost" asChild className="demo-button catalog-promo-link"><Link to="/categories/baby-clothing" aria-label="Shop Now" /></Button></section>
     <ShopBottomNav />
