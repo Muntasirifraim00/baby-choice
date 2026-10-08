@@ -46,14 +46,14 @@ export const Route = createFileRoute("/")({
 });
 
 const categories = [
-  { image: category1, cat: "baby-clothing", lines: ["Onesies &", "Bodysuits"] },
-  { image: category2, cat: "panjabi-and-pajamas", lines: ["Panjabi &", "Pajamas"] },
-  { image: category3, cat: "baby-clothing", lines: ["Girls Party", "Dresses"] },
-  { image: category4, cat: "bedding-and-blankets", lines: ["Swaddle &", "Receiving"] },
-  { image: category5, cat: "feeding-and-nursing", lines: ["Baby Formula", "& Milk"] },
-  { image: category6, cat: "skin-care", lines: ["Hair, Body", "& Skin Care"] },
-  { image: category7, cat: "strollers-and-prams", lines: ["Strollers &", "Prams"] },
-  { image: category8, cat: "high-chairs-and-boosters", lines: ["High Chairs", "& Boosters"] },
+  { image: category1, cat: "baby-clothing", tone: "pink", lines: ["Onesies &", "Bodysuits"] },
+  { image: category2, cat: "panjabi-and-pajamas", tone: "lilac", lines: ["Panjabi &", "Pajamas"] },
+  { image: category3, cat: "baby-clothing", tone: "rose", lines: ["Girls Party", "Dresses"] },
+  { image: category4, cat: "bedding-and-blankets", tone: "peach", lines: ["Swaddle &", "Receiving"] },
+  { image: category5, cat: "feeding-and-nursing", tone: "sky", lines: ["Baby Formula", "& Milk"] },
+  { image: category6, cat: "skin-care", tone: "mint", lines: ["Hair, Body", "& Skin Care"] },
+  { image: category7, cat: "strollers-and-prams", tone: "teal", lines: ["Strollers &", "Prams"] },
+  { image: category8, cat: "high-chairs-and-boosters", tone: "lemon", lines: ["High Chairs", "& Boosters"] },
 ];
 
 const brands = [ [brand1, "Aptamil"], [brand2, "Nestlé"], [brand3, "Sudocrem"], [brand4, "Pampers"], [brand5, "Carter's"], [brand6, "Johnson's"], [brand7, "Philips Avent"] ] as const;
