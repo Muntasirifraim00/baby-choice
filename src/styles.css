@@ -1,6 +1,8 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "./styles/desktop-reference.css";
+@import "./styles/desktop-pages.css";
 
 @custom-variant dark (&:is(.dark *));
 

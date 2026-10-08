@@ -40,7 +40,7 @@ const homeCats = [[c1, "Onesies & Bodysuits"], [c2, "Panjabi & Pajamas"], [c3, "
 const brands = [[b1, "Aptamil"], [b2, "Nestlé"], [b3, "Sudocrem"], [b4, "Pampers"], [b5, "Carter's"], [b6, "Johnson's"], [b7, "Philips Avent"]] as const;
 const services = [[s1, "Fast & Reliable Delivery"], [s2, "100% Original Products"], [s3, "Easy Returns"], [s4, "Dedicated Support"]] as const;
 
-function DeskHeader({ active }: { active: "home" | "categories" }) {
+export function DeskHeader({ active }: { active?: "home" | "categories" }) {
   return <header className="dk-header">
     <div className="dk-topbar"><div className="dk-wrap"><span><Truck />Free delivery on orders over ৳3,000</span><span><Phone />+880 1712 345678</span></div></div>
     <div className="dk-wrap dk-main">
@@ -65,7 +65,7 @@ function DeskHeader({ active }: { active: "home" | "categories" }) {
   </header>;
 }
 
-function DeskFooter() {
+export function DeskFooter() {
   return <footer className="dk-footer"><div className="dk-wrap">
     <div><img src={logo.url} alt="Baby Choice" className="dk-logo" /><p>Safe, gentle and premium-quality products for every little one, delivered across Bangladesh.</p></div>
     <div><h4>Shop</h4><Link to="/categories">All Categories</Link><Link to="/trending">Trending</Link><Link to="/brands">Brands</Link><Link to="/offers">Offers</Link></div>
