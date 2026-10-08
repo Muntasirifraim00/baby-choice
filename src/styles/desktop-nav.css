@@ -1,0 +1,32 @@
+.home-category-section .category-name{white-space:normal;min-height:8.4cqw;max-width:100%;font-size:3cqw;line-height:4.2cqw;letter-spacing:0;margin-top:1.8cqw}
+.home-category-section .category-art{width:19cqw;height:19cqw;flex-shrink:0}
+.home-category-section .category-art img{width:16cqw;height:16cqw}
+.home-category-section .category-explore{margin-top:1.2cqw;font-size:2.4cqw;padding:1.1cqw 2cqw}
+@media(min-width:1024px){
+ .dk-header{box-shadow:var(--shop-nav-shadow);position:relative;z-index:10}
+ .dk-main{grid-template-columns:230px minmax(0,1fr) auto;gap:28px;padding-block:24px}
+ .dk-main>a,.dk-search span{min-width:0}
+ .dk-main .dk-search{display:grid;grid-template-columns:22px minmax(0,1fr) auto;width:100%;height:56px;border-radius:12px;padding:6px 7px 6px 18px;gap:12px;background:var(--shop-paper);border:1px solid var(--shop-line);box-shadow:var(--shop-nav-shadow);text-align:left;font-size:14px;font-weight:400}
+ .dk-search span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .dk-main .dk-search b{display:flex;align-items:center;gap:10px;padding:12px 20px;border-radius:8px;background:var(--shop-pink);color:var(--shop-paper);font-size:14px;font-weight:800}
+ .dk-main .dk-search b svg{width:16px;color:inherit}
+ .dk-main .dk-search:hover,.dk-main .dk-search:focus-visible{border-color:var(--shop-pink);background:var(--shop-nav-soft);outline-color:var(--shop-pink)}
+ .dk-icons{gap:12px}.dk-icons a{min-width:56px;padding:8px;border-radius:10px;transition:background .18s ease;gap:5px;font-weight:700}.dk-icons a:hover{background:var(--shop-nav-soft);color:var(--shop-pink)}.dk-icons svg{width:23px;height:23px}
+ .dk-nav{background:var(--shop-paper)}.dk-nav .dk-wrap{display:grid;grid-template-columns:44px repeat(7,auto);justify-content:start;align-items:center;gap:8px;padding-block:8px}
+ .dk-nav .dk-menu{height:42px;width:42px;border:1px solid var(--shop-line);border-radius:8px;color:var(--shop-purple);padding:10px;margin-right:4px}
+ .dk-nav a{padding:12px 17px;font-size:14px;font-weight:750;border-radius:8px;border-bottom:0;white-space:nowrap;transition:background .18s,color .18s}
+ .dk-nav a:hover,.dk-nav a.on{background:var(--shop-lilac);color:var(--shop-purple)}.dk-nav a.dk-offers{color:var(--shop-pink);background:var(--shop-nav-soft)}
+ .desktop-view .home-category-section{margin:44px 0 32px;padding:0}
+ .desktop-view .home-category-section .section-heading{height:auto;margin-bottom:26px;gap:20px}
+ .desktop-view .home-category-section h2{font-size:30px;gap:12px;letter-spacing:0}.desktop-view .home-category-section h2::before{font-size:22px}.desktop-view .home-category-section h2::after{width:88px;height:5px;bottom:-9px;left:0;border-radius:4px;box-shadow:none}
+ .desktop-view .home-category-section .section-action{font-size:14px;padding:10px 18px;border-radius:24px;gap:10px;background:var(--shop-paper);box-shadow:var(--shop-nav-shadow)}.desktop-view .home-category-section .section-action svg{width:17px;height:17px}
+ .desktop-view .home-category-section .category-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
+ .desktop-view .home-category-section .category-card{height:292px;border-radius:20px;padding:22px 16px 18px;box-shadow:var(--shop-nav-shadow)}
+ .desktop-view .home-category-section .category-art{width:152px;height:152px;box-shadow:var(--shop-shadow)}.desktop-view .home-category-section .category-art img{width:128px;height:128px}
+ .desktop-view .home-category-section .category-name{font-size:18px;line-height:24px;min-height:48px;margin-top:16px;max-width:200px}
+ .desktop-view .home-category-section .category-explore{margin-top:12px;font-size:13px;padding:9px 18px;gap:8px;border-radius:20px}.desktop-view .home-category-section .category-explore svg{width:14px;height:14px}
+ .desktop-view .home-category-section .category-card::before{display:none}
+ .desktop-page .search-query{border:1px solid var(--shop-line);border-radius:12px;background:var(--shop-paper);box-shadow:var(--shop-nav-shadow);height:56px;width:min(780px,100%)}.desktop-page .search-query:focus-within{border-color:var(--shop-pink)}
+ .desktop-page .search-query button:last-child{background:var(--shop-pink);color:var(--shop-paper);border-radius:8px}
+}
+@media(min-width:1024px) and (max-width:1150px){.dk-main{grid-template-columns:200px minmax(0,1fr) auto;gap:18px}.dk-nav a{padding-inline:12px}.dk-search b svg{display:none}}
