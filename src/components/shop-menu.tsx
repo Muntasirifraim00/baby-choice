@@ -14,9 +14,9 @@ const groups = [
     { name: "Best Sellers", icon: Crown, to: "/trending/popular" },
   ] },
   { title: "MY ACCOUNT", items: [
-    { name: "My Account", icon: UserRound, to: "/account" }, { name: "My Orders", icon: Package, to: "/order-confirmed" },
+    { name: "My Account", icon: UserRound, to: "/account" }, { name: "My Orders", icon: Package, to: "/account/orders" },
     { name: "Order Details", icon: FileText, to: "/order-confirmed" }, { name: "Track Order", icon: Truck, to: "/support", hash: "track-order" },
-    { name: "Wishlist", icon: Heart, to: "/wishlist" }, { name: "Account Settings", icon: Settings, to: "/account" },
+    { name: "Wishlist", icon: Heart, to: "/wishlist" }, { name: "Account Settings", icon: Settings, to: "/account/settings" },
   ] },
   { title: "HELP & INFORMATION", items: [
     { name: "Customer Support", icon: Headphones, to: "/support" }, { name: "FAQ", icon: CircleHelp, to: "/support", hash: "faq" },
@@ -42,7 +42,7 @@ export function ShopMenuProvider({ children }: { children: ReactNode }) {
           <nav aria-label="Baby Choice menu">{groups.map(group => <section key={group.title} className="bc-drawer-group">
             {group.title && <h2>{group.title}</h2>}
             {group.items.map(item => <Button asChild variant="ghost" key={item.name} className={`bc-drawer-item ${pathname === item.to && !("hash" in item) ? "is-active" : ""}`}>
-              <Link to={item.to} hash={"hash" in item ? item.hash : ""} onClick={() => setOpen(false)}><item.icon /><span>{item.name}</span><ChevronRight /></Link>
+              <Link to={item.to as "/"} hash={"hash" in item ? item.hash : ""} onClick={() => setOpen(false)}><item.icon /><span>{item.name}</span><ChevronRight /></Link>
             </Button>)}
           </section>)}</nav>
           <div className="bc-drawer-preferences">
