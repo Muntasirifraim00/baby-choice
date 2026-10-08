@@ -1,5 +1,5 @@
 # Requested work
-- [ ] Polish shared desktop navigation/search and match homepage category cards across desktop/mobile, with three categories per mobile row.
+- [x] Polish shared desktop navigation/search and match homepage category cards across desktop/mobile, with three categories per mobile row; search, links and 320/390/1024/1280px checked.
 - [x] Build and verify desktop versions of every page while preserving mobile layouts.
 - [x] Apply reference-inspired homepage trending cards, two per mobile row, with colorful product imagery and quantity controls; verify all 20 cards. Exact artwork differs from the supplied reference as already disclosed.
 - [x] Show 20 homepage trending products in three columns with improved cards and verify cart/navigation.
