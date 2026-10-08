@@ -1,4 +1,5 @@
 # Requested work
+- [x] Redesign only All Categories with grouped real-count tiles, filtering, jump navigation and trending cart controls; verified 360/390/900/1024/1440px, sticky chrome, scroll tracking, wishlist/cart controls, reduced motion and routing test against redesigned category pages.
 - [x] Match desktop header reference with generated pastel navigation imagery and supplied transparent baby; verified 1024/1150/1280/1600/1920px, search suggestions, department links, cart badge and reduced motion; mobile unchanged and routing test passed.
 - [x] Upgrade shared footer Home, Categories, Offers, About and Account controls with animated selected states; verified all five links, consistent height and 320/390/487px sizing; desktop unchanged.
 - [x] Improve shared mobile header and animated search; replace add-to-cart popup with a flying dot. Verified matching suggestions, cart count, home/product flight, no toast, reduced motion and 320/390/487/1280px overflow.

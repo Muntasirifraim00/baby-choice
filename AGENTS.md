@@ -12,7 +12,7 @@
 - Keep all requested Baby Choice demo screens inside a mobile-width frame; unrelated actions remain inactive to preserve reference scope.
 - Use individually cropped CDN asset pointers for reference imagery, never render the uploaded full-screen screenshot as the page.
 - Use container-relative dimensions for this fixed-format reference layout so the original proportions remain consistent at every mobile width.
-- Share catalog header, breadcrumbs and bottom navigation across the two catalog screens; use leaf index routing for All Categories so the clothing screen does not nest inside its content.
+- All Categories uses its own alc-prefixed presentation inside PageShell with MobileTabBar and catalog-derived counts; keep its leaf index routing so category listings never nest inside its content.
 - All products live in src/lib/products.ts (single static catalog); cart, wishlist, chosen address/payment and last order live in a React context persisted to localStorage (src/lib/cart-store.tsx) — no backend needed for the demo.
 - Keep search filters as temporary UI state inside the search screen; the demo does not need persistence or backend filtering.
 - Rebuild new shopping and checkout references with shared presentation components, browser-safe static product data and cropped imagery; real text and controls preserve accessibility.
