@@ -14,11 +14,16 @@ const accountLinks = [
   { to: "/support", label: "Help & Support", icon: Headphones },
 ] as const;
 
+/** Redesigned pages render their own responsive header/footer (PageShell). */
+const ownsChrome = (path: string) =>
+  path.startsWith("/categories/") || path.startsWith("/product/") || path === "/cart" ||
+  path === "/checkout" || path.startsWith("/checkout/") || path === "/order-confirmed";
+
 /** One rendered page and one cart state serve both screen sizes. */
 export function DesktopPageLayout({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: s => s.location.pathname });
   const path = pathname.replace(/\/$/, "") || "/";
-  if (path === "/" || path === "/categories") return children;
+  if (path === "/" || path === "/categories" || ownsChrome(path)) return children;
   const account = path === "/account" || path.startsWith("/account/");
   return <div className="desktop-page" data-page={path}>
     <div className="desktop-chrome"><DeskHeader /></div>
