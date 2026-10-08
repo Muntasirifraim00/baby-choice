@@ -28,3 +28,5 @@
 - Share homepage category artwork, links and card markup between desktop and mobile; only sizing and grid columns vary to prevent design drift.
 - Share one homepage brand-grid carousel across mobile and desktop with client-only autoplay and reduced-motion/focus pause, keeping logos and brand destinations aligned.
 - Use a shared homepage-only trending grid sourced from the static catalog and existing cart controls so desktop/mobile selection stays aligned without changing other listings.
+- Use ShopHeader for the mobile homepage and catalog masthead, with mobile-only styling to preserve desktop navigation.
+- Centralize popup-free cart flight feedback in a browser-safe helper invoked by the cart store; pass the pressed control as origin and use a temporary cart target when the header is offscreen.

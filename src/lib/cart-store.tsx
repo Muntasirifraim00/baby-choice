@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 import { getProduct, type Product } from "@/lib/products";
+import { flyToCart } from "@/lib/cart-feedback";
 
 export type CartLine = { slug: string; size: string; qty: number };
 export type Order = { number: string; placed: string; lines: CartLine[]; payment: string };
@@ -23,7 +24,7 @@ export function totals(lines: CartLine[]) {
 
 type Ctx = {
   lines: CartLine[]; wish: string[]; lastOrder: Order | null; payment: string; address: string;
-  add: (x: Product, size?: string, qty?: number) => void; setQty: (slug: string, size: string, qty: number) => void;
+  add: (x: Product, size?: string, qty?: number, source?: HTMLElement) => void; setQty: (slug: string, size: string, qty: number) => void;
   remove: (slug: string, size: string) => void; toggleWish: (slug: string) => void; clearWish: () => void;
   moveAllToCart: () => void; setPayment: (m: string) => void; setAddress: (a: string) => void; placeOrder: () => void;
 };
@@ -47,9 +48,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, []);
   useEffect(() => { if (loaded) localStorage.setItem(KEY, JSON.stringify({ lines, wish, lastOrder, payment, address })); }, [loaded, lines, wish, lastOrder, payment, address]);
 
-  const add = useCallback((x: Product, size = x.sizes[0] ?? "", qty = 1) => {
+  const add = useCallback((x: Product, size = x.sizes[0] ?? "", qty = 1, source?: HTMLElement) => {
     setLines(ls => ls.some(l => l.slug === x.slug && l.size === size) ? ls.map(l => l.slug === x.slug && l.size === size ? { ...l, qty: l.qty + qty } : l) : [...ls, { slug: x.slug, size, qty }]);
-    toast.success(`${x.name} added to cart`, { description: size ? `Size: ${size} · Qty: ${qty}` : undefined });
+    flyToCart(source);
   }, []);
   const setQty = useCallback((slug: string, size: string, qty: number) => setLines(ls => qty <= 0 ? ls.filter(l => !(l.slug === slug && l.size === size)) : ls.map(l => l.slug === slug && l.size === size ? { ...l, qty } : l)), []);
   const remove = useCallback((slug: string, size: string) => setLines(ls => ls.filter(l => !(l.slug === slug && l.size === size))), []);
