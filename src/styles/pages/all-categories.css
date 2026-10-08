@@ -64,7 +64,7 @@
 .alc-product-tone-0 { --alc-product-tint: var(--alc-rose); }.alc-product-tone-1 { --alc-product-tint: var(--alc-blue-tint); }.alc-product-tone-2 { --alc-product-tint: var(--alc-mint); }.alc-product-tone-3 { --alc-product-tint: var(--alc-amber-tint); }
 .alc-product-art { position: relative; height: 140px; border-radius: 18px; background: var(--alc-product-tint); overflow: hidden; }
 .alc-product-photo { position: absolute; inset: 0; display: grid; place-items: center; padding: 10px; }
-.alc-product-photo img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.alc-product-photo img { width: 100%; height: 100%; min-height: 0; min-width: 0; object-fit: contain; mix-blend-mode: multiply; }
 .alc-discount { position: absolute; top: 8px; left: 5px; background: var(--pink-d); color: var(--alc-paper); border-radius: 9px; padding: 3px 7px; font-size: 10px; font-weight: 900; }
 .alc-page .alc-wish { position: absolute; top: 3px; right: 1px; width: 44px; height: 44px; padding: 0; border-radius: 50%; color: var(--alc-muted); background: transparent; }
 .alc-wish::before { content: ""; position: absolute; width: 34px; height: 34px; border-radius: 50%; background: var(--alc-paper); box-shadow: var(--alc-shadow); }
@@ -95,4 +95,6 @@
  .alc-trending { margin-top: 18px; }.alc-page .alc-section-head h2 { font-size: 32px; }.alc-trending-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 18px; overflow: visible; padding: 0; }.alc-product-art { height: 180px; }.alc-product-info { padding: 12px 4px 4px; }.alc-product-info h3 { font-size: 15px; min-height: 40px; }.alc-brand { font-size: 11px; }.alc-product-meta { font-size: 11px; }.alc-price strong { font-size: 24px; }.alc-help { display: none; }
 }
 @media (min-width: 900px) and (max-width: 1090px) { .alc-wrap { padding-inline: 24px; }.alc-hero-copy { width: 61%; }.alc-page .alc-hero h2 { font-size: 30px; }.alc-desktop-search { max-width: 380px; } }
+/* PageShell's ancestor overflow creates a scroll container: keep this page's sticky chrome on the viewport. */
+:has(> .alc-page) { overflow: clip; }
 @media (prefers-reduced-motion: reduce) { .alc-page *, .alc-page *::before, .alc-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }

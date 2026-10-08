@@ -66,13 +66,18 @@ export function AllCategoriesPage() {
   const filteredGroups = useMemo(() => groups.map(group => ({ ...group, categories: group.categories.filter(c => c.name.toLowerCase().includes(query.trim().toLowerCase())) })).filter(group => group.categories.length > 0), [query]);
   useEffect(() => {
     if (!filteredGroups.length) return;
-    const observer = new IntersectionObserver(entries => {
-      const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-      const first = visible[0];
-      if (first) setActiveGroup(first.target.id.replace("alc-group-", ""));
-    }, { rootMargin: "-140px 0px -45% 0px", threshold: 0 });
+    let frame = 0;
+    const update = () => {
+      const positions = filteredGroups.map(group => ({ id: group.id, top: document.getElementById(`alc-group-${group.id}`)?.getBoundingClientRect().top ?? Infinity }));
+      const current = positions.filter(position => position.top <= 180).at(-1) ?? positions[0];
+      if (current) setActiveGroup(current.id);
+    };
+    const onScroll = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
+    const observer = new IntersectionObserver(update, { rootMargin: "-140px 0px -45% 0px", threshold: 0 });
     filteredGroups.forEach(group => { const element = document.getElementById(`alc-group-${group.id}`); if (element) observer.observe(element); });
-    return () => observer.disconnect();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    update();
+    return () => { observer.disconnect(); window.removeEventListener("scroll", onScroll); cancelAnimationFrame(frame); };
   }, [filteredGroups]);
   const back = () => {
     if (window.history.length > 1) window.history.back();
@@ -85,7 +90,7 @@ export function AllCategoriesPage() {
       <div className="alc-desktop-title"><nav className="alc-breadcrumb" aria-label="Breadcrumb"><Link to="/">Home</Link><span aria-hidden="true">›</span><span aria-current="page">Categories</span></nav><div className="alc-titleline"><h1>All categories</h1><p>{summary}</p></div></div>
       <div className="alc-phone-search"><CategorySearch id="alc-phone-search" query={query} onChange={setQuery} /></div>
       <nav className="alc-jumps" aria-label="Category groups">{filteredGroups.map(group => <a key={group.id} href={`#alc-group-${group.id}`} className={`alc-chip alc-tone-${group.id}`} onClick={() => setActiveGroup(group.id)}>{group.name}</a>)}</nav>
-      <section className="alc-hero" aria-label="Everything for your little one"><div className="alc-hero-copy"><span className="alc-hero-eyebrow">EVERYTHING FOR YOUR LITTLE ONE</span><h2>16 categories,<br />one happy basket</h2><p>Original brands · Cash on delivery all over Bangladesh</p><div className="alc-desktop-search"><CategorySearch id="alc-desktop-search" query={query} onChange={setQuery} /></div></div><div className="alc-hero-art" aria-hidden="true">{heroProducts.map((product, index) => <div key={product.slug} className={`alc-photo alc-photo-${index}`}><img src={product.image} alt="" /></div>)}</div></section>
+      <section className="alc-hero" aria-label="Everything for your little one"><div className="alc-hero-copy"><span className="alc-hero-eyebrow">EVERYTHING FOR YOUR LITTLE ONE</span><h2>16 categories, <br />one happy basket</h2><p>Original brands · Cash on delivery all over Bangladesh</p><div className="alc-desktop-search"><CategorySearch id="alc-desktop-search" query={query} onChange={setQuery} /></div></div><div className="alc-hero-art" aria-hidden="true">{heroProducts.map((product, index) => <div key={product.slug} className={`alc-photo alc-photo-${index}`}><img src={product.image} alt="" /></div>)}</div></section>
       <div className="alc-body"><aside className="alc-sidebar"><h2>Jump to</h2><nav aria-label="Jump to category group">{filteredGroups.map(group => <a href={`#alc-group-${group.id}`} key={group.id} className={`alc-side-link alc-tone-${group.id} ${activeGroup === group.id ? "alc-current" : ""}`} aria-current={activeGroup === group.id ? "location" : undefined} onClick={() => setActiveGroup(group.id)}><span className="alc-dot" /><span>{group.name}</span><small>{group.categories.length}</small></a>)}</nav><div className="alc-side-help"><Phone aria-hidden="true" /><a href="tel:+8801712345678">Call +880 1712 345678</a><Link to="/support">Visit our help centre <ArrowRight /></Link></div></aside>
         <div className="alc-groups" aria-live="polite">{filteredGroups.length === 0 ? <section className="alc-empty"><Search aria-hidden="true" /><h2>No categories found</h2><p>Try another name, or look for “{query}” in all products.</p><Button variant="ghost" asChild className="alc-empty-link"><Link to="/search" search={{ q: query }}>Search all products <ArrowRight /></Link></Button></section> : filteredGroups.map(group => <section id={`alc-group-${group.id}`} key={group.id} className={`alc-group alc-tone-${group.id}`}><div className="alc-group-head"><div><span className="alc-eyebrow">{group.name.toUpperCase()}</span><h2>{group.name}</h2></div><span className="alc-group-count">{group.categories.length} {group.categories.length === 1 ? "category" : "categories"}</span></div><div className="alc-tile-grid">{group.categories.map(category => {
           const content = <><span className="alc-tile-art"><img src={category.image.url} alt="" loading="lazy" /></span><span className="alc-tile-info"><strong>{category.name}</strong><small>{countText(category.realCount)}</small><span className="alc-shop"><span className="alc-phone-label">Shop</span><span className="alc-desktop-label">Shop now</span><ArrowRight aria-hidden="true" /></span></span></>;
