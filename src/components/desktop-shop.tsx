@@ -1,6 +1,7 @@
 import { HomeTrendingGrid } from "@/components/home-trending";
+import { HomeCategorySection } from "@/components/home-categories";
 import { getProduct } from "@/lib/products";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowRight, ChevronRight, Heart, House, Phone, Search, ShoppingCart, Star, Truck, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartCount } from "@/components/live";
@@ -41,11 +42,13 @@ const brands = [[b1, "Aptamil"], [b2, "Nestlé"], [b3, "Sudocrem"], [b4, "Pamper
 const services = [[s1, "Fast & Reliable Delivery"], [s2, "100% Original Products"], [s3, "Easy Returns"], [s4, "Dedicated Support"]] as const;
 
 export function DeskHeader({ active }: { active?: "home" | "categories" }) {
+  const pathname = useRouterState({ select: state => state.location.pathname });
+  const isActive = (path: string) => path === "/" ? pathname === "/" : pathname.startsWith(path);
   return <header className="dk-header">
     <div className="dk-topbar"><div className="dk-wrap"><span><Truck />Free delivery on orders over ৳3,000</span><span><Phone />+880 1712 345678</span></div></div>
     <div className="dk-wrap dk-main">
       <Link to="/" aria-label="Baby Choice home"><img src={logo.url} alt="Baby Choice — Everything for Your Little One" className="dk-logo" /></Link>
-      <Link to="/search" className="dk-search"><Search /><span>Search for baby products, brands, or categories...</span><b>Search</b></Link>
+      <Button asChild variant="ghost" className="dk-search"><Link to="/search" aria-label="Search baby products"><Search /><span>Search for baby products, brands, or categories...</span><b>Search<ArrowRight /></b></Link></Button>
       <div className="dk-icons">
         <Link to="/wishlist" aria-label="Wishlist"><Heart /><span>Wishlist</span></Link>
         <Link to="/account" aria-label="Account"><UserRound /><span>Account</span></Link>
@@ -53,14 +56,14 @@ export function DeskHeader({ active }: { active?: "home" | "categories" }) {
       </div>
     </div>
     <nav className="dk-nav"><div className="dk-wrap">
-      <MenuButton />
-      <Link to="/" className={active === "home" ? "on" : ""}>Home</Link>
-      <Link to="/categories" className={active === "categories" ? "on" : ""}>All Categories</Link>
-      <Link to="/categories/baby-clothing">Baby Clothing</Link>
-      <Link to="/trending">Trending</Link>
-      <Link to="/brands">Brands</Link>
-      <Link to="/offers">Offers</Link>
-      <Link to="/about">About & Contact</Link>
+      <MenuButton className="dk-menu" />
+      <Link to="/" className={isActive("/") ? "on" : ""} aria-current={isActive("/") ? "page" : undefined}>Home</Link>
+      <Link to="/categories" className={isActive("/categories") ? "on" : ""}>All Categories</Link>
+      <Link to="/categories/baby-clothing" className={isActive("/categories/baby-clothing") ? "on" : ""}>Baby Clothing</Link>
+      <Link to="/trending" className={isActive("/trending") ? "on" : ""}>Trending</Link>
+      <Link to="/brands" className={isActive("/brands") ? "on" : ""}>Brands</Link>
+      <Link to="/offers" className={`dk-offers ${isActive("/offers") ? "on" : ""}`}>Offers</Link>
+      <Link to="/about" className={isActive("/about") ? "on" : ""}>About & Contact</Link>
     </div></nav>
   </header>;
 }
@@ -86,8 +89,7 @@ export function DesktopHome() {
   return <Shell active="home">
     <HomeBanners />
     <section className="dk-services">{services.map(([img, t]) => <div key={t}><img src={img.url} alt="" /><p>{t}</p></div>)}</section>
-    <Heading title="Shop By Category" to="/categories" action="View All Categories" />
-    <section className="dk-cats">{homeCats.map(([img, n], index) => <Link key={n} to="/categories/$cat" params={{ cat: homeCategories[index]?.slug ?? "baby-clothing" }} className="demo-button dk-cat"><img src={img.url} alt={n} /><span>{n}<ChevronRight /></span></Link>)}</section>
+    <HomeCategorySection />
     <section className="dk-promos"><img src={bath.url} alt="Bath Time Essentials. Shop Now." /><img src={feeding.url} alt="Feeding Made Easy. Explore Now." /></section>
     <Heading title="Trending Products" to="/trending" action="View More" />
     <HomeTrendingGrid />
