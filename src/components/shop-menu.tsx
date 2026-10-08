@@ -11,7 +11,7 @@ const groups = [
   { title: "", items: [
     { name: "Home", icon: House, to: "/" }, { name: "Categories", icon: LayoutGrid, to: "/categories" },
     { name: "Offers", icon: BadgePercent, to: "/offers" }, { name: "New Arrivals", icon: Gift, to: "/trending" },
-    { name: "Best Sellers", icon: Crown, to: "/trending/popular" },
+    { name: "Best Sellers", icon: Crown, to: "/trending" },
   ] },
   { title: "MY ACCOUNT", items: [
     { name: "My Account", icon: UserRound, to: "/account" }, { name: "My Orders", icon: Package, to: "/account/orders" },
