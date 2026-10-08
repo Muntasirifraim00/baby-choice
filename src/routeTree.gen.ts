@@ -21,6 +21,7 @@ import { Route as SearchRouteImport } from './routes/search'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as TrendingRouteImport } from './routes/trending'
 import { Route as WishlistRouteImport } from './routes/wishlist'
+import { Route as AccountSectionRouteImport } from './routes/account_.$section'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
 import { Route as BrandsBrandRouteImport } from './routes/brands.$brand'
 import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
@@ -97,6 +98,11 @@ const TrendingRoute = TrendingRouteImport.update({
 const WishlistRoute = WishlistRouteImport.update({
   id: '/wishlist',
   path: '/wishlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountSectionRoute = AccountSectionRouteImport.update({
+  id: '/account_/$section',
+  path: '/account/$section',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandsIndexRoute = BrandsIndexRouteImport.update({
@@ -198,6 +204,7 @@ export interface FileRoutesByFullPath {
   '/support': typeof SupportRoute
   '/trending': typeof TrendingRouteWithChildren
   '/wishlist': typeof WishlistRoute
+  '/account/$section': typeof AccountSectionRoute
   '/brands/$brand': typeof BrandsBrandRoute
   '/categories/$cat': typeof CategoriesCatRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
@@ -227,6 +234,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/support': typeof SupportRoute
   '/wishlist': typeof WishlistRoute
+  '/account/$section': typeof AccountSectionRoute
   '/brands/$brand': typeof BrandsBrandRoute
   '/categories/$cat': typeof CategoriesCatRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
@@ -258,6 +266,7 @@ export interface FileRoutesById {
   '/support': typeof SupportRoute
   '/trending': typeof TrendingRouteWithChildren
   '/wishlist': typeof WishlistRoute
+  '/account_/$section': typeof AccountSectionRoute
   '/brands/$brand': typeof BrandsBrandRoute
   '/categories/$cat': typeof CategoriesCatRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
@@ -291,6 +300,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/trending'
     | '/wishlist'
+    | '/account/$section'
     | '/brands/$brand'
     | '/categories/$cat'
     | '/categories/baby-clothing'
@@ -320,6 +330,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/support'
     | '/wishlist'
+    | '/account/$section'
     | '/brands/$brand'
     | '/categories/$cat'
     | '/categories/baby-clothing'
@@ -350,6 +361,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/trending'
     | '/wishlist'
+    | '/account_/$section'
     | '/brands/$brand'
     | '/categories/$cat'
     | '/categories/baby-clothing'
@@ -382,6 +394,7 @@ export interface RootRouteChildren {
   SupportRoute: typeof SupportRoute
   TrendingRoute: typeof TrendingRouteWithChildren
   WishlistRoute: typeof WishlistRoute
+  AccountSectionRoute: typeof AccountSectionRoute
   BrandsBrandRoute: typeof BrandsBrandRoute
   CategoriesCatRoute: typeof CategoriesCatRoute
   CategoriesBabyClothingRoute: typeof CategoriesBabyClothingRoute
@@ -477,6 +490,13 @@ declare module '@tanstack/react-router' {
       path: '/wishlist'
       fullPath: '/wishlist'
       preLoaderRoute: typeof WishlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account_/$section': {
+      id: '/account_/$section'
+      path: '/account/$section'
+      fullPath: '/account/$section'
+      preLoaderRoute: typeof AccountSectionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brands/': {
@@ -660,6 +680,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportRoute: SupportRoute,
   TrendingRoute: TrendingRouteWithChildren,
   WishlistRoute: WishlistRoute,
+  AccountSectionRoute: AccountSectionRoute,
   BrandsBrandRoute: BrandsBrandRoute,
   CategoriesCatRoute: CategoriesCatRoute,
   CategoriesBabyClothingRoute: CategoriesBabyClothingRoute,
