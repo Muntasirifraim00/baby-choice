@@ -955,3 +955,6 @@ button.ac-row{grid-template-columns:1fr auto}
 .sr-cart .sr-like-heading h2{font-size:calc(var(--su)*34);background:linear-gradient(120deg,var(--shop-ink),var(--shop-purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .lv-cart .co-item-price{flex-wrap:nowrap;white-space:nowrap;overflow:hidden}
 .lv-cart .co-item-price del{white-space:nowrap}
+.lv-cart .co-item-price{overflow:visible;gap:calc(var(--su)*10)}
+.lv-cart .co-item-price strong{font-size:calc(var(--su)*26)}
+.lv-cart .co-item-price del{font-size:calc(var(--su)*17)}
