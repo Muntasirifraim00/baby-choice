@@ -3,3 +3,6 @@
 - [x] Match the new product-page reference with Baby Choice branding and working purchase controls.
 - [x] Add the reference-style menu with working destinations and closing controls.
 - [x] Connect mobile and desktop home categories to their exact product listings and verify them.
+- [x] Generate a unique clean, text-free image for each of the 49 catalog products.
+- [x] Replace old product crops throughout catalog, homepage, categories and desktop views.
+- [x] Verify all new images render and product/cart navigation remains unchanged.
