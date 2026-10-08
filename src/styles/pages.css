@@ -1,0 +1,7 @@
+/* Redesigned pages (src/components/pages) */
+@import "./pages/shell.css";
+@import "./pages/mobile-home.css";
+@import "./pages/category.css";
+@import "./pages/product.css";
+@import "./pages/cart.css";
+@import "./pages/checkout.css";

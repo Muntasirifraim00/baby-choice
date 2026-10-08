@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HomeDesign } from "@/components/home-design/home-design";
+import { MobileHome } from "@/components/pages/mobile-home";
 
 export const Route = createFileRoute("/")({
-  component: HomeDesign,
+  component: HomePage,
   head: () => ({
     meta: [
       { title: "Baby Choice — Everything for Your Little One" },
@@ -29,3 +30,17 @@ export const Route = createFileRoute("/")({
     ],
   }),
 });
+
+/** Desktop design at >= 900px, phone design below (classes in styles/pages/mobile-home.css). */
+function HomePage() {
+  return (
+    <>
+      <div className="hd-only">
+        <HomeDesign />
+      </div>
+      <div className="mh-only">
+        <MobileHome />
+      </div>
+    </>
+  );
+}

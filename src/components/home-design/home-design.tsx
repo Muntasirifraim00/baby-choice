@@ -413,7 +413,7 @@ function ProductImg({ product, className }: { product: Product; className?: stri
 
 /* ---------------------------------------------------------------- header */
 
-function Announcement() {
+export function Announcement() {
   const items = [
     ["Free gift wrapping on every order", ""],
     ["Cash on delivery all over Bangladesh", "y"],
@@ -436,7 +436,7 @@ function Announcement() {
   );
 }
 
-function Header() {
+export function Header() {
   const { lines, wish } = useCart();
   const count = lines.reduce((n, l) => n + l.qty, 0);
   const [mega, setMega] = useState(false);
@@ -1293,7 +1293,7 @@ function Newsletter() {
   );
 }
 
-function Footer() {
+export function Footer() {
   return (
     <footer className="hd-footer">
       <div className="hd-wrap">
