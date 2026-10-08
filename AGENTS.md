@@ -31,3 +31,4 @@
 - Use ShopHeader for the mobile homepage and catalog masthead, with mobile-only styling to preserve desktop navigation.
 - Centralize popup-free cart flight feedback in a browser-safe helper invoked by the cart store; pass the pressed control as origin and use a temporary cart target when the header is offscreen.
 - Keep mobile footer presentation shared in ShopBottomNav with pathname-derived selection and mobile-only styles so navigation highlights stay accurate without altering desktop layouts.
+- Render the illustrated desktop masthead through one DesktopHeader used by DeskHeader, with isolated desktop-only CSS and query-string search handoff, so all desktop pages remain consistent without changing mobile presentation.
