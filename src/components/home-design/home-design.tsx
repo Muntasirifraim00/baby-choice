@@ -1,3 +1,4 @@
+import { brandSlug } from "@/lib/brands";
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
@@ -1236,7 +1237,7 @@ function Brands() {
           <Link
             key={b.name}
             to="/brands/$brand"
-            params={{ brand: slugify(b.name) }}
+            params={{ brand: brandSlug(b.name) }}
             className="hd-lift"
             style={{ color: b.c }}
           >

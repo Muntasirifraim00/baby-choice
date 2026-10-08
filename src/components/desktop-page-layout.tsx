@@ -16,8 +16,8 @@ const accountLinks = [
 
 /** Redesigned pages render their own responsive header/footer (PageShell). */
 const ownsChrome = (path: string) =>
-  path.startsWith("/categories/") || path.startsWith("/product/") || path === "/cart" ||
-  path === "/checkout" || path.startsWith("/checkout/") || path === "/order-confirmed" || ["/search", "/wishlist", "/offers", "/trending"].includes(path);
+  path.startsWith("/account/") || path.startsWith("/brands/") || path.startsWith("/categories/") || path.startsWith("/product/") || path === "/cart" ||
+  path === "/checkout" || path.startsWith("/checkout/") || path === "/order-confirmed" || ["/search", "/wishlist", "/offers", "/trending", "/login", "/account", "/support", "/about", "/brands"].includes(path);
 
 /** One rendered page and one cart state serve both screen sizes. */
 export function DesktopPageLayout({ children }: { children: ReactNode }) {

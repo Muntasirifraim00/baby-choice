@@ -1,3 +1,4 @@
+import { brandSlug } from "@/lib/brands";
 import { useEffect, useState, type FormEvent, type MouseEvent } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
@@ -884,7 +885,7 @@ function Brands() {
       <h2 className="mh-h2 mh-center">Brands parents trust</h2>
       <div className="mh-brands">
         {BRANDS.map((b) => (
-          <Link key={b.name} to="/brands/$brand" params={{ brand: slugify(b.name) }} style={{ color: b.c }}>
+          <Link key={b.name} to="/brands/$brand" params={{ brand: brandSlug(b.name) }} style={{ color: b.c }}>
             {b.name}
           </Link>
         ))}

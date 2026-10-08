@@ -1,3 +1,4 @@
+import { brandSlug } from "@/lib/brands";
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
@@ -42,7 +43,7 @@ export function HomeBrands() {
           if (!brand) return null;
           const [image, name] = brand;
           return <Button asChild variant="ghost" className="demo-button hb-card" key={name}>
-            <Link to="/brands/$brand" params={{ brand: slugify(name) }} aria-label={`Shop ${name}`}><img src={image.url} alt={name} /><span>{name}<ArrowRight /></span></Link>
+            <Link to="/brands/$brand" params={{ brand: brandSlug(name) }} aria-label={`Shop ${name}`}><img src={image.url} alt={name} /><span>{name}<ArrowRight /></span></Link>
           </Button>;
         })}
       </div>)}

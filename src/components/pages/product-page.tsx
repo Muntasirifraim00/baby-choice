@@ -1,3 +1,4 @@
+import { brandSlug } from "@/lib/brands";
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { PageShell } from "@/components/pages/page-shell";
@@ -278,7 +279,7 @@ export function ProductPage({ product: x }: { product: Product }) {
             <div className="pd-details">
               <section className="pd-title">
                 <div className="pd-chips">
-                  <Link to="/brands/$brand" params={{ brand: slugify(x.brand) }} className="pd-brandlink">{x.brand}</Link>
+                  <Link to="/brands/$brand" params={{ brand: brandSlug(x.brand) }} className="pd-brandlink">{x.brand}</Link>
                   {!subIsCode && x.sub && <span className="pd-chip mint">{x.sub}</span>}
                   {x.badge && <span className="pd-chip green">{x.badge}</span>}
                 </div>
@@ -362,7 +363,7 @@ export function ProductPage({ product: x }: { product: Product }) {
               {/* highlights (facts from the catalog) */}
               <section className="pd-sec" aria-label="At a glance">
                 <div className="pd-hl">
-                  <Link to="/brands/$brand" params={{ brand: slugify(x.brand) }} className="pd-hl-i mint">
+                  <Link to="/brands/$brand" params={{ brand: brandSlug(x.brand) }} className="pd-hl-i mint">
                     <svg className="pd-float-sm" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6 17 4 12 5 5c4 0 7 2 7 6 0-4 3-6 7-6 1 7-1 12-7 16z" fill="url(#hdMint)" /></svg>
                     <span><small>Brand</small>{x.brand}</span>
                   </Link>

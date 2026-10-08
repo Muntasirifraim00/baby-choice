@@ -6,3 +6,4 @@
 /* The field owns the focus ring, not the input inside it. */
 .srh-page .srh-field input:focus-visible{outline:none}
 @media(min-width:900px){.srh-discovery>.spc-section-head:has(+.spc-chip-row),.srh-discovery>.spc-section-head+.spc-chip-row{display:none}}
+@media(min-width:900px){.srh-desktop-search.srh-has-query{display:none}.srh-results .srh-few{grid-template-columns:1fr}.srh-few .spc-card{grid-template-columns:190px minmax(0,1fr)}}

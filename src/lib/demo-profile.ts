@@ -1,0 +1,10 @@
+import { useEffect, useState } from 'react';
+import { z } from 'zod';
+export const bdPhone=z.string().trim().regex(/^(\+?880|0)1[3-9]\d{8}$/,'Enter a valid Bangladesh mobile number.');
+export const profileSchema=z.object({name:z.string().trim().min(1,'Please enter your name.').max(100),phone:bdPhone,email:z.union([z.literal(''),z.string().trim().email('Enter a valid email address.').max(255)])});
+export type DemoAddress={id:string;label:string;line:string;area:string;city:string;phone:string;isDefault:boolean};
+export type DemoProfile={name:string;phone:string;email:string;baby:{name:string;birthDate:string;gender:'girl'|'boy'|'prefer-not'};addresses:DemoAddress[];notifications:Record<string,boolean>;quietFrom:string;quietTo:string;signedIn:boolean};
+export const emptyProfile:DemoProfile={name:'',phone:'',email:'',baby:{name:'',birthDate:'',gender:'prefer-not'},addresses:[],notifications:{},quietFrom:'22:00',quietTo:'07:00',signedIn:false};
+let current:DemoProfile=emptyProfile;const listeners=new Set<(p:DemoProfile)=>void>();
+export function useDemoProfile(){const [profile,set]=useState(current);useEffect(()=>{try{const raw=localStorage.getItem('bc-profile');if(raw){const value=JSON.parse(raw);current={...emptyProfile,...value,baby:{...emptyProfile.baby,...value.baby}};set(current)}}catch{}listeners.add(set);return()=>{listeners.delete(set)}},[]);const update=(value:Partial<DemoProfile>)=>{current={...current,...value};try{localStorage.setItem('bc-profile',JSON.stringify(current))}catch{}listeners.forEach(fn=>fn(current))};const clear=()=>{current={...emptyProfile};try{localStorage.removeItem('bc-profile')}catch{}listeners.forEach(fn=>fn(current))};return {profile,update,clear}}
+export function babyStage(date:string){const born=new Date(date);const now=new Date();const months=Math.max(0,(now.getFullYear()-born.getFullYear())*12+now.getMonth()-born.getMonth()-(now.getDate()<born.getDate()?1:0));return {age:months<24?`${months} months`:`${Math.floor(months/12)} years`,key:months<3?'nb':months<6?'m6':months<12?'m12':months<24?'y2':'y4',label:months<3?'Newborn 0–3m':months<6?'3–6m':months<12?'6–12m':months<24?'1–2y':'2–4y'}}
