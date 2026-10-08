@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronRight, Heart, House, Phone, Search, ShoppingCart, Star, Truck, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DemoControl } from "@/components/shop-navigation";
+import { AddToCartButton, CartCount, WishButton } from "@/components/live";
+import { slugify } from "@/lib/live-head";
 import { catalogCategories } from "@/lib/catalog-demo";
 import type { ReactNode } from "react";
 import logo from "@/assets/logo.png.asset.json";
@@ -53,7 +54,7 @@ function DeskHeader({ active }: { active: "home" | "categories" }) {
       <div className="dk-icons">
         <Link to="/wishlist" aria-label="Wishlist"><Heart /><span>Wishlist</span></Link>
         <Link to="/account" aria-label="Account"><UserRound /><span>Account</span></Link>
-        <Link to="/cart" aria-label="Shopping Cart" className="dk-cart"><ShoppingCart /><i>3</i><span>Cart</span></Link>
+        <Link to="/cart" aria-label="Shopping Cart" className="dk-cart"><ShoppingCart /><CartCount /><span>Cart</span></Link>
       </div>
     </div>
     <nav className="dk-nav"><div className="dk-wrap">
@@ -90,13 +91,13 @@ export function DesktopHome() {
     <section className="dk-hero"><img src={hero.url} alt="Baby Choice — Happy Babies Happier Tomorrows. Shop Now." /></section>
     <section className="dk-services">{services.map(([img, t]) => <div key={t}><img src={img.url} alt="" /><p>{t}</p></div>)}</section>
     <Heading title="Shop By Category" to="/categories" action="View All Categories" />
-    <section className="dk-cats">{homeCats.map(([img, n]) => <DemoControl key={n} label={n} className="dk-cat"><img src={img.url} alt={n} /><span>{n}<ChevronRight /></span></DemoControl>)}</section>
+    <section className="dk-cats">{homeCats.map(([img, n]) => <Link key={n} to="/categories" className="demo-button dk-cat"><img src={img.url} alt={n} /><span>{n}<ChevronRight /></span></Link>)}</section>
     <section className="dk-promos"><img src={bath.url} alt="Bath Time Essentials. Shop Now." /><img src={feeding.url} alt="Feeding Made Easy. Explore Now." /></section>
     <Heading title="Trending Products" to="/trending" action="View More" />
     <section className="dk-products">{products.map(p => <article key={p.code} className="dk-product">
-      <div className="dk-pimg"><img src={p.image.url} alt={p.title} /><em>{p.discount}% OFF</em><DemoControl label={`Wishlist ${p.title}`} className="dk-heart"><Heart /></DemoControl></div>
+      <div className="dk-pimg"><img src={p.image.url} alt={p.title} /><em>{p.discount}% OFF</em><WishButton slug={p.slug} className="dk-heart" /></div>
       <h3>{p.title}</h3><div className="dk-rating"><Star />{p.rating}</div><small>{p.code}</small>
-      <div className="dk-price"><strong>৳ {p.price}</strong><DemoControl label={`Add ${p.title} to cart`} className="dk-add"><ShoppingCart />Add</DemoControl></div>
+      <div className="dk-price"><strong>৳ {p.price}</strong><AddToCartButton slug={p.slug} className="dk-add"><ShoppingCart />Add</AddToCartButton></div>
     </article>)}</section>
     <Heading title="Top Brands" to="/brands" action="View All Brands" />
     <section className="dk-brands">{brands.map(([img, n]) => <Link key={n} to="/brands" aria-label={n}><img src={img.url} alt={n} /></Link>)}</section>
@@ -112,7 +113,7 @@ export function DesktopCategories() {
       const inner = <><img src={c.image.url} alt={c.name} /><span><span><strong>{c.name}</strong><small>{c.count} Items</small></span><ChevronRight /></span></>;
       return i === 0
         ? <Button key={c.name} asChild variant="ghost" className="demo-button dk-allcat"><Link to="/categories/baby-clothing">{inner}</Link></Button>
-        : <DemoControl key={c.name} label={c.name} className="dk-allcat">{inner}</DemoControl>;
+        : <Button key={c.name} asChild variant="ghost" className="demo-button dk-allcat"><Link to="/categories/$cat" params={{ cat: slugify(c.name) }}>{inner}</Link></Button>;
     })}</section>
     <section className="dk-cat-promo"><Link to="/categories/baby-clothing" aria-label="Shop Now"><img src={allPromo.url} alt="Find Everything Your Baby Needs. Shop Now." /></Link></section>
   </Shell>;

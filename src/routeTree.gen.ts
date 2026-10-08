@@ -24,6 +24,7 @@ import { Route as WishlistRouteImport } from './routes/wishlist'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
 import { Route as BrandsBrandRouteImport } from './routes/brands.$brand'
 import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
+import { Route as CategoriesCatRouteImport } from './routes/categories.$cat'
 import { Route as CategoriesBabyClothingRouteImport } from './routes/categories.baby-clothing'
 import { Route as CheckoutIndexRouteImport } from './routes/checkout.index'
 import { Route as CheckoutAddressRouteImport } from './routes/checkout.address'
@@ -113,6 +114,11 @@ const CategoriesIndexRoute = CategoriesIndexRouteImport.update({
   path: '/categories/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategoriesCatRoute = CategoriesCatRouteImport.update({
+  id: '/categories/$cat',
+  path: '/categories/$cat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategoriesBabyClothingRoute = CategoriesBabyClothingRouteImport.update({
   id: '/categories/baby-clothing',
   path: '/categories/baby-clothing',
@@ -193,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/trending': typeof TrendingRouteWithChildren
   '/wishlist': typeof WishlistRoute
   '/brands/$brand': typeof BrandsBrandRoute
+  '/categories/$cat': typeof CategoriesCatRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/checkout/address': typeof CheckoutAddressRouteWithChildren
   '/checkout/payment': typeof CheckoutPaymentRoute
@@ -221,6 +228,7 @@ export interface FileRoutesByTo {
   '/support': typeof SupportRoute
   '/wishlist': typeof WishlistRoute
   '/brands/$brand': typeof BrandsBrandRoute
+  '/categories/$cat': typeof CategoriesCatRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/checkout/review': typeof CheckoutReviewRoute
@@ -251,6 +259,7 @@ export interface FileRoutesById {
   '/trending': typeof TrendingRouteWithChildren
   '/wishlist': typeof WishlistRoute
   '/brands/$brand': typeof BrandsBrandRoute
+  '/categories/$cat': typeof CategoriesCatRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/checkout/address': typeof CheckoutAddressRouteWithChildren
   '/checkout/payment': typeof CheckoutPaymentRoute
@@ -283,6 +292,7 @@ export interface FileRouteTypes {
     | '/trending'
     | '/wishlist'
     | '/brands/$brand'
+    | '/categories/$cat'
     | '/categories/baby-clothing'
     | '/checkout/address'
     | '/checkout/payment'
@@ -311,6 +321,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/wishlist'
     | '/brands/$brand'
+    | '/categories/$cat'
     | '/categories/baby-clothing'
     | '/checkout/payment'
     | '/checkout/review'
@@ -340,6 +351,7 @@ export interface FileRouteTypes {
     | '/trending'
     | '/wishlist'
     | '/brands/$brand'
+    | '/categories/$cat'
     | '/categories/baby-clothing'
     | '/checkout/address'
     | '/checkout/payment'
@@ -371,6 +383,7 @@ export interface RootRouteChildren {
   TrendingRoute: typeof TrendingRouteWithChildren
   WishlistRoute: typeof WishlistRoute
   BrandsBrandRoute: typeof BrandsBrandRoute
+  CategoriesCatRoute: typeof CategoriesCatRoute
   CategoriesBabyClothingRoute: typeof CategoriesBabyClothingRoute
   ProductSlugRoute: typeof ProductSlugRoute
   BrandsIndexRoute: typeof BrandsIndexRoute
@@ -485,6 +498,13 @@ declare module '@tanstack/react-router' {
       path: '/categories'
       fullPath: '/categories/'
       preLoaderRoute: typeof CategoriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categories/$cat': {
+      id: '/categories/$cat'
+      path: '/categories/$cat'
+      fullPath: '/categories/$cat'
+      preLoaderRoute: typeof CategoriesCatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categories/baby-clothing': {
@@ -641,6 +661,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrendingRoute: TrendingRouteWithChildren,
   WishlistRoute: WishlistRoute,
   BrandsBrandRoute: BrandsBrandRoute,
+  CategoriesCatRoute: CategoriesCatRoute,
   CategoriesBabyClothingRoute: CategoriesBabyClothingRoute,
   ProductSlugRoute: ProductSlugRoute,
   BrandsIndexRoute: BrandsIndexRoute,
