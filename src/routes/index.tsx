@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { DesktopHome } from "@/components/desktop-shop";
 import { CartCount } from "@/components/live";
 import { HomeBanners } from "@/components/home-banners";
+import { HomeV3Bottom, HomeV3Middle, HomeV3Top } from "@/components/home-v3";
 import { slugify } from "@/lib/live-head";
 import logo from "@/assets/logo.png.asset.json";
 import bath from "@/assets/bath.png.asset.json";
@@ -70,14 +71,17 @@ function Index() {
     <div className="mobile-frame">
       <main className="baby-screen">
         <ShopHeader />
-        <HomeBanners />
+        <HomeV3Top />
         <section className="service-strip" aria-label="Shopping benefits">{[
           [service1, "Fast & Reliable", "Delivery"], [service2, "100% Original", "Products"], [service3, "Easy", "Returns"], [service4, "Dedicated", "Support"],
         ].map(([image, line1, line2], i) => <div className="service-item" key={i}><img src={typeof image === "object" ? image.url : ""} alt="" /><p>{String(line1)}<br />{String(line2)}</p></div>)}</section>
         <HomeCategorySection />
+        <HomeV3Middle />
+        <HomeBanners />
         <section className="promo-grid" aria-label="Baby essentials"><div className="promo"><img src={bath.url} alt="Bath Time Essentials. Soft towels, washcloths and more. Shop Now." /><Link to="/categories/$cat" params={{ cat: "bath-and-hygiene" }} aria-label="Shop bath time essentials" className="demo-button promo-hit" /></div><div className="promo"><img src={feeding.url} alt="Feeding Made Easy. Bottles, bibs, high chairs and more. Explore Now." /><Link to="/categories/$cat" params={{ cat: "feeding-and-nursing" }} aria-label="Explore feeding essentials" className="demo-button promo-hit" /></div></section>
         <section className="products-section"><SectionHeading title="Trending Products" action="View More" /><HomeTrendingGrid /></section>
         <HomeBrands />
+        <HomeV3Bottom />
         <ShopBottomNav active="Home" />
       </main>
     </div></>
