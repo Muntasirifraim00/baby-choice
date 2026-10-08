@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png.asset.json";
 import type { ReactNode } from "react";
 import { CartCount } from "@/components/live";
+import { MenuButton } from "@/components/shop-menu";
 
 export function DemoControl({ children, label, className = "" }: { children?: ReactNode; label: string; className?: string }) {
   return <Button type="button" variant="ghost" className={`demo-button ${className}`} aria-label={label} aria-disabled="true" tabIndex={-1}>{children}</Button>;
@@ -11,7 +12,7 @@ export function DemoControl({ children, label, className = "" }: { children?: Re
 
 export function ShopHeader() {
   return <><header className="shop-header">
-    <Button asChild variant="ghost" className="demo-button menu-button"><Link to="/categories" aria-label="Menu"><Menu /></Link></Button>
+    <MenuButton className="demo-button menu-button" />
     <img src={logo.url} className="shop-logo" alt="Baby Choice — Everything for Your Little One" />
     <div className="header-tools"><Button asChild variant="ghost" className="demo-button header-circle"><a href="tel:+8801712345678" aria-label="Call Baby Choice"><Phone fill="currentColor" /></a></Button><Button asChild variant="ghost" className="demo-button header-circle"><Link to="/cart" aria-label="Shopping Cart"><ShoppingCart fill="currentColor" /><CartCount className="cart-count" /></Link></Button></div>
   </header><Button variant="ghost" asChild className="search-bar search-link"><Link to="/search"><Search /><span>Search for baby products, brands, or categories...</span><span className="search-submit"><Search /></span></Link></Button></>;
