@@ -6,3 +6,9 @@
 @import "./pages/cart.css";
 @import "./pages/checkout.css";
 @import "./pages/all-categories.css";
+
+@import "./pages/shop-product-card.css";
+@import "./pages/search.css";
+@import "./pages/wishlist.css";
+@import "./pages/offers.css";
+@import "./pages/trending.css";

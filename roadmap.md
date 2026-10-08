@@ -16,3 +16,4 @@
 - [x] Generate a unique clean, text-free image for each of the 49 catalog products.
 - [x] Replace old product crops throughout catalog, homepage, categories and desktop views.
 - [x] Verify all new images render and product/cart navigation remains unchanged.
+- [x] Rebuild Search, Wishlist, Offers and Trending with shared product cards and PageShell; verified 360/390/1440px screenshots, single desktop header, no overflow, search/recent queries/filters/sort, focus trapping/Escape, cart on all pages, wishlist move/remove/Undo/list/empty, offer tabs/midnight countdown, trending tabs/show more and reduced motion; routing test and automatic build passed.
