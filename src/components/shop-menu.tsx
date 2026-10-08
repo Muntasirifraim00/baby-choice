@@ -42,7 +42,7 @@ export function ShopMenuProvider({ children }: { children: ReactNode }) {
           <nav aria-label="Baby Choice menu">{groups.map(group => <section key={group.title} className="bc-drawer-group">
             {group.title && <h2>{group.title}</h2>}
             {group.items.map(item => <Button asChild variant="ghost" key={item.name} className={`bc-drawer-item ${pathname === item.to && !("hash" in item) ? "is-active" : ""}`}>
-              <Link to={item.to} hash={"hash" in item ? item.hash : ""} onClick={() => setOpen(false)}><item.icon /><span>{item.name}</span><ChevronRight /></Link>
+              <Link to={item.to as "/"} hash={"hash" in item ? item.hash : ""} onClick={() => setOpen(false)}><item.icon /><span>{item.name}</span><ChevronRight /></Link>
             </Button>)}
           </section>)}</nav>
           <div className="bc-drawer-preferences">
