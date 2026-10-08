@@ -990,7 +990,12 @@ button.ac-row{grid-template-columns:1fr auto}
 .all-category-grid .all-category-card{height:auto;min-height:27.6cqw;border:none;align-items:center;justify-content:flex-start;padding:2.3cqw 1cqw 1.6cqw;text-align:center}
 .all-category-grid .all-category-card>img{display:none}
 .all-category-count{display:block;margin-top:.5cqw;font-size:1.6cqw;font-weight:700;color:var(--shop-purple);opacity:.85}
-.all-category-grid .category-explore{margin-top:.9cqw}
+.all-category-grid .category-art{width:12.8cqw;height:12.8cqw;box-shadow:0 .8cqw 2cqw rgba(17,12,46,.13)}
+.all-category-grid .category-art>img{width:10.6cqw;height:10.6cqw}
+.all-category-grid .category-name{margin-top:1.5cqw;font-size:2.15cqw;line-height:2.55cqw}
+.all-category-grid .category-explore{margin-top:.9cqw;font-size:1.75cqw;gap:.5cqw;padding:.65cqw 1.4cqw}
+.all-category-grid .category-explore svg{width:1.5cqw;height:1.5cqw}
+.all-category-grid .category-card::before{top:-6.5cqw;right:-6.5cqw;width:15cqw;height:15cqw}
 
 /* Fix: product names hidden under images across listings */
 .product-image,.clothing-product-image,.search-product-image{box-sizing:border-box;overflow:hidden}
