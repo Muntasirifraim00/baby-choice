@@ -34,22 +34,22 @@ export function ShopMenuProvider({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: s => s.location.pathname });
   return <MenuContext.Provider value={() => setOpen(true)}>{children}
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetContent side="left" className="bc-menu" aria-describedby={undefined}>
+      <SheetContent side="left" className="bc-drawer" aria-describedby={undefined}>
         <SheetTitle className="sr-only">Baby Choice menu</SheetTitle>
-        <div className="bc-menu-scroll">
-          <Link to="/" className="bc-menu-brand" onClick={() => setOpen(false)}><img src={logo.url} alt="Baby Choice — Everything for Your Little One" /></Link>
-          <Link to="/account" className="bc-menu-profile" onClick={() => setOpen(false)}><span><UserRound /></span><div><b>Sara Ahmed</b><small>saraahmed@gmail.com</small></div><ChevronRight /></Link>
-          <nav aria-label="Baby Choice menu">{groups.map(group => <section key={group.title} className="bc-menu-group">
+        <div className="bc-drawer-scroll">
+          <Link to="/" className="bc-drawer-brand" onClick={() => setOpen(false)}><img src={logo.url} alt="Baby Choice — Everything for Your Little One" /></Link>
+          <Link to="/account" className="bc-drawer-profile" onClick={() => setOpen(false)}><span><UserRound /></span><div><b>Sara Ahmed</b><small>saraahmed@gmail.com</small></div><ChevronRight /></Link>
+          <nav aria-label="Baby Choice menu">{groups.map(group => <section key={group.title} className="bc-drawer-group">
             {group.title && <h2>{group.title}</h2>}
-            {group.items.map(item => <Button asChild variant="ghost" key={item.name} className={`bc-menu-item ${pathname === item.to && !("hash" in item) ? "is-active" : ""}`}>
+            {group.items.map(item => <Button asChild variant="ghost" key={item.name} className={`bc-drawer-item ${pathname === item.to && !("hash" in item) ? "is-active" : ""}`}>
               <Link to={item.to} hash={"hash" in item ? item.hash : ""} onClick={() => setOpen(false)}><item.icon /><span>{item.name}</span><ChevronRight /></Link>
             </Button>)}
           </section>)}</nav>
-          <div className="bc-menu-preferences">
+          <div className="bc-drawer-preferences">
             <label><Globe /><span>Language</span><select aria-label="Language" defaultValue="en"><option value="en">English</option></select><ChevronRight /></label>
             <label><Coins /><span>Currency</span><select aria-label="Currency" defaultValue="BDT"><option value="BDT">BDT (৳)</option></select><ChevronRight /></label>
           </div>
-          <section className="bc-menu-promo"><div><h2><span>Special Offers</span><br />Just for Your Little One</h2><p>Get the best deals on baby products</p><Button asChild><Link to="/offers" onClick={() => setOpen(false)}>Shop Now<ArrowRight /></Link></Button></div><img src={baby} alt="Baby in a pink outfit" loading="lazy" width={768} height={768} /></section>
+          <section className="bc-drawer-promo"><div><h2><span>Special Offers</span><br />Just for Your Little One</h2><p>Get the best deals on baby products</p><Button asChild><Link to="/offers" onClick={() => setOpen(false)}>Shop Now<ArrowRight /></Link></Button></div><img src={baby} alt="Baby in a pink outfit" loading="lazy" width={768} height={768} /></section>
         </div>
       </SheetContent>
     </Sheet>

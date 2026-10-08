@@ -686,41 +686,41 @@ body { margin: 0; background: var(--shop-backdrop); }
 
 /* Shared reference-style navigation drawer. */
 :root { --menu-shade: oklch(.12 .02 280 / 58%); --menu-pink-soft: oklch(.98 .018 340); }
-body:has(.bc-menu) [data-state][class*="bg-black"] { background: var(--menu-shade); }
-.bc-menu { left:max(0px,calc((100vw - 768px)/2)); width:min(58vw,446px); max-width:none; height:100dvh; padding:0; border:0; border-radius:0 20px 20px 0; background:var(--shop-paper); color:var(--shop-ink); font-family:Roboto,Arial,sans-serif; container-type:inline-size; overflow:hidden; }
-.bc-menu-scroll { height:100%; overflow-y:auto; overscroll-behavior:contain; padding:18px 5.2cqw 26px; scrollbar-width:thin; }
-.bc-menu-brand { display:block; margin:0 48px 20px 2cqw; }
-.bc-menu-brand img { width:100%; max-width:280px; height:60px; object-fit:contain; object-position:left center; }
-.bc-menu>button { top:20px; right:18px; padding:8px; border-radius:50%; color:var(--shop-ink); background:var(--shop-lilac); opacity:1; }
-.bc-menu>button svg { width:24px; height:24px; }
-.bc-menu-profile { display:flex; align-items:center; gap:12px; padding:16px 12px; margin-bottom:14px; border-radius:8px; background:var(--menu-pink-soft); }
-.bc-menu-profile>span { width:58px; height:58px; display:grid; place-items:center; border-radius:50%; background:var(--shop-lilac); flex-shrink:0; color:var(--shop-purple); }
-.bc-menu-profile>span svg { width:30px; height:30px; }
-.bc-menu-profile div { flex:1; min-width:0; }
-.bc-menu-profile b { display:block; font-size:18px; font-weight:800; }
-.bc-menu-profile small { display:block; font-size:13px; color:var(--shop-muted); overflow-wrap:anywhere; }
-.bc-menu-profile>svg { width:18px; flex-shrink:0; }
-.bc-menu-group { padding:8px 0 15px; }
-.bc-menu-group+.bc-menu-group { border-top:1px solid var(--shop-line); padding-top:18px; }
-.bc-menu-group h2 { font-size:12px; font-weight:600; color:var(--shop-muted); margin:0 8px 12px; }
-.bc-menu-item { display:flex; width:100%; height:48px; padding:0 12px; gap:16px; color:var(--shop-ink); border-radius:8px; justify-content:flex-start; font-size:16px; font-weight:500; white-space:normal; }
-.bc-menu-item>svg:first-child { width:24px; height:24px; stroke-width:1.7; flex-shrink:0; }
-.bc-menu-item>span { flex:1; min-width:0; text-align:left; }
-.bc-menu-item>svg:last-child { width:16px; height:16px; color:var(--shop-muted); flex-shrink:0; }
-.bc-menu-item.is-active,.bc-menu-item:hover { background:var(--shop-lilac); color:var(--shop-purple); }
-.bc-menu-preferences { border-top:1px solid var(--shop-line); padding:14px 12px; }
-.bc-menu-preferences label { display:flex; gap:16px; align-items:center; min-height:44px; font-size:14px; }
-.bc-menu-preferences label>svg:first-child { width:24px; height:24px; flex-shrink:0; }
-.bc-menu-preferences label>svg:last-child { width:16px; height:16px; color:var(--shop-muted); }
-.bc-menu-preferences span { flex:1; }
-.bc-menu-preferences select { appearance:none; background:transparent; color:var(--shop-muted); border:0; width:auto; max-width:100px; cursor:pointer; }
-.bc-menu-promo { position:relative; isolation:isolate; min-height:150px; border-radius:8px; overflow:hidden; background:var(--menu-pink-soft); padding:18px 16px; }
-.bc-menu-promo>div { position:relative; z-index:1; max-width:70%; }
-.bc-menu-promo h2 { font-size:16px; font-weight:800; line-height:1.25; margin:0; }
-.bc-menu-promo h2 span { color:var(--shop-pink); }
-.bc-menu-promo p { font-size:11px; color:var(--shop-muted); margin:8px 0 12px; }
-.bc-menu-promo img { position:absolute; right:-8%; bottom:0; width:60%; height:100%; object-fit:cover; object-position:right; z-index:-1; }
-.bc-menu-promo a { background:var(--shop-pink); color:var(--shop-paper); font-size:12px; height:34px; padding:0 12px; border-radius:6px; gap:8px; }
-@media(max-width:520px) { .bc-menu { width:82vw; } .bc-menu-item { height:44px; font-size:14px; gap:14px; } .bc-menu-profile b { font-size:16px; } .bc-menu-profile small { font-size:12px; } }
-@media(min-width:1024px) { .bc-menu { left:0; width:390px; } }
-@media(prefers-reduced-motion:reduce) { .bc-menu { animation:none; transition:none; } }
+body:has(.bc-drawer) [data-state][class*="bg-black"] { background: var(--menu-shade); }
+.bc-drawer { position:fixed; top:0; right:auto; display:block; left:max(0px,calc((100vw - 768px)/2)); width:min(58vw,446px); max-width:none; height:100dvh; padding:0; border:0; border-radius:0 20px 20px 0; background:var(--shop-paper); color:var(--shop-ink); font-family:Roboto,Arial,sans-serif; container-type:inline-size; overflow:hidden; }
+.bc-drawer-scroll { height:100%; overflow-y:auto; overscroll-behavior:contain; padding:18px 5.2cqw 26px; scrollbar-width:thin; }
+.bc-drawer-brand { display:block; margin:0 48px 20px 2cqw; }
+.bc-drawer-brand img { width:100%; max-width:280px; height:60px; object-fit:contain; object-position:left center; }
+.bc-drawer>button { top:20px; right:18px; padding:8px; border-radius:50%; color:var(--shop-ink); background:var(--shop-lilac); opacity:1; }
+.bc-drawer>button svg { width:24px; height:24px; }
+.bc-drawer-profile { display:flex; align-items:center; gap:12px; padding:16px 12px; margin-bottom:14px; border-radius:8px; background:var(--menu-pink-soft); }
+.bc-drawer-profile>span { width:58px; height:58px; display:grid; place-items:center; border-radius:50%; background:var(--shop-lilac); flex-shrink:0; color:var(--shop-purple); }
+.bc-drawer-profile>span svg { width:30px; height:30px; }
+.bc-drawer-profile div { flex:1; min-width:0; }
+.bc-drawer-profile b { display:block; font-size:18px; font-weight:800; }
+.bc-drawer-profile small { display:block; font-size:13px; color:var(--shop-muted); overflow-wrap:anywhere; }
+.bc-drawer-profile>svg { width:18px; flex-shrink:0; }
+.bc-drawer-group { padding:8px 0 15px; }
+.bc-drawer-group+.bc-drawer-group { border-top:1px solid var(--shop-line); padding-top:18px; }
+.bc-drawer-group h2 { font-size:12px; font-weight:600; color:var(--shop-muted); margin:0 8px 12px; }
+.bc-drawer-item { display:flex; width:100%; height:48px; padding:0 12px; gap:16px; color:var(--shop-ink); border-radius:8px; justify-content:flex-start; font-size:16px; font-weight:500; white-space:normal; }
+.bc-drawer-item>svg:first-child { width:24px; height:24px; stroke-width:1.7; flex-shrink:0; }
+.bc-drawer-item>span { flex:1; min-width:0; text-align:left; }
+.bc-drawer-item>svg:last-child { width:16px; height:16px; color:var(--shop-muted); flex-shrink:0; }
+.bc-drawer-item.is-active,.bc-drawer-item:hover { background:var(--shop-lilac); color:var(--shop-purple); }
+.bc-drawer-preferences { border-top:1px solid var(--shop-line); padding:14px 12px; }
+.bc-drawer-preferences label { display:flex; gap:16px; align-items:center; min-height:44px; font-size:14px; }
+.bc-drawer-preferences label>svg:first-child { width:24px; height:24px; flex-shrink:0; }
+.bc-drawer-preferences label>svg:last-child { width:16px; height:16px; color:var(--shop-muted); }
+.bc-drawer-preferences span { flex:1; }
+.bc-drawer-preferences select { appearance:none; background:transparent; color:var(--shop-muted); border:0; width:auto; max-width:100px; cursor:pointer; }
+.bc-drawer-promo { position:relative; isolation:isolate; min-height:150px; border-radius:8px; overflow:hidden; background:var(--menu-pink-soft); padding:18px 16px; }
+.bc-drawer-promo>div { position:relative; z-index:1; max-width:70%; }
+.bc-drawer-promo h2 { font-size:16px; font-weight:800; line-height:1.25; margin:0; }
+.bc-drawer-promo h2 span { color:var(--shop-pink); }
+.bc-drawer-promo p { font-size:11px; color:var(--shop-muted); margin:8px 0 12px; }
+.bc-drawer-promo img { position:absolute; right:-8%; bottom:0; width:60%; height:100%; object-fit:cover; object-position:right; z-index:-1; }
+.bc-drawer-promo a { background:var(--shop-pink); color:var(--shop-paper); font-size:12px; height:34px; padding:0 12px; border-radius:6px; gap:8px; }
+@media(max-width:520px) { .bc-drawer { width:82vw; } .bc-drawer-item { height:44px; font-size:14px; gap:14px; } .bc-drawer-profile b { font-size:16px; } .bc-drawer-profile small { font-size:12px; } }
+@media(min-width:1024px) { .bc-drawer { position:fixed; top:0; right:auto; display:block; left:0; width:390px; } }
+@media(prefers-reduced-motion:reduce) { .bc-drawer { animation:none; transition:none; } }
