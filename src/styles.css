@@ -642,8 +642,17 @@ body { margin: 0; background: var(--shop-backdrop); }
 .pd-like-grid img{width:100%;aspect-ratio:1;object-fit:contain}
 .lv-mini-add{width:100%;border:1px solid var(--shop-purple);color:var(--shop-purple);font-size:calc(var(--u)*15);height:calc(var(--u)*36);margin-top:calc(var(--u)*6)}
 .lv-search-input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-weight:700;color:inherit}
-.lv-search-hero{position:relative}.lv-search-hero>div{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding-left:5cqw;max-width:55%}
-.lv-search-hero>div{background:linear-gradient(90deg,var(--shop-lilac) 60%,transparent)}
+.lv-search-hero{position:relative}.lv-search-hero>div{display:flex;flex-direction:column;justify-content:center;padding:4cqw 5cqw;border-radius:1.7cqw;background:linear-gradient(90deg,var(--shop-lilac) 60%,transparent)}
+.search-suggestions{margin:0 2.6cqw;background:var(--shop-paper);border:1px solid var(--shop-line);border-radius:2cqw;box-shadow:var(--shop-shadow);overflow:hidden}
+.search-suggestions .suggestion-title{font-size:3cqw;font-weight:700;padding:2.6cqw 3cqw 0}
+.search-suggestions ul{list-style:none;margin:0;padding:1cqw 0}
+.suggestion-row{display:flex;align-items:center;gap:2.6cqw;width:100%;padding:1.8cqw 3cqw;background:none;border:0;text-align:left;cursor:pointer}
+.suggestion-row:hover{background:var(--shop-lilac)}
+.suggestion-row img{width:9cqw;height:9cqw;object-fit:contain;border-radius:1.4cqw;background:#fff;border:1px solid var(--shop-line)}
+.suggestion-text{flex:1;min-width:0;display:flex;flex-direction:column}
+.suggestion-text strong{font-size:2.9cqw;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.suggestion-text small{font-size:2.3cqw;color:var(--shop-muted)}
+.suggestion-price{font-size:2.7cqw;font-weight:700;color:var(--shop-purple)}
 .lv-search-hero p{margin:0;font-size:3cqw}.lv-search-hero h1{margin:.5cqw 0;font-size:5cqw;color:var(--shop-purple)}.lv-search-hero b{font-size:3cqw}
 .lv-search-card{height:auto}.lv-search-card .search-product-image>a{display:block}
 .lv-chipx{display:inline-flex;align-items:center;gap:1cqw;border:1px solid var(--shop-line);border-radius:99px;background:var(--shop-lilac);padding:.8cqw 2cqw;cursor:pointer;font:inherit}.lv-chipx svg{width:3cqw}

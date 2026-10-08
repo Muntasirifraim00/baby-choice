@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ShopBottomNav, ShopHeader } from "@/components/shop-navigation";
 import { AddToCartButton, ProductLink, WishButton } from "@/components/live";
 import { off, products, tk, type Product } from "@/lib/products";
-import hero from "@/assets/search-clean-hero.png.asset.json";
 
 export const Route = createFileRoute("/search")({
   component: SearchResults,
@@ -61,8 +60,8 @@ function matches(p: Product, q: string) {
 
 function SearchResults() {
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [input, setInput] = useState("baby shampoo");
-  const [q, setQ] = useState("baby shampoo");
+  const [input, setInput] = useState("");
+  const [q, setQ] = useState("");
   const [filters, setFilters] = useState<Filters>(empty);
   const [sort, setSort] = useState<(typeof sorts)[number]>("Relevance");
   const [list, setList] = useState(false);
@@ -76,20 +75,36 @@ function SearchResults() {
     return r;
   }, [q, filters, sort]); // eslint-disable-line react-hooks/exhaustive-deps
   const run = (v: string) => { setInput(v); setQ(v); };
+  const typing = input !== q;
+  const suggestions = useMemo(() => {
+    const v = input.trim();
+    if (v.length < 2) return [];
+    return products.filter(p => matches(p, v)).slice(0, 8);
+  }, [input]);
+  const popular = useMemo(() => [...products].sort((a, b) => b.rating - a.rating).slice(0, 8), []);
   const chips = [...filters.brands.map(b => ({ label: `Brand: ${b}`, clear: () => setFilters({ ...filters, brands: filters.brands.filter(x => x !== b) }) })),
     ...(filters.category !== "All" ? [{ label: `Category: ${filters.category}`, clear: () => setFilters({ ...filters, category: "All" }) }] : []),
     ...(filters.minRating ? [{ label: `Rating: ${filters.minRating}★+`, clear: () => setFilters({ ...filters, minRating: 0 }) }] : []),
     ...(filters.minOff ? [{ label: `Discount: ${filters.minOff}%+`, clear: () => setFilters({ ...filters, minOff: 0 }) }] : [])];
   return <div className="mobile-frame"><main className="baby-screen search-screen">
     <ShopHeader />
-    <form className="search-query" onSubmit={e => { e.preventDefault(); setQ(input); }}><Search /><input className="lv-search-input" value={input} onChange={e => setInput(e.target.value)} aria-label="Search products" placeholder="Search for baby products..." /><button type="button" aria-label="Clear search" className="lv-plain" onClick={() => run("")}><X /></button><button type="submit" aria-label="Search" className="lv-plain"><span><Search /></span></button></form>
-    <div className="search-back"><Button variant="ghost" asChild><Link to="/"><ChevronLeft />Search Results</Link></Button></div>
-    <section className="search-hero lv-search-hero"><img src={hero.url} alt="" /><div><p>Search Results for</p><h1>“{q || "all products"}”</h1><b>{results.length} Products Found</b></div></section>
+    <form className="search-query" onSubmit={e => { e.preventDefault(); setQ(input); }}><Search /><input className="lv-search-input" value={input} onChange={e => setInput(e.target.value)} aria-label="Search products" placeholder="Search for baby products..." autoFocus /><button type="button" aria-label="Clear search" className="lv-plain" onClick={() => run("")}><X /></button><button type="submit" aria-label="Search" className="lv-plain"><span><Search /></span></button></form>
+    <div className="search-back"><Button variant="ghost" asChild><Link to="/"><ChevronLeft />Search</Link></Button></div>
+    {typing ? <section className="search-suggestions" aria-label="Product suggestions">
+      {input.trim().length < 2 ? <p className="lv-empty">Type at least 2 letters to see matching products.</p>
+        : suggestions.length === 0 ? <p className="lv-empty">No products match “{input}”.</p>
+        : <ul>{suggestions.map(p => <li key={p.slug}><button type="button" className="suggestion-row" onClick={() => run(p.name)}><img src={p.image} alt="" /><span className="suggestion-text"><strong>{p.name}</strong><small>{p.brand} · {p.category}</small></span><span className="suggestion-price">৳ {tk(p.price)}</span></button></li>)}</ul>}
+    </section> : q === "" ? <section className="search-suggestions" aria-label="Popular products">
+      <h2 className="suggestion-title">Popular Products</h2>
+      <ul>{popular.map(p => <li key={p.slug}><button type="button" className="suggestion-row" onClick={() => run(p.name)}><img src={p.image} alt="" /><span className="suggestion-text"><strong>{p.name}</strong><small>{p.brand} · {p.category}</small></span><span className="suggestion-price">৳ {tk(p.price)}</span></button></li>)}</ul>
+    </section> : <>
+    <section className="search-hero lv-search-hero"><div><p>Search Results for</p><h1>“{q}”</h1><b>{results.length} Products Found</b></div></section>
     <div className="related-searches"><strong>Related Searches:</strong>{["baby soap", "body wash", "lotion", "oil", "diapers", "feeding"].map(item => <Button type="button" variant="ghost" className="demo-button" key={item} onClick={() => run(item)}>{item}</Button>)}<ChevronRight /></div>
     <div className="search-toolbar"><Button type="button" variant="ghost" onClick={() => setFiltersOpen(true)}><SlidersHorizontal />Filter</Button><Button type="button" variant="ghost" className="demo-button" onClick={() => setSort(sorts[(sorts.indexOf(sort) + 1) % sorts.length] ?? "Relevance")}><ArrowDownUp />{sort === "Relevance" ? "Sort By" : sort}</Button><div className="view-toggle"><Button type="button" variant="ghost" aria-label="Grid view" className={`demo-button ${!list ? "selected" : ""}`} onClick={() => setList(false)}><Grid2X2 /></Button><Button type="button" variant="ghost" aria-label="List view" className={`demo-button ${list ? "selected" : ""}`} onClick={() => setList(true)}><List /></Button></div></div>
     {chips.length > 0 && <div className="active-filters"><strong>Active Filters:</strong>{chips.map(c => <button type="button" className="lv-chipx" key={c.label} onClick={c.clear}>{c.label} <X /></button>)}<Button type="button" variant="ghost" className="demo-button" onClick={() => setFilters(empty)}>Clear All <Trash2 /></Button></div>}
     {results.length === 0 && <p className="lv-empty">No products found for “{q}”. Try another search.</p>}
     <section className={`search-product-grid ${list ? "lv-list-view" : ""}`}>{results.map(p => <article className="search-product-card lv-search-card" key={p.slug}><div className="search-product-image"><ProductLink slug={p.slug} label={p.name}><img src={p.image} alt={p.name} /></ProductLink><span className="discount">{off(p)}% OFF</span>{p.badge && <span className="product-badge">{p.badge}</span>}<WishButton slug={p.slug} className="wishlist-button" /></div><div className="search-product-info"><p>{p.brand}</p><h2><ProductLink slug={p.slug}>{p.name}</ProductLink></h2><div className="rating"><span className="stars">★★★★★</span><span>{p.rating} ({p.reviews})</span></div><div className="search-price"><strong>৳ {tk(p.price)}</strong><del>৳ {tk(p.old)}</del></div><div className="search-sizes">{p.sizes.map(size => <span key={size}>{size}</span>)}</div><AddToCartButton product={p} className="search-add-cart" /></div></article>)}</section>
+    </>}
     <ShopBottomNav />{filtersOpen && <FilterDrawer initial={filters} apply={setFilters} close={() => setFiltersOpen(false)} sort={sort} setSort={setSort} count={f => products.filter(filterFn(f)).length} />}
   </main></div>;
 }
