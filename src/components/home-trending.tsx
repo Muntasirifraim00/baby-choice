@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star, ShoppingCart, Minus, Plus } from "lucide-react";
+import { Star, ShoppingCart, Minus, Plus, Crown, Leaf, ShieldCheck, Truck } from "lucide-react";
 import { AddToCartButton, ProductLink, WishButton } from "@/components/live";
 import { off, pick, tk, type Product } from "@/lib/products";
 
@@ -23,25 +23,27 @@ function TrendingCard({ product }: { product: Product }) {
     : product.slug === "carters-honey-cotton-wash-cloth" ? "100% Cotton"
     : product.slug === "nuby-sippy-cup" ? "Spill Proof"
     : product.badge ?? product.category;
+  const FeatureIcon = feature === "Best Seller" ? Crown : /cotton|tested|organic|natural/i.test(feature) ? Leaf : ShieldCheck;
   return <article className="ht-card">
       <div className="ht-art">
         <ProductLink slug={product.slug} label={`View ${product.name}`}><img src={artwork[`/src/assets/trending/${product.slug}.jpg`] ?? product.image} alt={product.name} loading="lazy" width={512} height={512} /></ProductLink>
-        <span className="ht-discount">−{off(product)}%</span>
+        <span className="ht-discount">-{off(product)}%</span>
         <WishButton slug={product.slug} className="ht-wish" />
+        <span className="ht-feature"><FeatureIcon />{feature}</span>
       </div>
-      <div className="ht-feature">{feature}</div>
       <div className="ht-copy">
         <span className="ht-brand">{product.brand}</span>
         <h3><ProductLink slug={product.slug}>{product.name}</ProductLink></h3>
-        <div className="ht-rating"><Star fill="currentColor" /><strong>{product.rating.toFixed(1)}</strong><span>({product.reviews})</span><span className="ht-stock">In Stock</span></div>
-        <div className="ht-prices"><strong>৳ {tk(product.price)}</strong><del>৳ {tk(product.old)}</del></div>
-        <span className="ht-save">Save ৳{tk(product.old - product.price)}</span>
-        <div className="ht-quantity" role="group" aria-label={`Quantity for ${product.name}`}>
-          <button type="button" aria-label={`Decrease quantity for ${product.name}`} disabled={qty === 1} onClick={() => setQty(n => n - 1)}><Minus /></button>
-          <output aria-live="polite">{qty}</output>
-          <button type="button" aria-label={`Increase quantity for ${product.name}`} disabled={qty === 99} onClick={() => setQty(n => n + 1)}><Plus /></button>
+        <div className="ht-rating"><Star fill="currentColor" /><strong>{product.rating.toFixed(1)}</strong><span>({product.reviews})</span><i aria-hidden="true" /><span className="ht-stock"><Truck />In Stock</span></div>
+        <div className="ht-prices"><strong>৳ {tk(product.price)}</strong><del>৳{tk(product.old)}</del><span className="ht-save">Save ৳ {tk(product.old - product.price)}</span></div>
+        <div className="ht-actions">
+          <div className="ht-quantity" role="group" aria-label={`Quantity for ${product.name}`}>
+            <button type="button" aria-label={`Decrease quantity for ${product.name}`} disabled={qty === 1} onClick={() => setQty(n => n - 1)}><Minus /></button>
+            <output aria-live="polite">{qty}</output>
+            <button type="button" aria-label={`Increase quantity for ${product.name}`} disabled={qty === 99} onClick={() => setQty(n => n + 1)}><Plus /></button>
+          </div>
+          <AddToCartButton product={product} qty={qty} size={product.sizes[0] ?? ""} className="ht-add"><ShoppingCart /><span>Add to Cart</span></AddToCartButton>
         </div>
-        <AddToCartButton product={product} qty={qty} size={product.sizes[0] ?? ""} className="ht-add"><ShoppingCart /><span>Add to Cart</span></AddToCartButton>
       </div>
     </article>;
 }
