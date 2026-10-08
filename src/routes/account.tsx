@@ -1,7 +1,28 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { RefScreen, searchHit, productHit } from "@/components/ref-screen";
-const t = "My Account — Baby Choice", d = "Manage your Baby Choice profile, orders and preferences.";
-export const Route = createFileRoute("/account")({
-  head: () => ({ meta: [{ title: t }, { name: "description", content: d }, { property: "og:title", content: t }, { property: "og:description", content: d }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
-  component: () => <RefScreen name="account" active="Account" cuts={[0,130,250,470,670,1500,1650]} alt={["Baby Choice header","My Account","Sara Ahmed profile","Order statistics","Account menu","Logout"]} links={[searchHit, { to: "/cart", box: [750, 18, 66, 62], label: "Cart" }, { to: "/", box: [28, 92, 34, 30], label: "Home" }, { to: "/wishlist", box: [30, 795, 790, 105], label: "My Wishlist" }, { to: "/wishlist", box: [625, 500, 195, 155], label: "Wishlist Items" }, { to: "/support", box: [30, 1382, 790, 108], label: "Help & Support" }, { to: "/login", box: [30, 1518, 790, 118], label: "Logout" }]} />,
-});
+import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Bell, ChevronRight, CreditCard, Headphones, Heart, LogOut, MapPin, Package, Pencil, Settings, UserRound } from "lucide-react";
+import { toast } from "sonner";
+import { ShoppingShell } from "@/components/shopping-reference";
+import { useCart } from "@/lib/cart-store";
+import { liveHead } from "@/lib/live-head";
+
+export const Route = createFileRoute("/account")({ head: () => liveHead("My Account", "Manage your Baby Choice orders, wishlist, addresses and payment methods."), component: Account });
+
+function Account() {
+  const { wish } = useCart();
+  const [notify, setNotify] = useState(true);
+  const menu = [
+    { i: Package, t: "My Orders", to: "/order-confirmed" }, { i: Heart, t: "My Wishlist", to: "/wishlist" }, { i: MapPin, t: "Address Book", to: "/checkout/address" },
+    { i: CreditCard, t: "Payment Methods", to: "/checkout/payment" }, { i: Settings, t: "Account Settings", to: "/login" }, { i: Headphones, t: "Help & Support", to: "/support" },
+  ];
+  return <ShoppingShell crumb="My Account" className="lv" active="Account">
+    <h1 className="lv-title">My Account</h1>
+    <section className="lv-card lv-profile"><span className="lv-avatar"><UserRound /></span><div><h2>Sara Ahmed</h2><p>+880 1712 345678</p><p>saraahmed@gmail.com</p></div><button type="button" className="lv-btn ghost" onClick={() => toast("Profile editing is available after login.")}><Pencil />Edit Profile</button></section>
+    <div className="lv-grid4 lv-stats">{[["5", "Total Orders", "/order-confirmed"], ["2", "In Progress", "/order-confirmed"], ["3", "Delivered", "/order-confirmed"], [String(wish.length), "Wishlist Items", "/wishlist"]].map(([n, t, to]) => <Link key={t} to={to as "/"} className="lv-tile"><b>{n}</b><small>{t}</small></Link>)}</div>
+    <nav className="lv-card lv-list">
+      {menu.map(({ i: Icon, t, to }) => <Link key={t} to={to as "/"}><i><Icon /></i><span>{t}</span><ChevronRight /></Link>)}
+      <button type="button" onClick={() => { setNotify(v => !v); toast(notify ? "Notifications turned off" : "Notifications turned on"); }}><i><Bell /></i><span>Notifications</span><em className={`lv-switch ${notify ? "on" : ""}`} aria-label={notify ? "On" : "Off"} /></button>
+    </nav>
+    <Link to="/login" className="lv-btn ghost wide"><LogOut />Logout</Link>
+  </ShoppingShell>;
+}

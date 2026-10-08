@@ -22,6 +22,7 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as TrendingRouteImport } from './routes/trending'
 import { Route as WishlistRouteImport } from './routes/wishlist'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
+import { Route as BrandsBrandRouteImport } from './routes/brands.$brand'
 import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
 import { Route as CategoriesBabyClothingRouteImport } from './routes/categories.baby-clothing'
 import { Route as CheckoutIndexRouteImport } from './routes/checkout.index'
@@ -100,6 +101,11 @@ const WishlistRoute = WishlistRouteImport.update({
 const BrandsIndexRoute = BrandsIndexRouteImport.update({
   id: '/brands/',
   path: '/brands/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrandsBrandRoute = BrandsBrandRouteImport.update({
+  id: '/brands/$brand',
+  path: '/brands/$brand',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriesIndexRoute = CategoriesIndexRouteImport.update({
@@ -186,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/support': typeof SupportRoute
   '/trending': typeof TrendingRouteWithChildren
   '/wishlist': typeof WishlistRoute
+  '/brands/$brand': typeof BrandsBrandRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/checkout/address': typeof CheckoutAddressRouteWithChildren
   '/checkout/payment': typeof CheckoutPaymentRoute
@@ -213,6 +220,7 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/support': typeof SupportRoute
   '/wishlist': typeof WishlistRoute
+  '/brands/$brand': typeof BrandsBrandRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/checkout/review': typeof CheckoutReviewRoute
@@ -242,6 +250,7 @@ export interface FileRoutesById {
   '/support': typeof SupportRoute
   '/trending': typeof TrendingRouteWithChildren
   '/wishlist': typeof WishlistRoute
+  '/brands/$brand': typeof BrandsBrandRoute
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/checkout/address': typeof CheckoutAddressRouteWithChildren
   '/checkout/payment': typeof CheckoutPaymentRoute
@@ -273,6 +282,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/trending'
     | '/wishlist'
+    | '/brands/$brand'
     | '/categories/baby-clothing'
     | '/checkout/address'
     | '/checkout/payment'
@@ -300,6 +310,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/support'
     | '/wishlist'
+    | '/brands/$brand'
     | '/categories/baby-clothing'
     | '/checkout/payment'
     | '/checkout/review'
@@ -328,6 +339,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/trending'
     | '/wishlist'
+    | '/brands/$brand'
     | '/categories/baby-clothing'
     | '/checkout/address'
     | '/checkout/payment'
@@ -358,6 +370,7 @@ export interface RootRouteChildren {
   SupportRoute: typeof SupportRoute
   TrendingRoute: typeof TrendingRouteWithChildren
   WishlistRoute: typeof WishlistRoute
+  BrandsBrandRoute: typeof BrandsBrandRoute
   CategoriesBabyClothingRoute: typeof CategoriesBabyClothingRoute
   ProductSlugRoute: typeof ProductSlugRoute
   BrandsIndexRoute: typeof BrandsIndexRoute
@@ -458,6 +471,13 @@ declare module '@tanstack/react-router' {
       path: '/brands'
       fullPath: '/brands/'
       preLoaderRoute: typeof BrandsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brands/$brand': {
+      id: '/brands/$brand'
+      path: '/brands/$brand'
+      fullPath: '/brands/$brand'
+      preLoaderRoute: typeof BrandsBrandRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categories/': {
@@ -620,6 +640,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportRoute: SupportRoute,
   TrendingRoute: TrendingRouteWithChildren,
   WishlistRoute: WishlistRoute,
+  BrandsBrandRoute: BrandsBrandRoute,
   CategoriesBabyClothingRoute: CategoriesBabyClothingRoute,
   ProductSlugRoute: ProductSlugRoute,
   BrandsIndexRoute: BrandsIndexRoute,
