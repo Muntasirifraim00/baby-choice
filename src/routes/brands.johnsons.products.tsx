@@ -1,6 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { RefScreen, searchHit, productHit } from "@/components/ref-screen";
-export const Route = createFileRoute("/brands/johnsons/products")({
-  head: () => ({ meta: [{ title: "All Johnson's Products — Baby Choice" }, { name: "description", content: "Browse every Johnson's baby product with prices, sizes and offers." }, { property: "og:title", content: "All Johnson's Products — Baby Choice" }, { property: "og:description", content: "Browse every Johnson's baby product with prices, sizes and offers." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
-  component: () => <RefScreen name="jall" cuts={[0, 120, 610, 1395, 1740]} alt={["Johnson's header", "Johnson's Products — 42 Products Found", "Johnson's products grid", "Johnson's bedtime range and gift set"]} links={[{ to: "/brands/johnsons", box: [20, 20, 50, 55], label: "Back" }, searchHit, { to: "/", box: [28, 92, 30, 28], label: "Home" }, { to: "/brands", box: [84, 92, 62, 28], label: "Brands" }, { to: "/brands/johnsons", box: [168, 92, 82, 28], label: "Johnson's" }, { to: "/brands/johnsons/story", box: [604, 430, 218, 46], label: "About Johnson's" }, productHit([28, 620, 262, 330])]} />,
-});
+import { ShoppingShell } from "@/components/shopping-reference";
+import { JohnsonsCatalog, JohnsonsHeaderLinks } from "@/components/johnsons";
+import { liveHead } from "@/lib/live-head";
+
+export const Route = createFileRoute("/brands/johnsons/products")({ head: () => liveHead("All Johnson's Products", "Browse all Johnson's baby products with filters and sorting."), component: Page });
+
+function Page() {
+  return <ShoppingShell crumb="Brands › Johnson's Products" className="lv">
+    <JohnsonsHeaderLinks />
+    <h1 className="lv-title">Johnson’s Products</h1><p className="lv-sub">42 Products Found</p>
+    <JohnsonsCatalog withCounts />
+  </ShoppingShell>;
+}

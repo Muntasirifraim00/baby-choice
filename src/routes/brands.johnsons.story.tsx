@@ -1,6 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { RefScreen, searchHit, productHit } from "@/components/ref-screen";
-export const Route = createFileRoute("/brands/johnsons/story")({
-  head: () => ({ meta: [{ title: "Johnson's Brand Story — Baby Choice" }, { name: "description", content: "For over 125 years Johnson's has cared for babies with gentle, clinically proven products." }, { property: "og:title", content: "Johnson's Brand Story — Baby Choice" }, { property: "og:description", content: "For over 125 years Johnson's has cared for babies with gentle, clinically proven products." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
-  component: () => <RefScreen name="story" cuts={[0, 120, 570, 985, 1245, 1700]} alt={["Johnson's header", "Johnson's — Trusted by Generations of Parents", "125+ years of care and A Legacy of Gentle Care", "Shop by Product Category", "Featured Johnson's products"]} links={[{ to: "/brands/johnsons", box: [20, 20, 50, 55], label: "Back" }, searchHit, { to: "/", box: [28, 92, 30, 28], label: "Home" }, { to: "/brands", box: [84, 92, 62, 28], label: "Brands" }, { to: "/brands/johnsons/products", box: [50, 908, 262, 48], label: "Explore All Products" }, { to: "/brands/johnsons/products", box: [645, 1012, 170, 34], label: "View All Products" }, productHit([38, 1060, 118, 160]), productHit([38, 1320, 180, 220])]} />,
-});
+import { Award, Droplet, Globe2, Heart, ShieldCheck, Smile, Users } from "lucide-react";
+import { ShoppingShell } from "@/components/shopping-reference";
+import { ProductGrid } from "@/components/live";
+import { LvBanner, LvHead, Tile } from "@/components/live-ui";
+import { JohnsonsHeaderLinks } from "@/components/johnsons";
+import { liveHead } from "@/lib/live-head";
+import { getProduct, johnsons, pick } from "@/lib/products";
+
+export const Route = createFileRoute("/brands/johnsons/story")({ head: () => liveHead("Johnson's Brand Story", "125+ years of gentle baby care — the Johnson's story, categories and featured products."), component: Page });
+
+const cats = [["Baby Shampoo", 8, "Shampoo"], ["Baby Lotion", 7, "Lotion"], ["Baby Body Wash", 6, "Body Wash"], ["Baby Powder", 5, "Powder"], ["Baby Wipes", 5, "Wipes"], ["Baby Care Sets", 3, "Gift Set"]] as const;
+
+function Page() {
+  return <ShoppingShell crumb="Brands › Johnson's Story" className="lv">
+    <JohnsonsHeaderLinks />
+    <LvBanner title={<>Trusted by Generations of Parents</>} text="Since 1894, Johnson’s has made gentle products for babies’ delicate skin and hair." image={getProduct("johnsons-baby-shampoo")?.image} />
+    <div className="lv-grid4"><Tile icon={<Heart />} title="Mild & Gentle" /><Tile icon={<Droplet />} title="pH Balanced" /><Tile icon={<ShieldCheck />} title="Dermatologically Tested" /><Tile icon={<Smile />} title="Safe for Daily Use" /></div>
+    <div className="lv-grid2"><Tile icon={<Award />} title="125+ Years" text="of Care" /><Tile icon={<Users />} title="Trusted" text="by Generations" /><Tile icon={<Globe2 />} title="100+ Countries" text="Available worldwide" /><Tile icon={<ShieldCheck />} title="Tested" text="Dermatologically" /></div>
+    <LvBanner tone="soft" title="A Legacy of Gentle Care" text="Every Johnson’s product is designed to be clinically proven mild for your baby." cta="Explore All Products" to="/brands/johnsons/products" />
+    <LvHead title="Shop by Product Category" to="/brands/johnsons/products" />
+    <div className="lv-grid3">{cats.map(([n, c, t]) => { const img = johnsons.find(p => p.type === t)?.image; return <a key={n} href="/brands/johnsons/products" className="lv-tile">{img && <img src={img} alt="" className="lv-tile-img" />}<b>{n}</b><small>{c} Products</small></a>; })}</div>
+    <LvHead title="Featured Products" to="/brands/johnsons" />
+    <ProductGrid items={pick("johnsons-baby-shampoo", "johnsons-baby-lotion", "johnsons-baby-powder", "johnsons-baby-wipes")} two />
+  </ShoppingShell>;
+}
