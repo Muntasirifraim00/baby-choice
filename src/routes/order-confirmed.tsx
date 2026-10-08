@@ -22,6 +22,6 @@ function Page() {
     <Panel title={`Ordered Items (${lines.length})`} icon={<ShoppingCart />}><ItemRows lines={lines} review /></Panel>
     <Summary lines={lines} />
     <div className="lv-card"><h2><Truck />Estimated Delivery</h2><p className="lv-p">2–4 days across Bangladesh</p><Link to="/support" className="lv-btn">Track Order<ArrowRight /></Link></div>
-    <div className="lv-grid2"><Link to="/checkout/review" className="lv-btn ghost"><ReceiptText />View Order Details</Link><Link to="/" className="lv-btn">Continue Shopping</Link></div>
+    <div className="lv-grid2"><Link to="/account" className="lv-btn ghost"><ReceiptText />My Orders</Link><Link to="/" className="lv-btn">Continue Shopping</Link></div>
   </ShoppingShell>;
 }

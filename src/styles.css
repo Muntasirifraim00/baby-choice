@@ -651,3 +651,6 @@ body { margin: 0; background: var(--shop-backdrop); }
 .brand-search input{border:0;outline:0;background:transparent;font:inherit;flex:1;min-width:0}
 .brand-row{overflow-x:auto;scrollbar-width:none}
 .sr-sort{padding:0 1.5cqw}
+.lv-profile{flex-wrap:wrap}.lv-profile .lv-btn{margin-left:auto}
+.co-panel .lv-p{padding:2cqw 3cqw 0}
+.co-item>div>small{display:block;line-height:1.3}
