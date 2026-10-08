@@ -63,4 +63,10 @@
 @media (min-width:1024px) and (max-width:1150px) {
   .dh-wide {width:calc(100% - 32px)}.dh-benefit-list>span:last-child {display:none}.dh-masthead {grid-template-columns:220px minmax(0,1fr) 170px 110px;gap:12px}.dh-actions>a {font-size:12px}.dh-action-icon {width:42px;height:42px}.dh-baby {width:150px}.dh-category-select {padding:12px 8px}.dh-category-select span {max-width:64px;white-space:normal;line-height:14px}.dh-search {gap:7px}.dh-search-submit {min-width:65px;font-size:12px}.dh-tile-nav {grid-template-columns:minmax(200px,2.4fr) repeat(7,minmax(0,1fr))}.dh-special h2 {font-size:29px}.dh-special p {font-size:13px}.dh-tile-copy strong {font-size:12px}
 }
+@media (min-width:1024px) and (max-width:1150px) {
+  .dh-tile {height:244px}
+  .dh-special {height:244px}
+  .dh-special>img {opacity:.65}
+  .dh-tile-copy small {overflow-wrap:anywhere}
+}
 @media (prefers-reduced-motion:reduce) {.dh-tile,.dh-tile-arrow svg,.dh-action-icon {transition:none}}

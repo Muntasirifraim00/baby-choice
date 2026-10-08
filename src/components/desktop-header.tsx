@@ -54,7 +54,7 @@ export function DesktopHeader() {
       <div className="dh-actions">
         <Button asChild variant="ghost"><Link to="/wishlist" aria-label="Wishlist"><span className="dh-action-icon"><Heart />{wish.length > 0 && <i>{wish.length}</i>}</span><span>Wishlist</span></Link></Button>
         <Button asChild variant="ghost"><Link to="/account" aria-label="Account"><span className="dh-action-icon"><UserRound /></span><span>Account</span></Link></Button>
-        <Button asChild variant="ghost"><Link to="/cart" aria-label="Shopping Cart"><span className="dh-action-icon"><ShoppingCart /><CartCount /></span><span>Cart <ChevronDown /></span></Link></Button>
+        <Button asChild variant="ghost"><Link to="/cart" aria-label="Shopping Cart"><span className="dh-action-icon"><ShoppingCart /><CartCount className="cart-count" /></span><span>Cart <ChevronDown /></span></Link></Button>
       </div>
       <img className="dh-baby" src={baby.url} alt="Smiling baby in a pink bear hood" width={1034} height={768} />
     </div>
