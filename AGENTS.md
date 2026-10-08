@@ -22,3 +22,4 @@
 
 - Screens use real text and controls; images are only for products, banners and brand logos (no screenshot crops of UI). Shared live pieces: src/components/live.tsx and live-ui.tsx.
 - Product pages use the dynamic /product/$slug route; brand and category listings use /brands/$brand and /categories/$cat alongside static Johnson's and Baby Clothing pages.
+- All catalog product details share the reference-inspired presentation on the dynamic product route; gallery and purchase controls use the existing catalog and cart context to keep selection synchronized.
