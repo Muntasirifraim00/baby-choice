@@ -7,14 +7,9 @@ import { ArrowRight, ChevronLeft, ChevronRight, Heart, House, LayoutGrid, Menu, 
 import { Button } from "@/components/ui/button";
 import { DesktopHome } from "@/components/desktop-shop";
 import { AddToCartButton, CartCount, ProductLink, WishButton } from "@/components/live";
-import { useRef, useState } from "react";
+import { HomeBanners } from "@/components/home-banners";
 import { slugify } from "@/lib/live-head";
 import logo from "@/assets/logo.png.asset.json";
-import hero from "@/assets/hero.png.asset.json";
-import bannerClothing from "@/assets/banner-clothing.png.asset.json";
-import bannerDiapers from "@/assets/banner-diapers.png.asset.json";
-import bannerToys from "@/assets/banner-toys.png.asset.json";
-import bannerHealth from "@/assets/banner-health.png.asset.json";
 import bath from "@/assets/bath.png.asset.json";
 import feeding from "@/assets/feeding.png.asset.json";
 const category1 = { url: getProduct("carters-girl-bodysuit-set")!.image };
@@ -76,37 +71,6 @@ function PlaceholderButton({ children, className = "", label }: { children?: Rea
 function SectionHeading({ title, action }: { title: string; action: string }) {
   return <div className="section-heading"><h2>{title}</h2>{action === "View More" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/trending">{action}<ArrowRight /></Link></Button> : action === "View All Brands" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/brands">{action}<ArrowRight /></Link></Button> : action === "View All Categories" ? <Button variant="ghost" asChild className="demo-button section-action"><Link to="/categories">{action}<ArrowRight /></Link></Button> : <PlaceholderButton label={action} className="section-action">{action}<ArrowRight /></PlaceholderButton>}</div>;
 }
-const moreBanners = [
-  { image: bannerClothing, cat: "baby-clothing", accent: "pink", eyebrow: "Baby Clothing", title: ["Soft cotton,", "happy babies"], copy: "Bodysuits, sets & pajamas", cta: "Shop Clothing" },
-  { image: bannerDiapers, cat: "diapers-and-wipes", accent: "mint", eyebrow: "Diapers & Wipes", title: ["Dry all day,", "comfy all night"], copy: "Diapers, pants & gentle wipes", cta: "Shop Diapers" },
-  { image: bannerToys, cat: "toys-and-learning", accent: "cream", eyebrow: "Toys & Learning", title: ["Play that grows", "with them"], copy: "Wooden, soft & sensory toys", cta: "Shop Toys" },
-  { image: bannerHealth, cat: "health-and-safety", accent: "blue", eyebrow: "Health & Safety", title: ["Care essentials", "always in reach"], copy: "Thermometers, balms & daily care", cta: "Shop Health" },
-];
-function MoreBanners() {
-  const track = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-  const onScroll = () => {
-    const el = track.current;
-    if (!el) return;
-    const mid = el.getBoundingClientRect().left + el.clientWidth / 2;
-    let best = 0;
-    let bestD = Infinity;
-    Array.from(el.children).forEach((child, i) => {
-      const box = child.getBoundingClientRect();
-      const d = Math.abs(box.left + box.width / 2 - mid);
-      if (d < bestD) { bestD = d; best = i; }
-    });
-    setActive(best);
-  };
-  const goTo = (i: number) => {
-    const slide = track.current?.children[i] as HTMLElement | undefined;
-    slide?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-  };
-  return (<section className="more-banners" aria-label="Category banners">
-    <div className="mb-track" ref={track} onScroll={onScroll}>{moreBanners.map(b => <article className={`mb-slide mb-${b.accent}`} key={b.cat}><img src={b.image.url} alt="" loading="lazy" width={1456} height={608} /><div className="mb-copy"><span className="mb-eyebrow">{b.eyebrow}</span><h2>{b.title[0]}<br />{b.title[1]}</h2><p>{b.copy}</p><Button asChild variant="ghost" className="demo-button mb-cta"><Link to="/categories/$cat" params={{ cat: b.cat }}>{b.cta}<ArrowRight /></Link></Button></div></article>)}</div>
-    <div className="mb-dots">{moreBanners.map((b, i) => <Button type="button" key={b.cat} variant="ghost" className="demo-button mb-dot" data-on={active === i || undefined} aria-label={`Show ${b.eyebrow} banner`} onClick={() => goTo(i)} />)}</div>
-  </section>);
-}
 function Index() {
   return (<><DesktopHome />
     <div className="mobile-frame">
@@ -117,8 +81,7 @@ function Index() {
           <div className="header-tools"><Button asChild variant="ghost" className="demo-button header-circle"><a href="tel:+8801712345678" aria-label="Call Baby Choice"><Phone fill="currentColor" /></a></Button><Button asChild variant="ghost" className="demo-button header-circle"><Link to="/cart" aria-label="Shopping Cart"><ShoppingCart fill="currentColor" /><CartCount className="cart-count" /></Link></Button></div>
         </header>
         <Button variant="ghost" asChild className="search-bar search-link"><Link to="/search"><Search /><span>Search for baby products, brands, or categories...</span><span className="search-submit"><Search /></span></Link></Button>
-        <section className="hero-banner" aria-label="Baby Choice — Happy Babies Happier Tomorrows"><img src={hero.url} alt="Baby Choice. Everything for Your Little One. Safe & Gentle, Premium Quality, Baby Friendly, Fast Delivery. Shop Now. Happy Babies Happier Tomorrows." /><Link to="/trending" aria-label="Shop Now" className="demo-button hero-shop-hit" /></section>
-        <MoreBanners />
+        <HomeBanners />
         <section className="service-strip" aria-label="Shopping benefits">{[
           [service1, "Fast & Reliable", "Delivery"], [service2, "100% Original", "Products"], [service3, "Easy", "Returns"], [service4, "Dedicated", "Support"],
         ].map(([image, line1, line2], i) => <div className="service-item" key={i}><img src={typeof image === "object" ? image.url : ""} alt="" /><p>{String(line1)}<br />{String(line2)}</p></div>)}</section>

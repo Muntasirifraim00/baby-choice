@@ -9,7 +9,7 @@ import { homeCategories } from "@/lib/home-categories";
 import { MenuButton } from "@/components/shop-menu";
 import type { ReactNode } from "react";
 import logo from "@/assets/logo.png.asset.json";
-import hero from "@/assets/hero.png.asset.json";
+import { HomeBanners } from "@/components/home-banners";
 import allHero from "@/assets/all-hero.png.asset.json";
 import allPromo from "@/assets/all-promo.png.asset.json";
 import bath from "@/assets/bath.png.asset.json";
@@ -92,7 +92,7 @@ function Shell({ active, children }: { active: "home" | "categories"; children: 
 
 export function DesktopHome() {
   return <Shell active="home">
-    <section className="dk-hero"><img src={hero.url} alt="Baby Choice — Happy Babies Happier Tomorrows. Shop Now." /></section>
+    <HomeBanners />
     <section className="dk-services">{services.map(([img, t]) => <div key={t}><img src={img.url} alt="" /><p>{t}</p></div>)}</section>
     <Heading title="Shop By Category" to="/categories" action="View All Categories" />
     <section className="dk-cats">{homeCats.map(([img, n], index) => <Link key={n} to="/categories/$cat" params={{ cat: homeCategories[index]?.slug ?? "baby-clothing" }} className="demo-button dk-cat"><img src={img.url} alt={n} /><span>{n}<ChevronRight /></span></Link>)}</section>
