@@ -201,7 +201,7 @@ body { margin: 0; background: var(--shop-backdrop); }
 .discount { position: absolute; top: 1.2cqw; left: 1.7cqw; color: var(--shop-paper); background: var(--shop-pink); padding: .5cqw 1.3cqw; border-radius: 1.5cqw; font-size: 1.5cqw; font-weight: 600; }
 .wishlist-button { position: absolute; top: 1.5cqw; right: 1.9cqw; width: 2.7cqw; height: 2.7cqw; color: var(--shop-muted); }
 .product-details { padding: .4cqw 1.7cqw 1.2cqw; }
-.product-details h3 { font-size: 1.72cqw; font-weight: 500; line-height: 2.3cqw; height: 4.6cqw; overflow: hidden; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.product-details h3 { font-size: 1.72cqw; font-weight: 500; line-height: 2.3cqw; height: 4.6cqw; overflow: hidden; margin: 0; }
 .rating { display: flex; align-items: center; gap: .5cqw; white-space: nowrap; font-size: 1.65cqw; line-height: 2.5cqw; color: var(--shop-muted); }
 .stars { color: var(--shop-stars); font-size: 1.9cqw; }
 .product-code { color: var(--shop-muted); font-size: 1.75cqw; margin: .7cqw 0 0; line-height: 2.5cqw; }
