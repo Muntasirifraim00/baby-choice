@@ -1,0 +1,264 @@
+/* ===== Cart (prefix ct-) ===== */
+.ct-page { --ct-line: #ece4fa; --ct-muted: #6b5f86; background: #fff8f1; color: var(--ink); font-family: "Nunito", system-ui, sans-serif; min-height: 100vh; overflow-x: clip; }
+.ct-page button { font-family: inherit; cursor: pointer; color: inherit; }
+.ct-page :focus-visible { outline: 3px solid var(--purple); outline-offset: 2px; }
+.ct-page img { display: block; }
+.ct-page ul { list-style: none; margin: 0; padding: 0; }
+.ct-page .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.ct-page .good { color: #7ee2b3; }
+
+/* animations */
+@keyframes ctFloat { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+@keyframes ctFloatSm { 0%,100% { transform: translateY(0) rotate(-6deg) } 50% { transform: translateY(-4px) rotate(6deg) } }
+@keyframes ctPop { 0% { transform: scale(.5); opacity: 0 } 70% { transform: scale(1.06); opacity: 1 } 100% { transform: scale(1) } }
+@keyframes ctFade { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+@keyframes ctSlideUp { from { transform: translateY(120%) } to { transform: none } }
+@keyframes ctShake { 0%,100% { transform: translateX(0) } 20%,60% { transform: translateX(-6px) } 40%,80% { transform: translateX(6px) } }
+@keyframes ctConfetti { 0% { transform: translateY(0) rotate(0); opacity: 1 } 100% { transform: translateY(140px) rotate(540deg); opacity: 0 } }
+@keyframes ctPulse { 0%,100% { transform: scale(1) } 50% { transform: scale(1.04) } }
+.ct-float { animation: ctFloat 3.4s ease-in-out infinite; }
+.ct-float-sm { animation: ctFloatSm 2.8s ease-in-out infinite; }
+.ct-pop { animation: ctPop .45s cubic-bezier(.3,1.6,.5,1) both; }
+.ct-fade { animation: ctFade .4s ease-out both; }
+.ct-shake { animation: ctShake .4s ease-in-out both; }
+.ct-pulse { animation: ctPulse 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .ct-float, .ct-float-sm, .ct-pop, .ct-fade, .ct-shake, .ct-pulse, .ct-confetti, .ct-snack { animation: none !important; }
+  .ct-page * { transition: none !important; }
+}
+
+.ct-crumbs, .ct-desk-title, .ct-desk-h, .ct-desk-only { display: none !important; }
+
+/* ---------- phone top bar ---------- */
+.ct-top { position: fixed; top: 0; left: 0; right: 0; z-index: 35; display: flex; align-items: center; gap: 10px; padding: 14px 16px 12px; background: #fff8f1;
+  box-shadow: 0 8px 12px -10px rgba(59,26,107,.25); }
+.ct-ibtn { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 14px; border: 0; background: #fff; color: var(--ink) !important;
+  box-shadow: 0 6px 14px rgba(59,26,107,.08); display: flex; align-items: center; justify-content: center; }
+.ct-top-title { flex: 1; min-width: 0; }
+.ct-top-title h1 { margin: 0; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 23px; line-height: 1; }
+.ct-top-title p { margin: 3px 0 0; font-size: 11.5px; font-weight: 800; color: var(--ct-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- free delivery ---------- */
+.ct-ship { position: relative; margin: 6px 16px 0; padding: 14px 16px 14px; border-radius: 24px; background: #efe8ff; overflow: hidden; transition: background .3s; }
+.ct-ship.done { background: #e2f8ee; }
+.ct-confetti { position: absolute; top: -10px; width: 8px; height: 12px; border-radius: 2px; animation: ctConfetti 1.6s ease-in forwards; pointer-events: none; }
+.ct-confetti.dot { width: 7px; height: 7px; border-radius: 99px; }
+.ct-ship-row { display: flex; align-items: center; gap: 10px; }
+.ct-ship-ic { flex: 0 0 38px; height: 38px; border-radius: 13px; background: #fff; display: flex; align-items: center; justify-content: center; }
+.ct-ship-txt { flex: 1; min-width: 0; }
+.ct-ship-txt b { display: block; font-size: 13.5px; font-weight: 900; line-height: 1.2; }
+.ct-ship-txt span { font-size: 11.5px; font-weight: 700; color: #5e4f80; }
+.ct-track { position: relative; margin: 16px 12px 0 0; height: 12px; border-radius: 99px; background: #fff; }
+.ct-fill { height: 12px; border-radius: 99px; background: linear-gradient(90deg, #a57cff, #f0457a); transition: width .5s ease; max-width: 100%; }
+.ct-ship.done .ct-fill { background: linear-gradient(90deg, #5fd6a0, #1fae73); }
+.ct-goal { position: absolute; right: -12px; top: -6px; width: 24px; height: 24px; border-radius: 999px; background: #cfc3ea; border: 3px solid #fff;
+  display: flex; align-items: center; justify-content: center; transition: background .3s; }
+.ct-goal.on { background: #1fae73; }
+.ct-ship-scale { display: flex; justify-content: space-between; margin-top: 8px; font-size: 10.5px; font-weight: 800; color: var(--ct-muted); }
+
+/* ---------- items ---------- */
+.ct-items { padding: 14px 16px 0; }
+.ct-items > ul { display: flex; flex-direction: column; gap: 12px; }
+.ct-item { position: relative; display: flex; gap: 12px; padding: 10px; border-radius: 24px; background: #fff; box-shadow: 0 10px 22px rgba(59,26,107,.07); }
+.ct-thumb { flex: 0 0 96px; height: 112px; border-radius: 18px; display: flex; align-items: center; justify-content: center; padding: 10px; }
+.ct-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .3s; }
+.ct-thumb:hover img { transform: scale(1.06); }
+.ct-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ct-head { display: flex; align-items: flex-start; gap: 6px; }
+.ct-names { flex: 1; min-width: 0; }
+.ct-brand { display: block; font-size: 10px; font-weight: 900; color: var(--purple); letter-spacing: .4px; text-transform: uppercase; }
+.ct-page .ct-names h3 { margin: 2px 0 0; font-family: "Nunito", sans-serif; font-size: 13px; font-weight: 900; line-height: 1.25; overflow-wrap: anywhere;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ct-names h3 a { color: var(--ink) !important; }
+.ct-names h3 a:hover { color: var(--purple) !important; }
+.ct-del { position: relative; flex: 0 0 auto; width: 44px; height: 44px; margin: -6px -6px 0 0; border: 0; border-radius: 12px; background: transparent; display: flex; align-items: center; justify-content: center; }
+.ct-del::before { content: ""; position: absolute; width: 32px; height: 32px; border-radius: 10px; background: #fff0f4; z-index: 0; }
+.ct-del svg { position: relative; z-index: 1; }
+.ct-del:hover::before { background: #ffe0ea; }
+.ct-variant { align-self: flex-start; margin-top: 4px; font-size: 10.5px; font-weight: 800; color: #5e4f80; background: #f5f0ff; padding: 2px 8px; border-radius: 8px; }
+.ct-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 8px; }
+.ct-price { min-width: 0; display: flex; flex-direction: column; }
+.ct-price b { font-family: "Baloo 2", sans-serif; font-size: 18px; font-weight: 800; color: var(--plum); line-height: 1; white-space: nowrap; }
+.ct-price s { font-size: 10.5px; font-weight: 700; color: #7f7398; white-space: nowrap; margin-top: 2px; }
+.ct-price small { font-size: 10px; font-weight: 800; color: var(--ct-muted); white-space: nowrap; }
+.ct-stepper { flex: 0 0 auto; display: flex; align-items: center; height: 44px; border-radius: 14px; background: #f5f0ff; }
+.ct-stepper button { width: 40px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; color: var(--ink) !important; }
+.ct-stepper button:disabled { opacity: .35; cursor: default; }
+.ct-stepper output { min-width: 16px; text-align: center; font-size: 14px; font-weight: 900; }
+.ct-later { align-self: flex-start; min-height: 32px; border: 0; background: transparent; padding: 6px 0 0; font-size: 11.5px; font-weight: 900; color: var(--purple) !important; }
+.ct-later:hover { color: var(--purple-d) !important; text-decoration: underline; }
+
+/* ---------- wishlist strip ---------- */
+.ct-saved { padding: 20px 16px 0; }
+.ct-page .ct-h3 { margin: 0; font-family: "Nunito", sans-serif; font-size: 14px; font-weight: 900; }
+.ct-saved ul { display: flex; flex-direction: column; gap: 8px; margin-top: 8px !important; }
+.ct-saved li { display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 12px; border-radius: 18px; background: #fff; border: 1.5px dashed #ddd0fb; }
+.ct-dot { flex: 0 0 10px; height: 10px; border-radius: 99px; background: #b896ff; }
+.ct-saved-name { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 800; color: var(--ink) !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ct-saved-name:hover { color: var(--purple) !important; }
+.ct-saved-price { font-size: 12px; font-weight: 900; color: var(--plum); white-space: nowrap; }
+.ct-saved li button { flex: 0 0 auto; height: 44px; padding: 0 12px; border: 0; border-radius: 12px; background: #efe8ff; color: var(--purple-d) !important; font-size: 12px; font-weight: 900; }
+.ct-saved li button:hover { background: #e2d6ff; }
+
+/* ---------- did you forget ---------- */
+.ct-forgot { padding: 22px 0 0 16px; }
+.ct-forgot-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-right: 16px; }
+.ct-saved .ct-forgot-head { padding-right: 0; }
+.ct-page .ct-h2 { margin: 0; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 19px; line-height: 1.15; }
+.ct-seeall { min-height: 44px; display: inline-flex; align-items: center; font-size: 12.5px; font-weight: 900; color: var(--purple) !important; }
+.ct-seeall:hover { text-decoration: underline; }
+.ct-forgot-track { display: flex; gap: 10px; overflow-x: auto; padding: 6px 16px 6px 0 !important; scrollbar-width: none; }
+.ct-forgot-track::-webkit-scrollbar { display: none; }
+.ct-fcard { flex: 0 0 140px; display: flex; flex-direction: column; padding: 10px; border-radius: 22px; background: #fff; box-shadow: 0 8px 18px rgba(59,26,107,.06); }
+.ct-flink { color: var(--ink) !important; }
+.ct-fimg { height: 84px; border-radius: 16px; display: flex; align-items: center; justify-content: center; padding: 8px; }
+.ct-fimg img { max-width: 100%; max-height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .3s; }
+.ct-flink:hover img { transform: scale(1.06); }
+.ct-flink b { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 11.5px; font-weight: 900; line-height: 1.25; margin-top: 8px; height: 29px; }
+.ct-flink:hover b { color: var(--purple); }
+.ct-ffoot { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: auto; padding-top: 6px; }
+.ct-fprice { font-family: "Baloo 2", sans-serif; font-size: 16px; font-weight: 800; color: var(--plum); white-space: nowrap; }
+.ct-fadd { flex: 0 0 auto; width: 44px; height: 44px; border: 0; border-radius: 13px; background: var(--pink-d); display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 0 #9c1442; }
+.ct-fadd:active { transform: translateY(2px); box-shadow: 0 1px 0 #9c1442; }
+
+/* ---------- coupon ---------- */
+.ct-card { margin: 18px 16px 0; padding: 16px; border-radius: 24px; background: #fff; box-shadow: 0 10px 22px rgba(59,26,107,.06); }
+.ct-card-h { display: flex; align-items: center; gap: 8px; }
+.ct-page .ct-card-h h2 { margin: 0; font-family: "Nunito", sans-serif; font-size: 14px; font-weight: 900; }
+.ct-coupon-row { display: flex; gap: 8px; margin-top: 12px; }
+.ct-coupon-row input { flex: 1; min-width: 0; height: 46px; padding: 0 14px; border-radius: 14px; border: 2px solid #efe6fb; background: #fbf9ff; font-family: inherit;
+  font-size: 14px; font-weight: 800; letter-spacing: .5px; color: var(--ink); text-transform: uppercase; }
+.ct-coupon-row input::placeholder { text-transform: none; letter-spacing: 0; color: #8f84a8; }
+.ct-coupon-row input:focus { outline: none; border-color: var(--purple); }
+.ct-coupon-row input.bad { border-color: var(--pink); }
+.ct-coupon-row button { flex: 0 0 auto; height: 46px; padding: 0 18px; border: 0; border-radius: 14px; background: var(--ink); color: #fff !important; font-size: 13.5px; font-weight: 900; }
+.ct-coupon-row button:hover { background: var(--plum); }
+.ct-page .ct-coupon-msg { margin: 6px 0 0; min-height: 0; font-size: 11.5px; font-weight: 800; color: var(--pink-d); }
+.ct-coupon-msg:empty { display: none; }
+
+/* ---------- summary ---------- */
+.ct-sum { position: relative; margin: 14px 16px 0; padding: 16px; border-radius: 26px; background: var(--ink); color: #fff; overflow: hidden; }
+.ct-sum-blob { position: absolute; right: -40px; top: -40px; width: 140px; height: 140px; border-radius: 999px; background: #3b2470; }
+.ct-page .ct-sum h2 { position: relative; margin: 0 0 10px; font-family: "Baloo 2", sans-serif; font-size: 19px; font-weight: 800; color: #fff; }
+.ct-sum dl { position: relative; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 800; }
+.ct-sum dl > div { display: flex; justify-content: space-between; gap: 10px; }
+.ct-sum dt { color: #cbb9f2; }
+.ct-sum dd { margin: 0; white-space: nowrap; }
+.ct-sum .ct-total { align-items: baseline; border-top: 1px solid #4a3580; padding-top: 10px; margin-top: 2px; }
+.ct-sum .ct-total dt { color: #fff; font-size: 15px; }
+.ct-sum .ct-total dd { font-family: "Baloo 2", sans-serif; font-size: 26px; font-weight: 800; line-height: 1; }
+.ct-yay { position: relative; margin-top: 12px; display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 14px; background: #ffd166; color: var(--ink); font-size: 13px; font-weight: 900; }
+.ct-yay svg { flex: 0 0 auto; }
+.ct-pay { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px 16px; margin: 0 !important; padding: 16px 16px 0; font-size: 11px; font-weight: 800; color: var(--ct-muted); }
+
+/* ---------- checkout CTA ---------- */
+.ct-checkout { position: relative; flex: 1; min-width: 0; height: 60px; border-radius: 20px; background: var(--pink-d); color: #fff !important; font-size: 16px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 0 #9c1442; transition: background .2s; }
+.ct-checkout:hover { background: #ad1a4c; }
+.ct-checkout:active { transform: translateY(3px); box-shadow: 0 3px 0 #9c1442; }
+
+/* ---------- phone bottom bar ---------- */
+.ct-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; align-items: center; gap: 14px; min-height: 96px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: #fff; border-radius: 28px 28px 0 0; box-shadow: 0 -10px 26px rgba(59,26,107,.1); }
+.ct-bar-total { flex: 0 0 auto; display: flex; flex-direction: column; }
+.ct-bar-total span { font-size: 11.5px; font-weight: 800; color: var(--ct-muted); }
+.ct-bar-total b { font-family: "Baloo 2", sans-serif; font-size: 26px; font-weight: 800; line-height: 1; color: var(--ink); white-space: nowrap; }
+.ct-bar-total small { font-size: 10.5px; font-weight: 800; color: var(--ct-muted); white-space: nowrap; }
+.ct-bar-total small.good { color: #13804f; }
+
+/* ---------- undo snackbar ---------- */
+.ct-snackwrap { position: fixed; left: 0; right: 0; bottom: calc(110px + env(safe-area-inset-bottom)); z-index: 60; display: flex; justify-content: center; padding: 0 16px; pointer-events: none; }
+.ct-page.is-empty .ct-snackwrap { bottom: calc(84px + env(safe-area-inset-bottom)); }
+.ct-snack { pointer-events: auto; width: min(420px, 100%); display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 14px; border-radius: 18px; background: var(--ink); color: #fff;
+  box-shadow: 0 14px 28px rgba(42,22,80,.35); animation: ctSlideUp .35s cubic-bezier(.2,.9,.3,1) both; }
+.ct-snack span { flex: 1; min-width: 0; font-size: 13px; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ct-snack button { flex: 0 0 auto; height: 44px; padding: 0 16px; border: 0; border-radius: 12px; background: #ffd166; color: var(--ink) !important; font-size: 13px; font-weight: 900; }
+
+/* ---------- empty ---------- */
+.ct-empty { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 50px 28px 8px; }
+.ct-page .ct-empty h2 { margin: 14px 0 0; font-family: "Baloo 2", sans-serif; font-size: 25px; font-weight: 800; line-height: 1.15; }
+.ct-page .ct-empty p { margin: 6px 0 0; font-size: 13.5px; font-weight: 700; color: var(--ct-muted); line-height: 1.45; }
+.ct-start { margin-top: 18px; min-height: 50px; padding: 0 26px; border-radius: 16px; background: var(--purple); color: #fff !important; font-size: 14.5px; font-weight: 900;
+  display: inline-flex; align-items: center; box-shadow: 0 5px 0 var(--purple-d); }
+.ct-start:hover { background: var(--purple-d); }
+.ct-empty-wish { margin-top: 10px; min-height: 44px; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 800; color: var(--ct-muted) !important; }
+.ct-empty-wish:hover { color: var(--purple) !important; text-decoration: underline; }
+
+/* ---------- phone ---------- */
+@media (max-width: 899px) {
+  .ct-page { padding-top: 72px; padding-bottom: calc(118px + env(safe-area-inset-bottom)); }
+  .ct-page.is-empty { padding-bottom: calc(90px + env(safe-area-inset-bottom)); }
+  .ct-wrap { max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; }
+  /* phone order follows the design: progress, items, "did you forget", wishlist, coupon + summary */
+  .ct-layout, .ct-main, .ct-side, .ct-side-in { display: contents; }
+  .ct-ship { order: 1; } .ct-items { order: 2; } .ct-forgot { order: 3; } .ct-saved { order: 4; }
+  .ct-coupon { order: 5; } .ct-sum { order: 6; } .ct-pay { order: 7; }
+}
+@media (max-width: 380px) {
+  .ct-thumb { flex-basis: 80px; height: 100px; }
+  .ct-stepper button { width: 36px; }
+  .ct-bar { gap: 10px; padding-left: 12px; padding-right: 12px; }
+  .ct-bar-total b { font-size: 22px; }
+  .ct-checkout { font-size: 15px; }
+}
+
+/* ---------- desktop ---------- */
+@media (min-width: 900px) {
+  .ct-top, .ct-bar { display: none; }
+  .ct-desk-only { display: flex !important; }
+  .ct-wrap { max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px) 64px; }
+  .ct-crumbs { display: flex !important; flex-wrap: wrap; align-items: center; gap: 8px; padding-top: 24px; font-size: 13px; font-weight: 800; color: var(--ct-muted); }
+  .ct-crumbs a { color: var(--ct-muted) !important; }
+  .ct-crumbs a:hover { color: var(--purple) !important; }
+  .ct-crumbs [aria-current] { color: var(--ink); }
+  .ct-desk-title { display: flex !important; align-items: baseline; gap: 14px; margin-top: 10px; }
+  .ct-page .ct-desk-title h1 { margin: 0; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 38px; line-height: 1.1; }
+  .ct-desk-title p { margin: 0; font-size: 15px; font-weight: 800; color: var(--ct-muted); }
+
+  .ct-layout { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: clamp(24px, 3vw, 40px); align-items: start; margin-top: 20px; }
+  .ct-ship { margin: 0; padding: 18px 22px; }
+  .ct-ship-txt b { font-size: 15px; }
+  .ct-ship-txt span { font-size: 12.5px; }
+  .ct-items { padding: 22px 0 0; }
+  .ct-page .ct-desk-h { display: block !important; margin: 0 0 12px; font-family: "Baloo 2", sans-serif; font-size: 22px; font-weight: 800; }
+  .ct-desk-h span { color: var(--ct-muted); }
+  .ct-item { padding: 14px; gap: 18px; border-radius: 26px; }
+  .ct-thumb { flex-basis: 132px; height: 132px; }
+  .ct-page .ct-names h3 { font-size: 16px; }
+  .ct-brand { font-size: 11px; }
+  .ct-variant { font-size: 12px; padding: 3px 10px; }
+  .ct-price b { font-size: 22px; }
+  .ct-price s { font-size: 12px; }
+  .ct-later { font-size: 12.5px; }
+  .ct-saved { padding: 26px 0 0; }
+
+  .ct-side { position: sticky; top: 160px; }
+  .ct-card { margin: 0; }
+  .ct-sum { margin: 14px 0 0; padding: 22px; }
+  .ct-page .ct-sum h2 { font-size: 22px; }
+  .ct-sum dl { font-size: 14px; gap: 10px; }
+  .ct-sum .ct-total dd { font-size: 30px; }
+  .ct-sum .ct-checkout { margin-top: 16px; height: 58px; background: var(--pink); box-shadow: 0 6px 0 var(--pink-d); }
+  .ct-sum .ct-checkout:hover { background: var(--pink-d); box-shadow: 0 6px 0 #9c1442; }
+  .ct-pay { padding: 14px 0 0; }
+
+  .ct-empty { padding: 40px 28px 16px; }
+  .ct-page .ct-empty h2 { font-size: 32px; }
+  .ct-page .ct-empty p { font-size: 15px; }
+
+  .ct-forgot { padding: 48px 0 0; }
+  .ct-forgot-head { padding-right: 0; }
+  .ct-page .ct-h2 { font-size: 24px; }
+  .ct-forgot-track { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; overflow: visible; padding: 12px 0 0 !important; }
+  .ct-fcard { padding: 12px; transition: transform .2s, box-shadow .2s; }
+  .ct-fcard:hover { transform: translateY(-3px); box-shadow: 0 16px 30px rgba(59,26,107,.12); }
+  .ct-fimg { height: 150px; }
+  .ct-flink b { font-size: 14px; height: 36px; }
+  .ct-fprice { font-size: 19px; }
+  .ct-fcard:nth-child(n+5) { display: none; }
+  .ct-snackwrap, .ct-page.is-empty .ct-snackwrap { bottom: 24px; }
+}
+@media (min-width: 1240px) {
+  .ct-forgot-track { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .ct-fcard:nth-child(5) { display: flex; }
+}
