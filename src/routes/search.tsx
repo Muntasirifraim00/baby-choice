@@ -60,8 +60,8 @@ function matches(p: Product, q: string) {
 
 function SearchResults() {
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [input, setInput] = useState("baby shampoo");
-  const [q, setQ] = useState("baby shampoo");
+  const [input, setInput] = useState("");
+  const [q, setQ] = useState("");
   const [filters, setFilters] = useState<Filters>(empty);
   const [sort, setSort] = useState<(typeof sorts)[number]>("Relevance");
   const [list, setList] = useState(false);
