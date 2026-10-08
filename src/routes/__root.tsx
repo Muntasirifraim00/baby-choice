@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import { CartProvider } from "@/lib/cart-store";
 import { ShopMenuProvider } from "@/components/shop-menu";
+import { DesktopPageLayout } from "@/components/desktop-page-layout";
 import { Toaster } from "@/components/ui/sonner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -124,7 +125,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <CartProvider>
-        <ShopMenuProvider><Outlet /></ShopMenuProvider>
+        <ShopMenuProvider><DesktopPageLayout><Outlet /></DesktopPageLayout></ShopMenuProvider>
         <Toaster position="top-center" richColors />
       </CartProvider>
     </QueryClientProvider>
