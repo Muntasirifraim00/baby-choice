@@ -979,3 +979,8 @@ button.ac-row{grid-template-columns:1fr auto}
 .all-category-grid .all-category-card>img{display:none}
 .all-category-count{display:block;margin-top:.5cqw;font-size:1.6cqw;font-weight:700;color:var(--shop-purple);opacity:.85}
 .all-category-grid .category-explore{margin-top:.9cqw}
+
+/* Fix: product names hidden under images across listings */
+.product-image,.clothing-product-image,.search-product-image{box-sizing:border-box;overflow:hidden}
+.search-product-card,.clothing-product-card,.product-card{height:auto!important}
+.search-product-info h2,.clothing-product-info h2,.clothing-product-info h3,.product-card h3{height:auto!important;overflow:visible!important;display:block;-webkit-line-clamp:unset}
