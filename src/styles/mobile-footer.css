@@ -83,5 +83,6 @@
 @keyframes footer-marker-arrive { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @media (prefers-reduced-motion: reduce) {
   .mobile-frame nav.bottom-nav.bottom-nav *,
+  .mobile-frame nav.bottom-nav.bottom-nav .active .nav-icon,
   .mobile-frame nav.bottom-nav.bottom-nav .active::after { animation: none; transition: none; }
 }
