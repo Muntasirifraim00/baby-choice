@@ -1,4 +1,5 @@
 # Requested work
+- [ ] Match desktop header reference with generated pastel navigation imagery and supplied transparent baby; verify sizing, search and department links while preserving mobile.
 - [x] Upgrade shared footer Home, Categories, Offers, About and Account controls with animated selected states; verified all five links, consistent height and 320/390/487px sizing; desktop unchanged.
 - [x] Improve shared mobile header and animated search; replace add-to-cart popup with a flying dot. Verified matching suggestions, cart count, home/product flight, no toast, reduced motion and 320/390/487/1280px overflow.
 - [x] Enlarge homepage Top Brands into an animated automatic grid slider on mobile and desktop; verified logos, autoplay/pause, next controls, brand links and reduced motion at 320/487/1280px.

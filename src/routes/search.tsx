@@ -7,6 +7,7 @@ import { AddToCartButton, ProductLink, WishButton } from "@/components/live";
 import { off, products, tk, type Product } from "@/lib/products";
 
 export const Route = createFileRoute("/search")({
+  validateSearch: (search: Record<string, unknown>) => ({ q: typeof search.q === "string" ? search.q : "" }),
   component: SearchResults,
   head: () => ({ meta: [
     { title: "Search Baby Products — Baby Choice" },
@@ -59,9 +60,10 @@ function matches(p: Product, q: string) {
 }
 
 function SearchResults() {
+  const { q: initialQuery } = Route.useSearch();
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [input, setInput] = useState("");
-  const [q, setQ] = useState("");
+  const [input, setInput] = useState(initialQuery);
+  const [q, setQ] = useState(initialQuery);
   const [filters, setFilters] = useState<Filters>(empty);
   const [sort, setSort] = useState<(typeof sorts)[number]>("Relevance");
   const [list, setList] = useState(false);
