@@ -14,7 +14,6 @@ import { MenuButton } from "@/components/shop-menu";
 import type { ReactNode } from "react";
 import logo from "@/assets/logo.png.asset.json";
 import { HomeBanners } from "@/components/home-banners";
-import { HomeV3Bottom, HomeV3Middle, HomeV3Top } from "@/components/home-v3";
 import allHero from "@/assets/all-hero.png.asset.json";
 import allPromo from "@/assets/all-promo.png.asset.json";
 import bath from "@/assets/bath.png.asset.json";
@@ -67,16 +66,13 @@ function Shell({ active, children }: { active: "home" | "categories"; children: 
 
 export function DesktopHome() {
   return <Shell active="home">
-    <HomeV3Top />
+    <HomeBanners />
     <section className="dk-services">{services.map(([img, t]) => <div key={t}><img src={img.url} alt="" /><p>{t}</p></div>)}</section>
     <HomeCategorySection />
-    <HomeV3Middle />
-    <HomeBanners />
     <section className="dk-promos"><img src={bath.url} alt="Bath Time Essentials. Shop Now." /><img src={feeding.url} alt="Feeding Made Easy. Explore Now." /></section>
     <Heading title="Trending Products" to="/trending" action="View More" />
     <HomeTrendingGrid />
     <HomeBrands />
-    <HomeV3Bottom />
   </Shell>;
 }
 
