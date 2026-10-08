@@ -1,0 +1,13 @@
+import { products, off } from './products';
+import { slugify } from './live-head';
+import b1 from '@/assets/brand-1.png.asset.json';
+import b2 from '@/assets/brand-2.png.asset.json';
+import b3 from '@/assets/brand-3.png.asset.json';
+import b4 from '@/assets/brand-4.png.asset.json';
+import b5 from '@/assets/brand-5.png.asset.json';
+import b6 from '@/assets/brand-6.png.asset.json';
+import b7 from '@/assets/brand-7.png.asset.json';
+export const brandSlug=(name:string)=>slugify(name.normalize('NFD').replace(/[\u0300-\u036f]/g,''));
+const logos:Record<string,string>={Aptamil:b1.url,Nestlé:b2.url,Sudocrem:b3.url,Pampers:b4.url,"Carter's":b5.url,"Johnson's":b6.url,'Philips Avent':b7.url};
+export const brands=[...new Set(products.map(p=>p.brand))].map(name=>{const items=products.filter(p=>p.brand===name);const tone=[...name].reduce((n,c)=>n+c.charCodeAt(0),0)%7;return {name,displayName:name==='Baby Choice'?'Baby Choice Essentials':name,slug:brandSlug(name),products:items,count:items.length,avgRating:(items.reduce((n,p)=>n+p.rating,0)/items.length).toFixed(1),totalReviews:items.reduce((n,p)=>n+p.reviews,0),categories:[...new Set(items.map(p=>p.category))],maxOff:Math.max(0,...items.map(off)),priceFrom:Math.min(...items.map(p=>p.price)),logo:logos[name],accent:`brd-tone-${tone}`,tint:`spc-tint-${tone}`}}).sort((a,b)=>a.name.localeCompare(b.name));
+export type Brand=typeof brands[number];

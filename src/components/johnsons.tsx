@@ -6,7 +6,7 @@ import { johnsons, type Product } from "@/lib/products";
 
 export const jTypes = ["Shampoo", "Lotion", "Body Wash", "Powder", "Oil", "Wipes"];
 const sorts = ["Featured", "Price: Low to High", "Price: High to Low", "Top Rated"] as const;
-export const jCounts: Record<string, number> = { All: 42, Shampoo: 8, Lotion: 7, "Body Wash": 6, Powder: 5, Oil: 4, Wipes: 5 };
+export const jCounts: Record<string, number> = Object.fromEntries(["All", ...jTypes].map(t=>[t,johnsons.filter(p=>t==="All"||p.type===t).length]));
 
 export function JohnsonsCatalog({ withCounts = false, initial = "All" }: { withCounts?: boolean; initial?: string }) {
   const [type, setType] = useState(initial);
@@ -30,5 +30,5 @@ export function JohnsonsCatalog({ withCounts = false, initial = "All" }: { withC
 }
 
 export function JohnsonsHeaderLinks() {
-  return <div className="lv-chips"><Link to="/brands/johnsons" className="lv-chip" activeProps={{ className: "lv-chip on" }} activeOptions={{ exact: true }}>Products</Link><Link to="/brands/johnsons/story" className="lv-chip" activeProps={{ className: "lv-chip on" }}>Brand Story</Link><Link to="/brands/johnsons/products" className="lv-chip" activeProps={{ className: "lv-chip on" }}>All Products</Link></div>;
+  return <div className="lv-chips"><Link to="/brands/johnsons" className="lv-chip" activeProps={{ className: "lv-chip on" }} activeOptions={{ exact: true }}>Products</Link><Link to="/brands/johnsons/story" className="lv-chip" activeProps={{ className: "lv-chip on" }}>Brand Story</Link><Link to="/brands/johnsons/products" search={{type:"All",sort:"Popular"}} className="lv-chip" activeProps={{ className: "lv-chip on" }}>All Products</Link></div>;
 }

@@ -12,3 +12,10 @@
 @import "./pages/wishlist.css";
 @import "./pages/offers.css";
 @import "./pages/trending.css";
+
+@import "./pages/account.css";
+@import "./pages/login.css";
+@import "./pages/brands.css";
+@import "./pages/johnsons.css";
+@import "./pages/support.css";
+@import "./pages/about.css";

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { PageShell } from "@/components/pages/page-shell";
 import { FREE_DELIVERY, totals, useCart, type CartLine } from "@/lib/cart-store";
 import { getProduct, tk } from "@/lib/products";
+import { useDemoProfile, type DemoAddress } from "@/lib/demo-profile";
 
 /* ---------------- data ---------------- */
 
@@ -55,7 +56,9 @@ function draftErrors(d: Draft) {
 const draftValid = (d: Draft) => Object.values(draftErrors(d)).every(e => !e);
 
 export type ResolvedAddress = { label: string; line: string; phone: string; district: string };
-export function resolveAddress(address: string, d: Draft): ResolvedAddress | null {
+export function resolveAddress(address: string, d: Draft, addresses: DemoAddress[] = []): ResolvedAddress | null {
+  const local = addresses.find(a => a.label === address && a.isDefault) ?? addresses.find(a => a.label === address);
+  if (local) return { label: local.label, line: [local.line, local.area, local.city].join(", "), phone: local.phone, district: local.city };
   const saved = SAVED_ADDRESSES.find(a => a.id === address);
   if (saved) return saved;
   if (address === NEW_ADDRESS && draftValid(d)) return { label: d.name.trim(), line: [d.line.trim(), d.area.trim(), d.district].join(", "), phone: `+880 ${d.phone}`, district: d.district };
@@ -203,13 +206,14 @@ function Field({ id, label, error, children }: { id: string; label: string; erro
 }
 
 function AddressStep({ choice, onPick, tried, shake, lines }: { choice: string; onPick: (id: string) => void; tried: boolean; shake: number; lines: CartLine[] }) {
+  const { profile } = useDemoProfile();
   const d = useCheckoutDraft();
   const errs = draftErrors(d);
   const show = (k: keyof typeof errs) => (tried && errs[k] ? errs[k] : undefined);
   const inv = (k: keyof typeof errs) => ({ "aria-invalid": tried && !!errs[k], "aria-describedby": tried && errs[k] ? `ck-${k}-err` : undefined });
   const t = totals(lines);
   const options = [
-    ...SAVED_ADDRESSES.map(a => ({ id: a.id, label: a.label, line: a.line, kind: a.kind as string, isDefault: a.isDefault })),
+    ...(profile.addresses.length ? profile.addresses.map(a => ({ id: a.label, label: a.label, line: [a.line, a.area, a.city].join(", "), kind: a.label === "Home" ? "home" : "work", isDefault: a.isDefault })) : SAVED_ADDRESSES.map(a => ({ id: a.id, label: a.label, line: a.line, kind: a.kind as string, isDefault: a.isDefault }))),
     { id: NEW_ADDRESS, label: "Add a new address", line: d.line && d.area ? `${d.line}, ${d.area}` : "Deliver somewhere else", kind: "new", isDefault: false },
   ];
   return (
@@ -384,6 +388,7 @@ function ReviewStep({ lines, addr, notes, tried, shake, terms, setTerms }: { lin
 /* ---------------- page ---------------- */
 
 export function CheckoutPage({ step, startNew = false }: { step: Step; startNew?: boolean }) {
+  const { profile } = useDemoProfile();
   const { lines, address, setAddress, placeOrder } = useCart();
   const navigate = useNavigate();
   const mounted = useMounted();
@@ -398,7 +403,7 @@ export function CheckoutPage({ step, startNew = false }: { step: Step; startNew?
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const t = totals(lines);
-  const addr = resolveAddress(address, d);
+  const addr = resolveAddress(address, d, profile.addresses);
   const ready = step === "address" ? (choice !== NEW_ADDRESS || draftValid(d)) : step === "payment" ? true : terms && !!addr;
   const cta = placing ? "Placing order…" : step === "address" ? "Continue to payment" : step === "payment" ? "Review order" : "Place order";
 
