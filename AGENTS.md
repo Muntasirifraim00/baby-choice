@@ -24,3 +24,4 @@
 - Product pages use the dynamic /product/$slug route; brand and category listings use /brands/$brand and /categories/$cat alongside static Johnson's and Baby Clothing pages.
 - All catalog product details share the reference-inspired presentation on the dynamic product route; gallery and purchase controls use the existing catalog and cart context to keep selection synchronized.
 - Use one root-mounted menu provider for shared menu triggers and one home-category mapping for mobile/desktop links and exact category product listings, preventing destination drift.
+- Share the homepage banner sliders between mobile and desktop, using supplied CDN images and client-only autoplay effects to keep artwork and navigation consistent.
