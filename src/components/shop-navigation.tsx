@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
-import { BadgePercent, ChevronRight, Heart, House, LayoutGrid, Menu, Phone, Search, ShoppingCart, UserRound } from "lucide-react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { BadgePercent, ChevronRight, House, Info, LayoutGrid, Phone, Search, ShoppingCart, UserRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png.asset.json";
 import type { ReactNode } from "react";
@@ -18,13 +18,23 @@ export function ShopHeader() {
   </header><Button variant="ghost" asChild className="search-bar search-link"><Link to="/search" aria-label="Search baby products"><Search /><span>Search products, brands & more…</span><span className="search-submit"><Search /></span></Link></Button></div>;
 }
 
-export function ShopBottomNav({ active = "Categories" }: { active?: "Home" | "Categories" | "Offers" | "Wishlist" | "Account" | "none" }) {
+export function ShopBottomNav(_props: { active?: "Home" | "Categories" | "Offers" | "Wishlist" | "Account" | "none" } = {}) {
+  const pathname = useRouterState({ select: state => state.location.pathname });
+  const items = [
+    { label: "Home", to: "/", icon: House },
+    { label: "Categories", to: "/categories", icon: LayoutGrid },
+    { label: "Offers", to: "/offers", icon: BadgePercent },
+    { label: "About", to: "/about", icon: Info },
+    { label: "Account", to: "/account", icon: UserRound },
+  ] as const;
+  const selected = pathname === "/" || pathname === "/index" ? "Home"
+    : pathname.startsWith("/categories") || pathname.startsWith("/brands") ? "Categories"
+    : pathname.startsWith("/offers") ? "Offers"
+    : pathname.startsWith("/about") ? "About"
+    : pathname.startsWith("/account") ? "Account"
+    : "none";
   return <nav className="bottom-nav" aria-label="Main navigation">
-    <Button variant="ghost" asChild className={`demo-button nav-item ${active === "Home" ? "active" : ""}`}><Link to="/" aria-label="Home"><House fill={active === "Home" ? "currentColor" : "none"} /><span>Home</span></Link></Button>
-    <Button variant="ghost" asChild className={`demo-button nav-item ${active === "Categories" ? "active category-active" : ""}`}><Link to="/categories" aria-label="Categories"><LayoutGrid fill={active === "Categories" ? "currentColor" : "none"} /><span>Categories</span></Link></Button>
-    <Button variant="ghost" asChild className={`demo-button nav-item ${active === "Offers" ? "active" : ""}`}><Link to="/offers" aria-label="Offers"><BadgePercent /><span>Offers</span></Link></Button>
-    <Button variant="ghost" asChild className={`demo-button nav-item ${active === "Wishlist" ? "active category-active" : ""}`}><Link to="/wishlist" aria-label="Wishlist"><Heart fill={active === "Wishlist" ? "currentColor" : "none"} /><span>Wishlist</span></Link></Button>
-    <Button variant="ghost" asChild className={`demo-button nav-item ${active === "Account" ? "active category-active" : ""}`}><Link to="/account" aria-label="Account"><UserRound fill={active === "Account" ? "currentColor" : "none"} /><span>Account</span></Link></Button>
+    {items.map(({ label, to, icon: Icon }) => <Button key={label} variant="ghost" asChild className={`demo-button nav-item ${selected === label ? "active" : ""}`}><Link to={to} aria-label={label} aria-current={selected === label ? "page" : undefined}><span className="nav-icon"><Icon aria-hidden="true" /></span><span>{label}</span></Link></Button>)}
   </nav>;
 }
 

@@ -6,6 +6,7 @@
 @import "./styles/desktop-nav.css";
 @import "./styles/home-brands.css";
 @import "./styles/mobile-header.css";
+@import "./styles/mobile-footer.css";
 
 @custom-variant dark (&:is(.dark *));
 
