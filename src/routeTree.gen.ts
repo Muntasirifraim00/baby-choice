@@ -28,7 +28,6 @@ import { Route as CheckoutIndexRouteImport } from './routes/checkout.index'
 import { Route as CheckoutAddressRouteImport } from './routes/checkout.address'
 import { Route as CheckoutPaymentRouteImport } from './routes/checkout.payment'
 import { Route as CheckoutReviewRouteImport } from './routes/checkout.review'
-import { Route as ProductJohnsonsBabyShampooRouteImport } from './routes/product.johnsons-baby-shampoo'
 import { Route as TrendingIndexRouteImport } from './routes/trending.index'
 import { Route as TrendingPopularRouteImport } from './routes/trending.popular'
 import { Route as BrandsJohnsonsIndexRouteImport } from './routes/brands.johnsons.index'
@@ -132,12 +131,6 @@ const CheckoutReviewRoute = CheckoutReviewRouteImport.update({
   path: '/review',
   getParentRoute: () => CheckoutRoute,
 } as any)
-const ProductJohnsonsBabyShampooRoute =
-  ProductJohnsonsBabyShampooRouteImport.update({
-    id: '/product/johnsons-baby-shampoo',
-    path: '/product/johnsons-baby-shampoo',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const TrendingIndexRoute = TrendingIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -191,7 +184,6 @@ export interface FileRoutesByFullPath {
   '/checkout/address': typeof CheckoutAddressRouteWithChildren
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/checkout/review': typeof CheckoutReviewRoute
-  '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
   '/trending/popular': typeof TrendingPopularRoute
   '/brands/': typeof BrandsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
@@ -217,7 +209,6 @@ export interface FileRoutesByTo {
   '/categories/baby-clothing': typeof CategoriesBabyClothingRoute
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/checkout/review': typeof CheckoutReviewRoute
-  '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
   '/trending/popular': typeof TrendingPopularRoute
   '/brands': typeof BrandsIndexRoute
   '/categories': typeof CategoriesIndexRoute
@@ -247,7 +238,6 @@ export interface FileRoutesById {
   '/checkout/address': typeof CheckoutAddressRouteWithChildren
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/checkout/review': typeof CheckoutReviewRoute
-  '/product/johnsons-baby-shampoo': typeof ProductJohnsonsBabyShampooRoute
   '/trending/popular': typeof TrendingPopularRoute
   '/brands/': typeof BrandsIndexRoute
   '/categories/': typeof CategoriesIndexRoute
@@ -278,7 +268,6 @@ export interface FileRouteTypes {
     | '/checkout/address'
     | '/checkout/payment'
     | '/checkout/review'
-    | '/product/johnsons-baby-shampoo'
     | '/trending/popular'
     | '/brands/'
     | '/categories/'
@@ -304,7 +293,6 @@ export interface FileRouteTypes {
     | '/categories/baby-clothing'
     | '/checkout/payment'
     | '/checkout/review'
-    | '/product/johnsons-baby-shampoo'
     | '/trending/popular'
     | '/brands'
     | '/categories'
@@ -333,7 +321,6 @@ export interface FileRouteTypes {
     | '/checkout/address'
     | '/checkout/payment'
     | '/checkout/review'
-    | '/product/johnsons-baby-shampoo'
     | '/trending/popular'
     | '/brands/'
     | '/categories/'
@@ -360,7 +347,6 @@ export interface RootRouteChildren {
   TrendingRoute: typeof TrendingRouteWithChildren
   WishlistRoute: typeof WishlistRoute
   CategoriesBabyClothingRoute: typeof CategoriesBabyClothingRoute
-  ProductJohnsonsBabyShampooRoute: typeof ProductJohnsonsBabyShampooRoute
   BrandsIndexRoute: typeof BrandsIndexRoute
   CategoriesIndexRoute: typeof CategoriesIndexRoute
   BrandsJohnsonsProductsRoute: typeof BrandsJohnsonsProductsRoute
@@ -503,13 +489,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutReviewRouteImport
       parentRoute: typeof CheckoutRoute
     }
-    '/product/johnsons-baby-shampoo': {
-      id: '/product/johnsons-baby-shampoo'
-      path: '/product/johnsons-baby-shampoo'
-      fullPath: '/product/johnsons-baby-shampoo'
-      preLoaderRoute: typeof ProductJohnsonsBabyShampooRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/trending/': {
       id: '/trending/'
       path: '/'
@@ -622,7 +601,6 @@ const rootRouteChildren: RootRouteChildren = {
   TrendingRoute: TrendingRouteWithChildren,
   WishlistRoute: WishlistRoute,
   CategoriesBabyClothingRoute: CategoriesBabyClothingRoute,
-  ProductJohnsonsBabyShampooRoute: ProductJohnsonsBabyShampooRoute,
   BrandsIndexRoute: BrandsIndexRoute,
   CategoriesIndexRoute: CategoriesIndexRoute,
   BrandsJohnsonsProductsRoute: BrandsJohnsonsProductsRoute,
