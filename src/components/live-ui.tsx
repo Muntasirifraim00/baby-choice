@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
-export function LvBanner({ title, text, image, cta, to, tone = "" }: { title: ReactNode; text: string; image?: string; cta?: string; to?: string; tone?: string }) {
+export function LvBanner({ title, text, image, cta, to, tone = "" }: { title: ReactNode; text: string; image?: string | undefined; cta?: string; to?: string; tone?: string }) {
   return <section className={`lv-banner ${tone}`}><div><h2>{title}</h2><p>{text}</p>{cta && to && <Link to={to as "/"} className="lv-btn">{cta}<ArrowRight /></Link>}</div>{image && <img src={image} alt="" />}</section>;
 }
 export function LvHead({ title, to, action }: { title: string; to?: string; action?: string }) {
