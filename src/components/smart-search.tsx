@@ -198,7 +198,12 @@ export function DesktopSmartSearch({ placeholder }: { placeholder: string }) {
 
   const stopVoice = voice.stop;
   const close = useCallback(() => { setOpen(false); setActive(-1); setMode("text"); stopVoice(); }, [stopVoice]);
-  useEffect(() => { close(); }, [href, close]);
+  const previousHref = useRef(href);
+  useEffect(() => {
+    if (previousHref.current === href) return;
+    previousHref.current = href;
+    close();
+  }, [href, close]);
   useEffect(() => setActive(-1), [data.dq]);
 
   useLayoutEffect(() => {
