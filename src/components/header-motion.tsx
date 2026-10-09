@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
+import { DesktopSmartSearch, MobileSearchSheet } from "@/components/smart-search";
+import "@/styles/smart-search.css";
 import { useCart } from "@/lib/cart-store";
 import { tk, off, type Product } from "@/lib/products";
 import {
@@ -214,13 +216,7 @@ export function HmHeader({
           <LogoMark w={46} h={42} />
           <span className="hm-logo-text"><b className="hm-bl">Baby<span>Choice</span></b><small>Everything for your little one</small></span>
         </Link>
-        <form role="search" className="hm-search" onSubmit={search.submit}>
-          <SearchIco s={20} w={2.5} />
-          <label htmlFor="hm-dq" className="hm-sr">Search products</label>
-          <input id="hm-dq" type="search" {...search.input} />
-          <Link to="/search" search={{ q: "" }} className="hm-photo" aria-label="Search by photo"><CamIco /></Link>
-          <button type="submit" className="hm-search-btn">Search</button>
-        </form>
+        <DesktopSmartSearch placeholder={search.input.placeholder} />
         <Link to="/account" className="hm-points" aria-label={`Little Stars, ${POINTS} points`}>
           <StarIco s={22} className="hm-star" />
           <span><b>{POINTS}</b><small>points</small></span>
@@ -280,6 +276,8 @@ export function MobileHeaderMotion() {
   const [paused, toggle] = useMotionPaused();
   const reduced = useReducedMotion();
   const search = useSearchBox(M_PHRASES, "Search diapers, formula, brands…");
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const closeSheet = useCallback(() => setSheetOpen(false), []);
   const [peek, setPeek] = useState<PeekKind>(null);
   const [done, setDone] = useState(true);
   const layer = useRef<HTMLDivElement>(null);
@@ -353,6 +351,7 @@ export function MobileHeaderMotion() {
           {paused ? <PlayIco s={12} /> : <PauseIco s={12} />}
         </button>
       </div>
+      {sheetOpen && <MobileSearchSheet onClose={closeSheet} />}
       <header className="hm-m-header">
         <div className="hm-m-row">
           <Link to="/" className="hm-m-logo" aria-label="Baby Choice home"><LogoMark w={28} h={26} /><b className="hm-bl">Baby<span>Choice</span></b></Link>
@@ -364,8 +363,8 @@ export function MobileHeaderMotion() {
         <form role="search" className="hm-m-search" onSubmit={search.submit}>
           <SearchIco s={16} w={2.6} />
           <label htmlFor="hm-mq" className="hm-sr">Search products</label>
-          <input id="hm-mq" type="search" {...search.input} />
-          <button type="submit">Search</button>
+          <input id="hm-mq" type="search" {...search.input} readOnly onFocus={(e) => { e.currentTarget.blur(); setSheetOpen(true); }} onClick={() => setSheetOpen(true)} />
+          <button type="button" onClick={() => setSheetOpen(true)}>Search</button>
         </form>
         <nav aria-label="Highlights" className="hm-m-stories">
           <Link to="/offers" className="hm-m-story" ref={(el) => { circles.current["offers"] = el; }}>
