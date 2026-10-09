@@ -84,7 +84,7 @@
 .hm-panel::before { content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 14px; }
 @keyframes hm-drop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 .hm-panel-offers { width: 600px; }
-.hm-panel-trend { width: 440px; }
+.hm-panel-trend { width: 440px; display: block; }
 .hm-panel-head { display: flex; align-items: flex-end; justify-content: space-between; }
 .hm-eyebrow { font-size: 11.5px; font-weight: 900; letter-spacing: .6px; }
 .hm-panel-title { margin: 0; font-size: 22px; line-height: 1.1; color: #2a1650; }
