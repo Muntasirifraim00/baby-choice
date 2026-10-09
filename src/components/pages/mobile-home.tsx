@@ -17,6 +17,20 @@ import { useCart, FREE_DELIVERY } from "@/lib/cart-store";
 import { getProduct, off, pick, tk, type Product } from "@/lib/products";
 import { slugify } from "@/lib/live-head";
 import { MobileTabBar } from "@/components/pages/page-shell";
+import heroMain from "@/assets/home/hero-main.png.asset.json";
+import heroBath from "@/assets/home/hero-bath.png.asset.json";
+import heroFeeding from "@/assets/home/hero-feeding.png.asset.json";
+import catFeeding from "@/assets/home/cat-feeding.png";
+import catDiapering from "@/assets/home/cat-diapering.png";
+import catToys from "@/assets/home/cat-toys.png";
+import catBath from "@/assets/home/cat-bath.png";
+import catFormula from "@/assets/home/cat-formula.png";
+import catGifts from "@/assets/home/cat-gifts.png";
+import stageNew from "@/assets/home/stage-new.png";
+import stage6m from "@/assets/home/stage-6m.png";
+import stage12m from "@/assets/home/stage-12m.png";
+import stage2y from "@/assets/home/stage-2y.png";
+import stage4y from "@/assets/home/stage-4y.png";
 
 /* Phone homepage (< 900px). Built from the approved "Main.dc" phone design. */
 
@@ -50,29 +64,29 @@ const SHORT: Record<string, string> = {
 const nameOf = (p: Product) => SHORT[p.slug] ?? p.name;
 
 type StageId = "nb" | "m6" | "m12" | "y2" | "y4";
-const STAGES: { id: StageId; label: string; sub: string; long: string; caps: string; tip: string; picks: string[] }[] = [
+const STAGES: { id: StageId; label: string; sub: string; long: string; caps: string; tip: string; picks: string[]; img: string }[] = [
   {
-    id: "nb", label: "New", sub: "0–3 mo", long: "Newborn, 0–3 months", caps: "NEWBORNS",
+    id: "nb", img: stageNew, label: "New", sub: "0–3 mo", long: "Newborn, 0–3 months", caps: "NEWBORNS",
     tip: "Newborns go through 8–12 diapers a day. Keep a spare pack and wipes in the bag.",
     picks: ["pampers-new-baby-diapers", "johnsons-baby-wipes", "johnsons-baby-shampoo", "sudocrem-nappy-rash-cream"],
   },
   {
-    id: "m6", label: "3–6", sub: "months", long: "Baby, 3–6 months", caps: "3–6 MONTHS",
+    id: "m6", img: stage6m, label: "3–6", sub: "months", long: "Baby, 3–6 months", caps: "3–6 MONTHS",
     tip: "Rattles and play mats help with reaching, grabbing and rolling.",
     picks: ["chicco-feeding-bottle", "baby-rattle-set", "baby-play-mat", "aveeno-baby-lotion"],
   },
   {
-    id: "m12", label: "6–12", sub: "months", long: "Baby, 6–12 months", caps: "6–12 MONTHS",
+    id: "m12", img: stage12m, label: "6–12", sub: "months", long: "Baby, 6–12 months", caps: "6–12 MONTHS",
     tip: "Starting solids? Begin with single-grain cereals and one new food at a time.",
     picks: ["nestle-cerelac-wheat-apple", "aptamil-advance-follow-on-milk", "nuby-sippy-cup", "cetaphil-baby-wash"],
   },
   {
-    id: "y2", label: "1–2", sub: "years", long: "Toddler, 1–2 years", caps: "1–2 YEARS",
+    id: "y2", img: stage2y, label: "1–2", sub: "years", long: "Toddler, 1–2 years", caps: "1–2 YEARS",
     tip: "Spill-proof cups make the switch from bottles easier.",
     picks: ["nuby-sippy-cup", "baby-play-mat", "cetaphil-baby-wash", "johnsons-baby-wipes"],
   },
   {
-    id: "y4", label: "2–4", sub: "years", long: "Little one, 2–4 years", caps: "2–4 YEARS",
+    id: "y4", img: stage4y, label: "2–4", sub: "years", long: "Little one, 2–4 years", caps: "2–4 YEARS",
     tip: "Gentle bath care and a calm routine help bedtime go smoothly.",
     picks: ["johnsons-baby-care-gift-set", "aveeno-baby-lotion", "johnsons-baby-shampoo", "philips-avent-bottle-set"],
   },
@@ -80,36 +94,36 @@ const STAGES: { id: StageId; label: string; sub: string; long: string; caps: str
 const STAGE_KEY = "baby-choice-stage";
 
 type Slide = {
-  tag: string; title: string; sub: string; cta: string; bg: string; blob: string; ink: string; slug: string; alt: string;
-  cat?: string; anchor?: string;
+  tag: string; title: string; sub: string; cta: string; bg: string; blob: string; ink: string; img: string; alt: string;
+  cat: string;
 };
 const SLIDES: Slide[] = [
   {
-    tag: "NEW PARENT KIT", title: "Everything for\nthe first 30 days", sub: "Diapers, wipes, bath care and a gift box, picked by parents.",
-    cta: "Build my kit", bg: "#ffe3ec", blob: "#ffcadb", ink: "#c21e55", slug: "johnsons-baby-care-gift-set", alt: "Johnson’s baby care gift set",
-    anchor: "mh-bundle",
+    tag: "NEW ARRIVALS", title: "Everything for\nyour little one", sub: "Up to 30% OFF on soft, safe picks for your newest family member.",
+    cta: "Shop newborn", bg: "#ffe3ec", blob: "#ffcadb", ink: "#c21e55", img: heroMain.url, alt: "Baby in a bear hoodie",
+    cat: "baby-clothing",
   },
   {
-    tag: "FEEDING WEEK", title: "Bottles & formula,\nsave up to 20%", sub: "BPA-free bottles and trusted formula brands.",
-    cta: "Shop feeding", bg: "#e3ebff", blob: "#cddafe", ink: "#3b28b8", slug: "philips-avent-bottle-set", alt: "Philips Avent bottle set",
-    cat: "feeding-and-nursing",
-  },
-  {
-    tag: "BATH TIME", title: "Gentle, tear-free\nbath time", sub: "Mild washes and lotions for delicate skin.",
-    cta: "Shop bath", bg: "#ddf6ea", blob: "#c3eed9", ink: "#136b40", slug: "johnsons-baby-shampoo", alt: "Johnson’s baby shampoo",
+    tag: "BATH TIME", title: "Gentle care for\nhappy baths", sub: "Mild washes, towels and toys for giggly baths.",
+    cta: "Shop bath", bg: "#ddf1ff", blob: "#c7e6ff", ink: "#2f5bd3", img: heroBath.url, alt: "Baby at bath time",
     cat: "bath-and-hygiene",
+  },
+  {
+    tag: "FEEDING", title: "Healthy beginnings\nevery day", sub: "Bottles, bowls and weaning picks for little appetites.",
+    cta: "Shop feeding", bg: "#fff1c4", blob: "#ffe59a", ink: "#8a5a00", img: heroFeeding.url, alt: "Baby at feeding time",
+    cat: "feeding-and-nursing",
   },
 ];
 
 const CATS = [
-  { label: "Diapers", slug: "pampers-new-baby-diapers", bg: "#e9f2ff", cat: "diapers-and-wipes" },
-  { label: "Wipes", slug: "johnsons-baby-wipes", bg: "#e2f8ee", cat: "diapers-and-wipes" },
-  { label: "Formula", slug: "aptamil-advance-follow-on-milk", bg: "#fff4d1", cat: "baby-formula-and-milk" },
-  { label: "Feeding", slug: "philips-avent-bottle-set", bg: "#e6f2ff", cat: "feeding-and-nursing" },
-  { label: "Baby food", slug: "nestle-cerelac-wheat-apple", bg: "#fff0e4", cat: "feeding-and-nursing" },
-  { label: "Bath", slug: "johnsons-baby-shampoo", bg: "#fff4d1", cat: "bath-and-hygiene" },
-  { label: "Skin care", slug: "aveeno-baby-lotion", bg: "#f1eaff", cat: "skin-care" },
-  { label: "Toys", slug: "baby-rattle-set", bg: "#ffeef4", cat: "toys-and-learning" },
+  { label: "Diapers", img: catDiapering, bg: "#e9f2ff", cat: "diapers-and-wipes" },
+  { label: "Wipes", img: catDiapering, bg: "#e2f8ee", cat: "diapers-and-wipes" },
+  { label: "Formula", img: catFormula, bg: "#fff4d1", cat: "baby-formula-and-milk" },
+  { label: "Feeding", img: catFeeding, bg: "#e6f2ff", cat: "feeding-and-nursing" },
+  { label: "Baby food", img: catFeeding, bg: "#fff0e4", cat: "feeding-and-nursing" },
+  { label: "Bath", img: catBath, bg: "#fff4d1", cat: "bath-and-hygiene" },
+  { label: "Skin care", img: catBath, bg: "#f1eaff", cat: "skin-care" },
+  { label: "Toys", img: catToys, bg: "#ffeef4", cat: "toys-and-learning" },
 ];
 
 /** Popular searches: each one returns results in the current catalogue. */
@@ -302,6 +316,7 @@ function StageCard({ stage, setStage }: { stage: (typeof STAGES)[number]; setSta
             const on = st.id === stage.id;
             return (
               <button key={st.id} type="button" aria-pressed={on} className={on ? "on" : ""} onClick={() => setStage(st.id)}>
+                <img src={st.img} alt="" className="mh-stage-img" loading="lazy" />
                 <b>{st.label}</b>
                 <small>{st.sub}</small>
               </button>
@@ -320,7 +335,6 @@ function StageCard({ stage, setStage }: { stage: (typeof STAGES)[number]; setSta
 function Offers() {
   const [i, setI] = useState(0);
   const s = SLIDES[i] ?? SLIDES[0]!;
-  const p = getProduct(s.slug);
   const cta = (
     <>
       {s.cta} <span aria-hidden="true">→</span>
@@ -330,22 +344,16 @@ function Offers() {
     <section className="mh-sec">
       <div className="mh-offer" aria-roledescription="carousel" aria-label="Offers" style={{ background: s.bg }}>
         <span className="mh-offer-blob" style={{ background: s.blob }} />
-        {p && <img src={p.image} alt={s.alt} className="mh-offer-img" />}
+        <img src={s.img} alt={s.alt} className="mh-offer-img" />
         <div className="mh-offer-copy" aria-live="polite">
           <span className="mh-offer-tag" style={{ color: s.ink }}>
             {s.tag}
           </span>
           <h2 className="mh-offer-title">{s.title}</h2>
           <p>{s.sub}</p>
-          {s.cat ? (
-            <Link to="/categories/$cat" params={{ cat: s.cat }} className="mh-offer-cta">
-              {cta}
-            </Link>
-          ) : (
-            <a href={`#${s.anchor}`} className="mh-offer-cta">
-              {cta}
-            </a>
-          )}
+          <Link to="/categories/$cat" params={{ cat: s.cat }} className="mh-offer-cta">
+            {cta}
+          </Link>
         </div>
         <div className="mh-dots">
           {SLIDES.map((x, n) => (
@@ -412,15 +420,14 @@ function Categories() {
         </Link>
       </div>
       <div className="mh-cats">
-        {CATS.map((c) => {
-          const p = getProduct(c.slug);
-          return (
-            <Link key={c.label} to="/categories/$cat" params={{ cat: c.cat }} className="mh-cat">
-              <span style={{ background: c.bg }}>{p && <img src={p.image} alt="" loading="lazy" />}</span>
-              {c.label}
-            </Link>
-          );
-        })}
+        {CATS.map((c) => (
+          <Link key={c.label} to="/categories/$cat" params={{ cat: c.cat }} className="mh-cat">
+            <span style={{ background: c.bg }}>
+              <img src={c.img} alt="" loading="lazy" />
+            </span>
+            {c.label}
+          </Link>
+        ))}
       </div>
     </section>
   );

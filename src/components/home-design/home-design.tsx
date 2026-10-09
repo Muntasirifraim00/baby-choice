@@ -28,17 +28,30 @@ import {
   FoodBowl,
   GiftBox,
   HdGradients,
-  HeroBaby,
-  HeroDuck,
-  HeroTeddy,
   LogoHeart,
+  type CatArt,
   Moon,
   Shield,
   Star,
   Teddy,
   Truck,
-  type CatArt,
 } from "@/components/home-design/art";
+import heroMain from "@/assets/home/hero-main.png.asset.json";
+import heroBath from "@/assets/home/hero-bath.png.asset.json";
+import heroFeeding from "@/assets/home/hero-feeding.png.asset.json";
+import catClothing from "@/assets/home/cat-clothing.png";
+import catFeeding from "@/assets/home/cat-feeding.png";
+import catDiapering from "@/assets/home/cat-diapering.png";
+import catToys from "@/assets/home/cat-toys.png";
+import catGear from "@/assets/home/cat-gear.png";
+import catBath from "@/assets/home/cat-bath.png";
+import catFormula from "@/assets/home/cat-formula.png";
+import catGifts from "@/assets/home/cat-gifts.png";
+import stageNew from "@/assets/home/stage-new.png";
+import stage6m from "@/assets/home/stage-6m.png";
+import stage12m from "@/assets/home/stage-12m.png";
+import stage2y from "@/assets/home/stage-2y.png";
+import stage4y from "@/assets/home/stage-4y.png";
 
 /* ------------------------------------------------------------------ data */
 
@@ -117,53 +130,54 @@ const MEGA = [
 const SLIDES = [
   {
     tag: "NEW ARRIVALS",
-    title: "Hello,\ntiny world!",
-    sub: "Soft, safe picks for your newest family member, delivered to your door.",
+    title: "Everything for\nyour little one",
+    sub: "Up to 30% OFF on soft, safe picks — delivered to your door.",
     cta: "Shop newborn",
     cat: "baby-clothing",
     bg: "#ffe3ec",
     blob: "#ffd0de",
     ink: "#c21e55",
-    art: "baby",
+    img: heroMain.url,
   },
   {
     tag: "BATH TIME",
-    title: "Splash-time\nfavourites",
+    title: "Gentle care for\nhappy baths",
     sub: "Towels, toys and gentle washes for happy, giggly baths.",
     cta: "Shop bath",
     cat: "bath-and-hygiene",
     bg: "#ddf1ff",
     blob: "#c7e6ff",
     ink: "#2f5bd3",
-    art: "duck",
+    img: heroBath.url,
   },
   {
-    tag: "PLAY & LEARN",
-    title: "Play, learn,\ngrow!",
-    sub: "Toys that grow with every new milestone.",
-    cta: "Shop toys",
-    cat: "toys-and-learning",
+    tag: "FEEDING",
+    title: "Healthy beginnings\nevery day",
+    sub: "Bottles, bowls and weaning picks for every little appetite.",
+    cta: "Shop feeding",
+    cat: "feeding-and-nursing",
     bg: "#fff1c4",
     blob: "#ffe59a",
     ink: "#8a5a00",
-    art: "teddy",
+    img: heroFeeding.url,
   },
 ] as const;
 
-const CATS: { label: string; k: CatArt; bg: string; shade: string; cat: string }[] = [
-  { label: "Clothing", k: "onesie", bg: "#e6f2ff", shade: "#cfe3fb", cat: "baby-clothing" },
-  { label: "Feeding", k: "bottle", bg: "#fff3d1", shade: "#f8e2a6", cat: "feeding-and-nursing" },
-  { label: "Diapering", k: "diaper", bg: "#ffe6ef", shade: "#fbcfdd", cat: "diapers-and-wipes" },
-  { label: "Toys", k: "toy", bg: "#e2f8ee", shade: "#c4ecda", cat: "toys-and-learning" },
-  { label: "Gear", k: "stroller", bg: "#efe8ff", shade: "#ddd0fb", cat: "strollers-and-prams" },
-  { label: "Bath & care", k: "wash", bg: "#e3f4ff", shade: "#c9e6fb", cat: "bath-and-hygiene" },
-  { label: "Formula", k: "can", bg: "#fff0e4", shade: "#fbdcc4", cat: "feeding-and-nursing" },
-  { label: "Gift sets", k: "gift", bg: "#ffe6ef", shade: "#fbcfdd", cat: "gifts-and-hampers" },
+const CATS: { label: string; img: string; bg: string; shade: string; cat: string }[] = [
+  { label: "Clothing", img: catClothing, bg: "#e6f2ff", shade: "#cfe3fb", cat: "baby-clothing" },
+  { label: "Feeding", img: catFeeding, bg: "#fff3d1", shade: "#f8e2a6", cat: "feeding-and-nursing" },
+  { label: "Diapering", img: catDiapering, bg: "#ffe6ef", shade: "#fbcfdd", cat: "diapers-and-wipes" },
+  { label: "Toys", img: catToys, bg: "#e2f8ee", shade: "#c4ecda", cat: "toys-and-learning" },
+  { label: "Gear", img: catGear, bg: "#efe8ff", shade: "#ddd0fb", cat: "strollers-and-prams" },
+  { label: "Bath & care", img: catBath, bg: "#e3f4ff", shade: "#c9e6fb", cat: "bath-and-hygiene" },
+  { label: "Formula", img: catFormula, bg: "#fff0e4", shade: "#fbdcc4", cat: "baby-formula-and-milk" },
+  { label: "Gift sets", img: catGifts, bg: "#ffe6ef", shade: "#fbcfdd", cat: "gifts-and-hampers" },
 ];
 
 const STAGES = [
   {
     id: "nb",
+    img: stageNew,
     label: "New",
     sub: "0–3 mo",
     caps: "NEWBORNS",
@@ -179,6 +193,7 @@ const STAGES = [
   },
   {
     id: "m6",
+    img: stage6m,
     label: "3–6",
     sub: "months",
     caps: "3–6 MONTHS",
@@ -189,6 +204,7 @@ const STAGES = [
   },
   {
     id: "m12",
+    img: stage12m,
     label: "6–12",
     sub: "months",
     caps: "6–12 MONTHS",
@@ -204,6 +220,7 @@ const STAGES = [
   },
   {
     id: "y2",
+    img: stage2y,
     label: "1–2",
     sub: "years",
     caps: "1–2 YEARS",
@@ -214,6 +231,7 @@ const STAGES = [
   },
   {
     id: "y4",
+    img: stage4y,
     label: "2–4",
     sub: "years",
     caps: "2–4 YEARS",
@@ -599,13 +617,7 @@ function Hero() {
         <Balloon className="hd-float-b hd-balloon-b" tone="Purple" width={42} height={72} />
         <Star className="hd-float-sm hd-hero-star" width={34} height={34} />
         <div className="hd-hero-art" key={`a${i}`}>
-          {s.art === "baby" ? (
-            <HeroBaby className="hd-fade" />
-          ) : s.art === "duck" ? (
-            <HeroDuck className="hd-fade" />
-          ) : (
-            <HeroTeddy className="hd-fade" />
-          )}
+          <img src={s.img} alt="" className="hd-fade hd-hero-img" />
         </div>
         <div className="hd-hero-copy hd-fade" key={`c${i}`}>
           <span className="hd-hero-tag" style={{ color: s.ink }}>
@@ -664,7 +676,7 @@ function Hero() {
           <span className="hd-pill" style={{ background: "#f0457a" }}>
             Shop bath →
           </span>
-          <Duck className="hd-float hd-side-art" />
+          <img src={heroBath.url} alt="" className="hd-float hd-side-art hd-side-img" loading="lazy" />
         </CatLink>
         <CatLink cat="feeding-and-nursing" className="hd-side-card hd-lift blue">
           <span className="hd-eyebrow" style={{ color: "#3b28b8" }}>
@@ -678,7 +690,7 @@ function Hero() {
           <span className="hd-pill" style={{ background: "#6d3bea" }}>
             Explore →
           </span>
-          <Bottle className="hd-float-b hd-side-art bottle" />
+          <img src={heroFeeding.url} alt="" className="hd-float-b hd-side-art hd-side-img" loading="lazy" />
         </CatLink>
       </div>
     </section>
@@ -723,7 +735,7 @@ function Categories() {
               className="hd-tile-art"
               style={{ background: c.bg, boxShadow: `inset 0 -8px 0 ${c.shade}` }}
             >
-              <CategoryArt kind={c.k} className="hd-float" />
+              <img src={c.img} alt="" className="hd-float hd-tile-img" loading="lazy" />
             </span>
             <span>{c.label}</span>
           </CatLink>
@@ -784,6 +796,7 @@ function AgeAndPicks() {
                 className={x.id === id ? "on" : ""}
                 onClick={() => setId(x.id)}
               >
+                <img src={x.img} alt="" className="hd-stage-img" loading="lazy" />
                 <b>{x.label}</b>
                 <small>{x.sub}</small>
               </button>

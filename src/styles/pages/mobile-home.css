@@ -76,7 +76,7 @@
 /* offers banner */
 .mh-offer { position: relative; height: 216px; border-radius: 26px; overflow: hidden; transition: background .25s; }
 .mh-offer-blob { position: absolute; right: -40px; bottom: -60px; width: 220px; height: 220px; border-radius: 999px; }
-.mh-offer-img { position: absolute; right: 8px; bottom: 26px; width: 150px; height: 150px; object-fit: contain; mix-blend-mode: multiply; }
+.mh-offer-img { position: absolute; right: 8px; bottom: 26px; width: 150px; height: 150px; object-fit: contain; }
 .mh-offer-copy { position: relative; padding: 18px 0 0 18px; max-width: 220px; }
 .mh-offer-tag { display: inline-flex; background: #fff; font-size: 10.5px; font-weight: 900; letter-spacing: .5px; padding: 5px 10px; border-radius: 999px; }
 .mh .mh-offer-title { margin-top: 10px; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 26px; line-height: .98; color: var(--ink); white-space: pre-line; }
@@ -278,3 +278,8 @@
 .mh-pay { display: flex; flex-wrap: wrap; gap: 6px; }
 .mh-pay span { height: 28px; padding: 0 10px; border-radius: 9px; background: #3b2470; color: #fff; font-size: 11px; font-weight: 900; display: flex; align-items: center; }
 .mh-footer > small { font-size: 11.5px; color: #a594c9; }
+
+/* baby photos on the age-stage buttons */
+.mh-stage-grid button { gap: 1px; padding-top: 3px; }
+.mh-stage-img { width: 26px; height: 26px; object-fit: cover; object-position: top; border-radius: 999px; background: #fff; }
+.mh-stage-grid button b { font-size: 13px; line-height: 1; }
