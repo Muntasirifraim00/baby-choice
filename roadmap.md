@@ -1,6 +1,6 @@
 # Requested work
 - [x] Replace main banner with cropped, silently looping baby video and reference-positioned live text; verified active playback, muted/loop/no controls, clean 1620×1080 video, no overflow and no browser errors at 1440/390px; routing test and automatic build passed.
-- [ ] Finish smart search: confirm preview compiles; copy reference styles and files; unify /search; verify four visual states and every requested interaction; document shared engine rules.
+- [x] Finish smart search within final approved scope: shared /search engine and references retained; Esc works from panel/ring and restores input focus, no inner focus outline, seven named shampoos without filler, singular/plural counts; hydration-aware desktop/mobile checks, ten tests and automatic build passed; shared engine and honest capability rules documented. Earlier pixel comparisons are not claimed as pixel-perfect.
 - [x] Use all 14 supplied paired category intro banners in homepage product sections; verified portrait/landscape selection at 1440/1024/390/360px, image loading, mobile cart and Clothing link, no sideways scroll or browser errors; routing test and automatic build passed.
 - [x] Part 1: Fix Offers, Trending, Search, Wishlist and All Categories review findings.
 - [x] Part 2: Build device-only demo login and complete Account area.
