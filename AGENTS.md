@@ -23,7 +23,7 @@
 - Product pages use the dynamic /product/$slug route; brand and category listings use /brands/$brand and /categories/$cat alongside static Johnson's and Baby Clothing pages.
 - All catalog product details share the reference-inspired presentation on the dynamic product route; gallery and purchase controls use the existing catalog and cart context to keep selection synchronized.
 - Use one root-mounted menu provider for shared menu triggers and one home-category mapping for mobile/desktop links and exact category product listings, preventing destination drift.
-- Render the desktop homepage hero as a static large-left/two-stacked-right grid using supplied CDN artwork; keep the mobile carousel independent so desktop arrangement changes do not alter mobile behavior.
+- Keep the desktop hero large-left/two-stacked-right and mobile carousel independent. Share BabyVideoHero with container-relative live text and CDN video cropped before upload to avoid black bars.
 - Share homepage category artwork, links and card markup between desktop and mobile; only sizing and grid columns vary to prevent design drift.
 - Share one homepage brand-grid carousel across mobile and desktop with client-only autoplay and reduced-motion/focus pause, keeping logos and brand destinations aligned.
 - Use a shared homepage-only trending grid sourced from the static catalog and existing cart controls so desktop/mobile selection stays aligned without changing other listings.

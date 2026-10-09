@@ -1,6 +1,7 @@
 import { brandSlug } from "@/lib/brands";
 import { homeCategoryIntros } from "@/lib/home-category-intros";
 import { HomeCategoryIntro } from "@/components/home-category-intro";
+import { BabyVideoHero } from "@/components/baby-video-hero";
 import { HmAnnouncement, HmHeader } from "@/components/header-motion";
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
@@ -416,7 +417,7 @@ function Hero() {
     <section className="hd-wrap hd-hero-layout" aria-label="Featured offers">
       <h1 className="sr-only">Baby Choice — everything for your little one</h1>
       {SLIDES.map((banner, index) => (
-        <CatLink
+        index === 0 ? <div key={banner.tag} className="hd-hero-image-link hd-hero-image-main"><BabyVideoHero /></div> : <CatLink
           key={banner.tag}
           cat={banner.cat}
           className={`hd-hero-image-link${index === 0 ? " hd-hero-image-main" : ""}`}
