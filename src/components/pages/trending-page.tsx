@@ -40,13 +40,13 @@ const TINT: Record<string, string> = {
   "johnsons-baby-care-gift-set": "#ffe6ef",
 };
 const ROTATE = ["#e9f2ff", "#fff4d1", "#ffeef4", "#e2f8ee", "#f1eaff"];
-const tintOf = (p: Product) => TINT[p.slug] ?? ROTATE[products.indexOf(p) % ROTATE.length];
+const tintOf = (p: Product) => TINT[p.slug] ?? ROTATE[products.indexOf(p) % ROTATE.length]!;
 
 // Review-weighted average across all parent reviews (matches the reference 4.8).
 const avg = (products.reduce((s, p) => s + p.rating * p.reviews, 0) / products.reduce((s, p) => s + p.reviews, 0)).toFixed(1);
 const totalReviews = tk(products.reduce((s, p) => s + p.reviews, 0));
 
-const BRAND_TONES = [["#ffe6ef", "#c21e55"], ["#e6f2ff", "#2f5bd3"], ["#e2f8ee", "#136b40"], ["#fff3d1", "#b06d00"], ["#efe8ff", "#4c22b8"], ["#e3f4ff", "#2f5bd3"]];
+const BRAND_TONES: [string, string][] = [["#ffe6ef", "#c21e55"], ["#e6f2ff", "#2f5bd3"], ["#e2f8ee", "#136b40"], ["#fff3d1", "#b06d00"], ["#efe8ff", "#4c22b8"], ["#e3f4ff", "#2f5bd3"]];
 const topBrands = [...brands].sort((a, b) => b.totalReviews - a.totalReviews).slice(0, 6);
 
 const CATS = [
@@ -99,7 +99,7 @@ export function TrendingPage() {
   const router = useRouter();
   const onAdd = useAdd();
   const items = ORDER[tab];
-  const [first, second, third] = items;
+  const first = items[0]!, second = items[1]!, third = items[2]!;
   const rest = items.slice(3, all ? items.length : 11);
   const value = tab === "Best value";
   const meta = (p: Product) => value ? `${off(p)}% off` : `${p.reviews} reviews`;
@@ -173,7 +173,7 @@ export function TrendingPage() {
           <h2 className="trd-bl trd-ph-h2">Brands parents trust</h2>
           <div className="trd-ph-brands">
             {topBrands.map((b, i) => <Link key={b.slug} to="/brands/$brand" params={{ brand: b.slug }} className="trd-ph-brand">
-              <span className="trd-bl" style={{ background: BRAND_TONES[i][0], color: BRAND_TONES[i][1] }}>{b.name === "Baby Choice" ? "BC" : b.name[0]}</span>
+              <span className="trd-bl" style={{ background: BRAND_TONES[i]![0], color: BRAND_TONES[i]![1] }}>{b.name === "Baby Choice" ? "BC" : b.name.charAt(0)}</span>
               <b>{b.displayName}</b><small>{b.count} {b.count === 1 ? "product" : "products"} · ★{b.avgRating}</small>
             </Link>)}
           </div>
@@ -257,7 +257,7 @@ export function TrendingPage() {
           <h2 className="trd-bl trd-dk-h2b">Brands parents trust</h2>
           <div className="trd-dk-brands">
             {topBrands.map((b, i) => <Link key={b.slug} to="/brands/$brand" params={{ brand: b.slug }} className="trd-dk-brand">
-              <span className="trd-bl" style={{ background: BRAND_TONES[i][0], color: BRAND_TONES[i][1] }}>{b.name === "Baby Choice" ? "BC" : b.name[0]}</span>
+              <span className="trd-bl" style={{ background: BRAND_TONES[i]![0], color: BRAND_TONES[i]![1] }}>{b.name === "Baby Choice" ? "BC" : b.name.charAt(0)}</span>
               <span className="trd-minw"><b>{b.displayName}</b><small>{b.count} {b.count === 1 ? "product" : "products"} · ★{b.avgRating}</small></span>
             </Link>)}
           </div>
