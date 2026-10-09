@@ -29,6 +29,7 @@ import {
   GiftBox,
   HdGradients,
   LogoHeart,
+  type CatArt,
   Moon,
   Shield,
   Star,
