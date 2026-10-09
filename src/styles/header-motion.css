@@ -26,6 +26,7 @@
 .hm-search input { flex: 1 1 0%; min-width: 0; border: 0; outline: none; background: transparent; font-family: inherit; font-size: 15px; font-weight: 700; color: #2a1650; padding: 1px 2px; height: auto; box-shadow: none; }
 .hm-root .hm-search input::placeholder, .hm-m-root .hm-m-search input::placeholder { color: #757575; opacity: 1; }
 .hm-photo { width: 44px; height: 44px; flex-shrink: 0; border: 0; border-radius: 14px; background: #f3edff; color: #6d3bea; display: flex; align-items: center; justify-content: center; }
+.hm-root a.hm-photo { color: #6d3bea; }
 .hm-search-btn { height: 44px; padding: 0 22px; border: 0; border-radius: 14px; background: #6d3bea; color: #fff; font-size: 15px; font-weight: 900; box-shadow: #4c22b8 0 3px 0; flex-shrink: 0; }
 .hm-points { height: 52px; padding: 0 14px; border-radius: 16px; background: #fff3c4; display: flex; align-items: center; gap: 8px; color: #2a1650; flex-shrink: 0; }
 .hm-points > span { display: flex; flex-direction: column; line-height: 1; }
@@ -52,7 +53,7 @@
 .hm-root a.hm-navlink { color: #2a1650; }
 .hm-navlink:hover { background: #f3edff; color: #2a1650; }
 .hm-newin { margin-left: 6px; }
-.hm-divider { width: 1px; height: 24px; background: #e4dbf7; margin: 0 4px; flex-shrink: 0; }
+.hm-divider { width: 1px; height: 24px; background: #e4dbf7; margin: 0 4px; }
 .hm-navscroll { display: contents; }
 
 .hm-ofr { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 7px; height: 44px; padding: 0 16px 0 13px; border-radius: 999px; background: linear-gradient(100deg, #f0457a, #ff6f61); color: #fff; font-size: 14.5px; font-weight: 900; box-shadow: 0 4px 0 #c21e55; animation: hm-glow 3.2s ease-in-out infinite; }
