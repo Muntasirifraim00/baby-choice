@@ -12,7 +12,6 @@
 - Keep all requested Baby Choice demo screens inside a mobile-width frame; unrelated actions remain inactive to preserve reference scope.
 - Use individually cropped CDN asset pointers for reference imagery, never render the uploaded full-screen screenshot as the page.
 - Use container-relative dimensions for this fixed-format reference layout so the original proportions remain consistent at every mobile width.
-- All Categories uses its own alc-prefixed presentation inside PageShell with MobileTabBar and catalog-derived counts; keep its leaf index routing so category listings never nest inside its content.
 - All products live in src/lib/products.ts (single static catalog); cart, wishlist, chosen address/payment and last order live in a React context persisted to localStorage (src/lib/cart-store.tsx) — no backend needed for the demo.
 - Keep search filters as temporary UI state inside the search screen; the demo does not need persistence or backend filtering.
 - Rebuild new shopping and checkout references with shared presentation components, browser-safe static product data and cropped imagery; real text and controls preserve accessibility.
@@ -35,3 +34,5 @@
 
 - Search, Wishlist, Offers and Trending share ShopProductCard and shopping primitives inside PageShell with their own namespaced styles; ownsChrome excludes the legacy wrapper to prevent duplicate desktop headers.
 - /offers is a 1:1 translation of public/design-ref/offers-{phone,desktop}.html (ofr- prefix, PageShell + MobileTabBar); tabs use pinned approved first-8 lists plus a rule for the rest so approved order survives catalogue changes.
+
+- /categories is a 1:1 translation of public/design-ref/categories-{phone,desktop}.html (alc- prefix, PageShell + MobileTabBar); groups sort by live catalogue counts and choose tile layouts by count so search results never leave orphan tiles.
