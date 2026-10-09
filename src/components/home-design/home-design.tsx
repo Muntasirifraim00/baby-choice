@@ -129,39 +129,25 @@ const MEGA = [
 
 const SLIDES = [
   {
-    tag: "NEW ARRIVALS",
-    title: "Everything for\nyour little one",
-    sub: "Up to 30% OFF on soft, safe picks — delivered to your door.",
-    cta: "Shop newborn",
+    tag: "Everything for your little one",
+    alt: "Everything for your little one — premium baby products for a happier, healthier tomorrow, up to 30% off. Shop now.",
     cat: "baby-clothing",
-    bg: "#ffe3ec",
-    blob: "#ffd0de",
-    ink: "#c21e55",
     img: heroMain.url,
   },
   {
-    tag: "BATH TIME",
-    title: "Gentle care for\nhappy baths",
-    sub: "Towels, toys and gentle washes for happy, giggly baths.",
-    cta: "Shop bath",
+    tag: "Gentle care for happy baths",
+    alt: "Bath time — gentle care for happy baths. Safe and gentle products for your baby's bath time. Shop bath.",
     cat: "bath-and-hygiene",
-    bg: "#ddf1ff",
-    blob: "#c7e6ff",
-    ink: "#2f5bd3",
     img: heroBath.url,
   },
   {
-    tag: "FEEDING",
-    title: "Healthy beginnings\nevery day",
-    sub: "Bottles, bowls and weaning picks for every little appetite.",
-    cta: "Shop feeding",
+    tag: "Healthy beginnings every day",
+    alt: "Feeding — healthy beginnings every day. Bottles, bowls and weaning picks for every little appetite. Shop feeding.",
     cat: "feeding-and-nursing",
-    bg: "#fff1c4",
-    blob: "#ffe59a",
-    ink: "#8a5a00",
     img: heroFeeding.url,
   },
 ] as const;
+
 
 const CATS: { label: string; img: string; bg: string; shade: string; cat: string }[] = [
   { label: "Clothing", img: catClothing, bg: "#e6f2ff", shade: "#cfe3fb", cat: "baby-clothing" },
@@ -594,108 +580,83 @@ export function Header() {
 
 function Hero() {
   const [i, setI] = useState(0);
+  const [paused, setPaused] = useState(false);
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     )
       return;
+    if (paused || document.hidden) return;
     const t = setInterval(() => setI((n) => (n + 1) % SLIDES.length), 5000);
     return () => clearInterval(t);
-  }, []);
-  const s = SLIDES[i] ?? SLIDES[0];
+  }, [paused]);
   return (
-    <section className="hd-wrap hd-hero-row">
+    <section
+      className="hd-banner"
+      aria-roledescription="carousel"
+      aria-label="Featured offers"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
+    >
+      <h1 className="sr-only">Baby Choice — everything for your little one</h1>
       <div
-        className="hd-hero"
-        style={{ background: s.bg }}
-        aria-roledescription="carousel"
-        aria-label="Featured"
+        className="hd-banner-track"
+        style={{ transform: `translateX(${-i * 100}%)` }}
       >
-        <span className="hd-hero-blob" style={{ background: s.blob }} />
-        <Balloon className="hd-float hd-balloon-a" />
-        <Balloon className="hd-float-b hd-balloon-b" tone="Purple" width={42} height={72} />
-        <Star className="hd-float-sm hd-hero-star" width={34} height={34} />
-        <div className="hd-hero-art" key={`a${i}`}>
-          <img src={s.img} alt="" className="hd-fade hd-hero-img" />
-        </div>
-        <div className="hd-hero-copy hd-fade" key={`c${i}`}>
-          <span className="hd-hero-tag" style={{ color: s.ink }}>
-            {s.tag}
-          </span>
-          <h1>{s.title}</h1>
-          <p>{s.sub}</p>
-          <div className="hd-hero-ctas">
-            <CatLink cat={s.cat} className="hd-btn-dark">
-              {s.cta} <Arrow />
-            </CatLink>
-            <CatLink cat="gifts-and-hampers" className="hd-btn-white">
-              Gift finder
+        {SLIDES.map((x, n) => (
+          <div
+            key={x.tag}
+            className="hd-banner-slide"
+            aria-hidden={n !== i}
+            inert={n !== i}
+          >
+            <CatLink cat={x.cat} className="hd-banner-link">
+              <img
+                src={x.img}
+                alt={x.alt}
+                width={1536}
+                height={1024}
+                loading={n === 0 ? "eager" : "lazy"}
+              />
             </CatLink>
           </div>
-        </div>
-        <div className="hd-hero-dots">
-          {SLIDES.map((x, n) => (
-            <button
-              type="button"
-              key={x.tag}
-              aria-label={`Show slide ${n + 1}`}
-              aria-current={n === i}
-              className={n === i ? "on" : ""}
-              onClick={() => setI(n)}
-            />
-          ))}
-        </div>
-        <div className="hd-hero-arrows">
-          <button
-            type="button"
-            aria-label="Previous slide"
-            onClick={() => setI((n) => (n + SLIDES.length - 1) % SLIDES.length)}
-          >
-            <ChevronLeft />
-          </button>
-          <button
-            type="button"
-            aria-label="Next slide"
-            onClick={() => setI((n) => (n + 1) % SLIDES.length)}
-          >
-            <ChevronRight />
-          </button>
-        </div>
+        ))}
       </div>
-      <div className="hd-hero-side">
-        <CatLink cat="bath-and-hygiene" className="hd-side-card hd-lift pink">
-          <span className="hd-eyebrow" style={{ color: "#c21e55" }}>
-            BATH TIME
-          </span>
-          <span className="hd-side-title">
-            Splash-time
-            <br />
-            essentials
-          </span>
-          <span className="hd-pill" style={{ background: "#f0457a" }}>
-            Shop bath →
-          </span>
-          <img src={heroBath.url} alt="" className="hd-float hd-side-art hd-side-img" loading="lazy" />
-        </CatLink>
-        <CatLink cat="feeding-and-nursing" className="hd-side-card hd-lift blue">
-          <span className="hd-eyebrow" style={{ color: "#3b28b8" }}>
-            FEEDING
-          </span>
-          <span className="hd-side-title">
-            Feeding
-            <br />
-            made easy
-          </span>
-          <span className="hd-pill" style={{ background: "#6d3bea" }}>
-            Explore →
-          </span>
-          <img src={heroFeeding.url} alt="" className="hd-float-b hd-side-art hd-side-img" loading="lazy" />
-        </CatLink>
+      <div className="hd-hero-dots hd-banner-dots">
+        {SLIDES.map((x, n) => (
+          <button
+            type="button"
+            key={x.tag}
+            aria-label={`Show slide ${n + 1}`}
+            aria-current={n === i}
+            className={n === i ? "on" : ""}
+            onClick={() => setI(n)}
+          />
+        ))}
+      </div>
+      <div className="hd-hero-arrows hd-banner-arrows">
+        <button
+          type="button"
+          aria-label="Previous slide"
+          onClick={() => setI((n) => (n + SLIDES.length - 1) % SLIDES.length)}
+        >
+          <ChevronLeft />
+        </button>
+        <button
+          type="button"
+          aria-label="Next slide"
+          onClick={() => setI((n) => (n + 1) % SLIDES.length)}
+        >
+          <ChevronRight />
+        </button>
       </div>
     </section>
   );
 }
+
 
 function TrustStrip() {
   const items = [
