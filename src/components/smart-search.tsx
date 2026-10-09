@@ -96,7 +96,8 @@ function useVoice(onText: (t: string) => void, onFinal: (t: string) => void) {
       let text = "";
       let final = false;
       for (let i = 0; i < e.results.length; i++) {
-        const res = e.results[i]!;
+        const res = e.results[i];
+        if (!res) continue;
         text += res[0].transcript;
         if (res.isFinal) final = true;
       }
@@ -148,7 +149,7 @@ function useGoStage() {
   };
 }
 
-const NoResults = ({ q, onPick, center }: { q: string; onPick: (s: string) => void; center?: boolean }) => (
+export const SearchNoResults = ({ q, onPick, center }: { q: string; onPick: (s: string) => void; center?: boolean }) => (
   <div className={`ss-none${center ? " ss-none-c" : ""}`}>
     <b>No products for “{q}” yet</b>
     <p>Check the spelling, or try one of these:</p>
@@ -157,7 +158,7 @@ const NoResults = ({ q, onPick, center }: { q: string; onPick: (s: string) => vo
   </div>
 );
 
-const Corrected = ({ term, typed }: { term: string; typed: string }) => (
+export const SearchCorrection = ({ term, typed }: { term: string; typed: string }) => (
   <p className="ss-corr">Showing results for “<b>{term}</b>” · you typed “<span className="bn">{typed.trim()}</span>”</p>
 );
 
@@ -195,8 +196,9 @@ export function DesktopSmartSearch({ placeholder }: { placeholder: string }) {
   const prods = data.results.slice(0, 6);
   const options = has && !data.pending ? [...data.sugg.map((s) => ({ kind: "s" as const, s })), ...prods.map((p) => ({ kind: "p" as const, p }))] : [];
 
-  const close = useCallback(() => { setOpen(false); setActive(-1); setMode("text"); voice.stop(); photo.reset(); }, [voice, photo]);
-  useEffect(() => { setOpen(false); setActive(-1); setMode("text"); }, [href]);
+  const stopVoice = voice.stop;
+  const close = useCallback(() => { setOpen(false); setActive(-1); setMode("text"); stopVoice(); }, [stopVoice]);
+  useEffect(() => { close(); }, [href, close]);
   useEffect(() => setActive(-1), [data.dq]);
 
   useLayoutEffect(() => {
@@ -241,12 +243,13 @@ export function DesktopSmartSearch({ placeholder }: { placeholder: string }) {
   const submit = (e: FormEvent) => { e.preventDefault(); go(q); };
   const onKey = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Escape") { if (voice.listening) voice.stop(); else close(); e.preventDefault(); return; }
-    if (!options.length) return;
+    if (!open || !options.length) return;
     if (e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setActive((a) => (a + 1) % options.length); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => (a <= 0 ? options.length - 1 : a - 1)); }
     else if (e.key === "Enter" && active >= 0) {
       e.preventDefault();
-      const o = options[active]!;
+      const o = options[active];
+      if (!o) return;
       if (o.kind === "s") go(o.s); else openProduct(o.p);
     }
   };
@@ -319,11 +322,11 @@ export function DesktopSmartSearch({ placeholder }: { placeholder: string }) {
       </div>
     );
   } else if (!data.results.length) {
-    body = <NoResults q={q.trim()} onPick={(s) => { setQ(s); input.current?.focus(); }} />;
+    body = <SearchNoResults q={q.trim()} onPick={(s) => { setQ(s); input.current?.focus(); }} />;
   } else {
     body = (
       <>
-        {data.corrected && <Corrected term={data.corrected} typed={data.typed} />}
+        {data.corrected && <SearchCorrection term={data.corrected} typed={data.typed} />}
         <div className="ss-res">
           <div>
             {data.sugg.length > 0 && <span className="ss-eb">SUGGESTIONS</span>}
@@ -377,7 +380,7 @@ export function DesktopSmartSearch({ placeholder }: { placeholder: string }) {
             aria-activedescendant={active >= 0 ? optId(active) : undefined}
             value={q}
             placeholder={open ? "Search diapers, formula, brands… or ডায়াপার" : placeholder}
-            onChange={(e) => { setQ(e.target.value); setOpen(true); setMode("text"); }}
+            onChange={(e) => { setQ(e.target.value); setActive(-1); setOpen(true); setMode("text"); }}
             onFocus={() => setOpen(true)}
             onClick={() => setOpen(true)}
             onKeyDown={onKey}
@@ -414,6 +417,7 @@ export function MobileSearchSheet({ onClose }: { onClose: () => void }) {
   const goStage = useGoStage();
   const voice = useVoice((t) => setQ(t), (t) => { setQ(t); setSheet(null); });
   const closedByPop = useRef(false);
+  const root = useRef<HTMLDivElement>(null);
   const href = useRouterState({ select: (s) => s.location.href });
   const startHref = useRef(href);
 
@@ -421,15 +425,23 @@ export function MobileSearchSheet({ onClose }: { onClose: () => void }) {
     window.history.pushState({ ...(window.history.state ?? {}), bcSearchSheet: 1 }, "");
     const pop = () => { closedByPop.current = true; onClose(); };
     window.addEventListener("popstate", pop);
+    const previousFocus = document.activeElement;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     window.setTimeout(() => input.current?.focus(), 50);
-    return () => { window.removeEventListener("popstate", pop); document.body.style.overflow = prev; };
+    return () => { window.removeEventListener("popstate", pop); document.body.style.overflow = prev; if (previousFocus instanceof HTMLElement) previousFocus.focus(); };
   }, [onClose]);
   useEffect(() => { if (href !== startHref.current) onClose(); }, [href, onClose]);
 
   const back = () => { voice.stop(); if (window.history.state?.bcSearchSheet) window.history.back(); else onClose(); };
-  const leave = (fn: () => void) => { voice.stop(); fn(); onClose(); };
+  const leave = (fn: () => void) => {
+    voice.stop();
+    if (window.history.state?.bcSearchSheet) {
+      const afterBack = () => fn();
+      window.addEventListener("popstate", afterBack, { once: true });
+      window.history.back();
+    } else { fn(); onClose(); }
+  };
   const go = (term: string) => { const c = term.trim(); if (c) save(c); leave(() => void navigate({ to: "/search", search: { q: c } })); };
 
   const has = q.trim() !== "";
@@ -458,17 +470,17 @@ export function MobileSearchSheet({ onClose }: { onClose: () => void }) {
   } else if (data.pending) {
     body = <div aria-hidden="true">{[0, 1, 2, 3].map((i) => <div key={i} className="ss-sk ss-m-sk" style={{ height: i ? 72 : 120 }} />)}</div>;
   } else if (!scoped.length) {
-    body = data.results.length ? <p className="ss-muted ss-center">No “{q.trim()}” products in {scope}. <button type="button" className="ss-clear" onClick={() => setScope("All")}>Show all</button></p> : <NoResults center q={q.trim()} onPick={(s) => setQ(s)} />;
+    body = data.results.length ? <p className="ss-muted ss-center">No “{q.trim()}” products in {scope}. <button type="button" className="ss-clear" onClick={() => setScope("All")}>Show all</button></p> : <SearchNoResults center q={q.trim()} onPick={(s) => setQ(s)} />;
   } else {
     body = (
       <>
-        {data.corrected && <Corrected term={data.corrected} typed={data.typed} />}
+        {data.corrected && <SearchCorrection term={data.corrected} typed={data.typed} />}
         {data.sugg.length > 0 && <div className="ss-m-sugg">{data.sugg.map((s) => <button type="button" key={s} className="ss-m-row" onClick={() => { setQ(s); input.current?.focus(); }}>{I.search(14, 2.6, "#8a7aa8")}<span className="ss-grow"><Hl text={s} q={data.query} /></span>{I.arrow}</button>)}</div>}
         <div className="ss-head ss-head-b"><span className="ss-m-eb">PRODUCTS</span><span className="ss-m-count">{scope === "All" ? `${rows.length} of ${scoped.length}` : `in ${scope} · ${scoped.length} products`}</span></div>
         <div className="ss-m-items">{rows.map((p, k) => (
           <article key={p.slug} className="ss-m-item" style={{ animationDelay: `${k * 60}ms` }}>
-            <Link to="/product/$slug" params={{ slug: p.slug }} className="ss-art ss-m-art" style={{ background: TINTS[k % 6] }} onClick={() => save(q)} tabIndex={-1} aria-hidden="true"><img src={p.image} alt="" /></Link>
-            <Link to="/product/$slug" params={{ slug: p.slug }} className="ss-grow0 ss-plink" onClick={() => save(q)}>
+            <Link to="/product/$slug" params={{ slug: p.slug }} className="ss-art ss-m-art" style={{ background: TINTS[k % 6] }} onClick={(e) => { e.preventDefault(); save(q); leave(() => void navigate({ to: "/product/$slug", params: { slug: p.slug } })); }} tabIndex={-1} aria-hidden="true"><img src={p.image} alt="" /></Link>
+            <Link to="/product/$slug" params={{ slug: p.slug }} className="ss-grow0 ss-plink" onClick={(e) => { e.preventDefault(); save(q); leave(() => void navigate({ to: "/product/$slug", params: { slug: p.slug } })); }}>
               <small className="ss-brand ss-m-brand">{p.brand.toUpperCase().replace("'", "’")}</small>
               <b className="ss-pname ss-m-pname"><Hl text={displayName(p)} q={data.query} /></b>
               <span className="ss-prices ss-m-prices"><b className="ss-bl ss-price">৳ {tk(p.price)}</b>{p.old > p.price && <s>৳ {tk(p.old)}</s>}<small>★ {p.rating}</small></span>
@@ -481,7 +493,16 @@ export function MobileSearchSheet({ onClose }: { onClose: () => void }) {
   }
 
   return createPortal(
-    <div className="ss-m-root" role="dialog" aria-modal="true" aria-label="Search">
+    <div ref={root} className="ss-m-root" onKeyDown={(e) => {
+      if (e.key === "Escape") { e.preventDefault(); if (sheet) { voice.stop(); setSheet(null); } else back(); }
+      if (e.key === "Tab") {
+        const nodes = root.current?.querySelectorAll<HTMLElement>('button, a[href], input:not([type="file"])');
+        const visible = Array.from(nodes ?? []).filter((n) => n.getClientRects().length);
+        const first = visible[0]; const last = visible.at(-1);
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
+    }} role="dialog" aria-modal="true" aria-label="Search">
       <header className="ss-m-header">
         <div className="ss-m-top">
           <button type="button" className="ss-m-back" aria-label="Close search" onClick={back}>{I.back}</button>
@@ -495,7 +516,7 @@ export function MobileSearchSheet({ onClose }: { onClose: () => void }) {
               <button type="button" className="ss-m-ib" aria-label="Search by photo" onClick={() => { photo.reset(); setSheet("photo"); }}>{I.cam(18)}</button>
             </form>
           </div>
-          <Link to="/cart" className="ss-m-cart" aria-label={`Cart, ${count} items`} onClick={() => onClose()}>{I.cart}<span key={bump} className={`ss-m-cnt${bump ? " ss-bump" : ""}`}>{count}</span></Link>
+          <Link to="/cart" className="ss-m-cart" aria-label={`Cart, ${count} items`} onClick={(e) => { e.preventDefault(); leave(() => void navigate({ to: "/cart" })); }}>{I.cart}<span key={bump} className={`ss-m-cnt${bump ? " ss-bump" : ""}`}>{count}</span></Link>
         </div>
         <nav aria-label="Search in" className="ss-m-scopes">{SCOPES.map((s) => <button type="button" key={s} className={`ss-m-scope${scope === s ? " on" : ""}`} aria-pressed={scope === s} onClick={() => setScope(s)}>{s}</button>)}</nav>
       </header>

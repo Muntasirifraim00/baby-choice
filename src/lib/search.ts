@@ -54,13 +54,13 @@ export const PHRASES = [
 ];
 export const POPULAR_SEARCHES = ["pampers diapers", "aptamil formula", "baby wipes", "feeding bottles", "baby shampoo"];
 
-const SIZE_TOKENS = new Set(["s", "m", "l", "xl", "xxl", "nb"]);
+const SIZE_TOKENS = new Set(["s", "m", "l", "xl", "xxl", "nb", "size", "stage"]);
 const SEARCH_NAMES: Record<string, string> = { "sudocrem-nappy-rash-cream": "Sudocrem Nappy Rash Cream" };
 export const displayName = (p: Product) => SEARCH_NAMES[p.slug] ?? shortName(p);
 
 const aliasWords = (s: string) => s.split(" ").map((w) => ALIASES[w] ?? w).join(" ");
 
-export function resolve(q: string): { query: string; corrected?: string | undefined } {
+export function resolve(q: string): { query: string; corrected?: string } {
   const n = normalize(q);
   if (!n) return { query: "" };
   const fixed = ALIASES[n] ?? aliasWords(n);
@@ -76,7 +76,7 @@ const INDEX: Indexed[] = products.map((p, i) => {
   return { p, i, name: rawName, nameWords: name.split(" "), brand, hay: `${hay} ${aliasWords(hay)}` };
 });
 
-export type SearchResult = { query: string; corrected?: string | undefined; typed: string; results: Product[] };
+export type SearchResult = { query: string; corrected?: string; typed: string; results: Product[] };
 
 export function search(q: string): SearchResult {
   const { query, corrected } = resolve(q);
@@ -93,7 +93,7 @@ export function search(q: string): SearchResult {
     scored.push({ p: x.p, s, i: x.i });
   }
   scored.sort((a, b) => b.s - a.s || b.p.reviews - a.p.reviews || a.i - b.i);
-  return { query, corrected, typed: q, results: scored.map((x) => x.p) };
+  return { query, ...(corrected ? { corrected } : {}), typed: q, results: scored.map((x) => x.p) };
 }
 
 export function suggest(q: string): string[] {
