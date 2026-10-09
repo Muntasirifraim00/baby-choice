@@ -1,6 +1,7 @@
 import { brandSlug } from "@/lib/brands";
 import { homeCategoryIntros } from "@/lib/home-category-intros";
 import { HomeCategoryIntro } from "@/components/home-category-intro";
+import { BabyVideoHero } from "@/components/baby-video-hero";
 import { useEffect, useState, type FormEvent, type MouseEvent } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
@@ -302,7 +303,7 @@ function Offers() {
               aria-hidden={n !== i}
               inert={n !== i}
             >
-              <Link to="/categories/$cat" params={{ cat: x.cat }} className="mh-offer-link">
+              {n === 0 ? <BabyVideoHero /> : <Link to="/categories/$cat" params={{ cat: x.cat }} className="mh-offer-link">
                 <img
                   src={x.img}
                   alt={x.alt}
@@ -310,7 +311,7 @@ function Offers() {
                   height={1024}
                   loading={n === 0 ? "eager" : "lazy"}
                 />
-              </Link>
+              </Link>}
             </div>
           ))}
         </div>

@@ -1,4 +1,5 @@
 # Requested work
+- [ ] Replace main banner with cropped, silently looping baby video and reference-positioned text; verify desktop/mobile playback and no black sides.
 - [ ] Finish smart search: confirm preview compiles; copy reference styles and files; unify /search; verify four visual states and every requested interaction; document shared engine rules.
 - [x] Use all 14 supplied paired category intro banners in homepage product sections; verified portrait/landscape selection at 1440/1024/390/360px, image loading, mobile cart and Clothing link, no sideways scroll or browser errors; routing test and automatic build passed.
 - [x] Part 1: Fix Offers, Trending, Search, Wishlist and All Categories review findings.
