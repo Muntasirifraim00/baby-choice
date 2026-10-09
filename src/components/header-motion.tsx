@@ -240,14 +240,14 @@ export function HmHeader({
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" aria-hidden="true" style={open === "mega" ? { transform: "rotate(180deg)" } : undefined}><path d="m6 9 6 6 6-6" /></svg>
         </button>
         <div className="hm-menu hm-menu-offers" {...menuProps("offers")}>
-          <Link to="/offers" className="hm-ofr" aria-haspopup="true" aria-expanded={open === "offers"} ref={(el) => { pills.current.offers = el; }}>
+          <Link to="/offers" className="hm-ofr" aria-haspopup="true" aria-expanded={open === "offers"} ref={(el) => { pills.current["offers"] = el; }}>
             <TagIco s={18} className="hm-tagic" />Offers
           </Link>
           <span className="hm-pct" aria-hidden="true">-{maxOff}%</span>
           <OffersPanel open={open === "offers"} />
         </div>
         <div className="hm-menu" {...menuProps("trending")}>
-          <Link to="/trending" className="hm-trd" aria-haspopup="true" aria-expanded={open === "trending"} ref={(el) => { pills.current.trending = el; }}>
+          <Link to="/trending" className="hm-trd" aria-haspopup="true" aria-expanded={open === "trending"} ref={(el) => { pills.current["trending"] = el; }}>
             <FlameIco w={18} h={20} /> Trending{" "}
             <span className="hm-rk" aria-hidden="true"><span className="hm-rk-col">{[...topTrending, topTrending[0]!].map((p, i) => <span key={i}>{tickerLabel(p, i % 3)}</span>)}</span></span>
           </Link>
@@ -368,20 +368,21 @@ export function MobileHeaderMotion() {
           <button type="submit">Search</button>
         </form>
         <nav aria-label="Highlights" className="hm-m-stories">
-          <Link to="/offers" className="hm-m-story" ref={(el) => { circles.current.offers = el; }}>
+          <Link to="/offers" className="hm-m-story" ref={(el) => { circles.current["offers"] = el; }}>
             <span className="hm-m-ring pink"><span className="hm-m-in" style={{ background: DEAL_TINTS[0] }}><img src={topDeal.image} alt="" /></span><span className="hm-m-tagp" style={{ background: "#c21e55" }}>-{maxOff}%</span></span>Offers
           </Link>
-          <Link to="/trending" className="hm-m-story" ref={(el) => { circles.current.trending = el; }}>
+          <Link to="/trending" className="hm-m-story" ref={(el) => { circles.current["trending"] = el; }}>
             <span className="hm-m-ring orange"><span className="hm-m-in" style={{ background: TREND_TINTS[0] }}><img src={topTrend.image} alt="" /></span><span className="hm-m-tagp" style={{ background: "#ff7a1a" }}><FlameIco w={9} h={10} white />HOT</span></span>Trending
           </Link>
           <Link to="/trending" className="hm-m-story">
             <span className="hm-m-ring green"><span className="hm-m-in" style={{ background: "#e2f8ee" }}><svg width="26" height="26" viewBox="0 0 24 24" fill="#1fae73" aria-hidden="true"><path d="M12 2l1.8 5.6L19.5 9.4l-5.7 1.8L12 17l-1.8-5.8-5.7-1.8 5.7-1.8zM19 15l.9 2.6 2.6.9-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z" /></svg></span><span className="hm-m-tagp" style={{ background: "#1fae73" }}>NEW</span></span>New in
           </Link>
-          {highlights.map((h) => (
-            <Link key={h.k} to={h.to} params={h.to === "/categories/$cat" ? { cat: "gifts-and-hampers" } : undefined} className="hm-m-story">
-              <span className="hm-m-ring calm"><span className="hm-m-in" style={{ background: h.bg }}>{h.inner}</span></span>{h.label}
-            </Link>
-          ))}
+          {highlights.map((h) => {
+            const body = <><span className="hm-m-ring calm"><span className="hm-m-in" style={{ background: h.bg }}>{h.inner}</span></span>{h.label}</>;
+            return h.to === "/categories/$cat"
+              ? <Link key={h.k} to="/categories/$cat" params={{ cat: "gifts-and-hampers" }} className="hm-m-story">{body}</Link>
+              : <Link key={h.k} to={h.to} className="hm-m-story">{body}</Link>;
+          })}
         </nav>
       </header>
       <div className="hm-m-peeks" ref={layer}>

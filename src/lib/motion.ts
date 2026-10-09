@@ -9,8 +9,8 @@ const listeners = new Set<(v: boolean) => void>();
 function apply(v: boolean) {
   paused = v;
   if (typeof document !== "undefined") {
-    if (v) document.documentElement.dataset.motion = "paused";
-    else delete document.documentElement.dataset.motion;
+    if (v) document.documentElement.dataset["motion"] = "paused";
+    else delete document.documentElement.dataset["motion"];
   }
   listeners.forEach((fn) => fn(v));
 }
