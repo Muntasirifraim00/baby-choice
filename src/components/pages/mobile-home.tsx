@@ -93,27 +93,28 @@ const STAGES: { id: StageId; label: string; sub: string; long: string; caps: str
 ];
 const STAGE_KEY = "baby-choice-stage";
 
-type Slide = {
-  tag: string; title: string; sub: string; cta: string; bg: string; blob: string; ink: string; img: string; alt: string;
-  cat: string;
-};
+type Slide = { tag: string; alt: string; cat: string; img: string };
 const SLIDES: Slide[] = [
   {
-    tag: "NEW ARRIVALS", title: "Everything for\nyour little one", sub: "Up to 30% OFF on soft, safe picks for your newest family member.",
-    cta: "Shop newborn", bg: "#ffe3ec", blob: "#ffcadb", ink: "#c21e55", img: heroMain.url, alt: "Baby in a bear hoodie",
+    tag: "Everything for your little one",
+    alt: "Everything for your little one — premium baby products for a happier, healthier tomorrow, up to 30% off. Shop now.",
     cat: "baby-clothing",
+    img: heroMain.url,
   },
   {
-    tag: "BATH TIME", title: "Gentle care for\nhappy baths", sub: "Mild washes, towels and toys for giggly baths.",
-    cta: "Shop bath", bg: "#ddf1ff", blob: "#c7e6ff", ink: "#2f5bd3", img: heroBath.url, alt: "Baby at bath time",
+    tag: "Gentle care for happy baths",
+    alt: "Bath time — gentle care for happy baths. Safe and gentle products for your baby's bath time. Shop bath.",
     cat: "bath-and-hygiene",
+    img: heroBath.url,
   },
   {
-    tag: "FEEDING", title: "Healthy beginnings\nevery day", sub: "Bottles, bowls and weaning picks for little appetites.",
-    cta: "Shop feeding", bg: "#fff1c4", blob: "#ffe59a", ink: "#8a5a00", img: heroFeeding.url, alt: "Baby at feeding time",
+    tag: "Healthy beginnings every day",
+    alt: "Feeding — healthy beginnings every day. Bottles, bowls and weaning picks for every little appetite. Shop feeding.",
     cat: "feeding-and-nursing",
+    img: heroFeeding.url,
   },
 ];
+
 
 const CATS = [
   { label: "Diapers", img: catDiapering, bg: "#e9f2ff", cat: "diapers-and-wipes" },
@@ -334,26 +335,47 @@ function StageCard({ stage, setStage }: { stage: (typeof STAGES)[number]; setSta
 
 function Offers() {
   const [i, setI] = useState(0);
-  const s = SLIDES[i] ?? SLIDES[0]!;
-  const cta = (
-    <>
-      {s.cta} <span aria-hidden="true">→</span>
-    </>
-  );
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    if (paused || document.hidden) return;
+    const t = setInterval(() => setI((n) => (n + 1) % SLIDES.length), 5000);
+    return () => clearInterval(t);
+  }, [paused]);
   return (
-    <section className="mh-sec">
-      <div className="mh-offer" aria-roledescription="carousel" aria-label="Offers" style={{ background: s.bg }}>
-        <span className="mh-offer-blob" style={{ background: s.blob }} />
-        <img src={s.img} alt={s.alt} className="mh-offer-img" />
-        <div className="mh-offer-copy" aria-live="polite">
-          <span className="mh-offer-tag" style={{ color: s.ink }}>
-            {s.tag}
-          </span>
-          <h2 className="mh-offer-title">{s.title}</h2>
-          <p>{s.sub}</p>
-          <Link to="/categories/$cat" params={{ cat: s.cat }} className="mh-offer-cta">
-            {cta}
-          </Link>
+    <section className="mh-sec mh-sec-full">
+      <div
+        className="mh-offer"
+        aria-roledescription="carousel"
+        aria-label="Offers"
+        onTouchStart={() => setPaused(true)}
+      >
+        <div
+          className="mh-offer-track"
+          style={{ transform: `translateX(${-i * 100}%)` }}
+        >
+          {SLIDES.map((x, n) => (
+            <div
+              key={x.tag}
+              className="mh-offer-slide"
+              aria-hidden={n !== i}
+              inert={n !== i}
+            >
+              <Link to="/categories/$cat" params={{ cat: x.cat }} className="mh-offer-link">
+                <img
+                  src={x.img}
+                  alt={x.alt}
+                  width={1536}
+                  height={1024}
+                  loading={n === 0 ? "eager" : "lazy"}
+                />
+              </Link>
+            </div>
+          ))}
         </div>
         <div className="mh-dots">
           {SLIDES.map((x, n) => (
@@ -367,13 +389,19 @@ function Offers() {
             />
           ))}
         </div>
-        <button type="button" className="mh-offer-next" aria-label="Next offer" onClick={() => setI((n) => (n + 1) % SLIDES.length)}>
+        <button
+          type="button"
+          className="mh-offer-next"
+          aria-label="Next offer"
+          onClick={() => setI((n) => (n + 1) % SLIDES.length)}
+        >
           <ChevronRight aria-hidden="true" />
         </button>
       </div>
     </section>
   );
 }
+
 
 function Trust() {
   return (
