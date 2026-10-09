@@ -173,6 +173,9 @@
 
 .ss-root :focus-visible, .ss-m-root :focus-visible { outline: 2px solid #6d3bea; outline-offset: 2px; }
 
+.ss-field input, .ss-field input:focus-visible,
+.ss-m-field input, .ss-m-field input:focus-visible { outline: none; }
+
 /* motion pause + reduced motion: no flow, no pop/stagger, static bars, no shimmer */
 html[data-motion="paused"] .ss-ring.on, html[data-motion="paused"] .ss-m-ring, html[data-motion="paused"] .ss-up, html[data-motion="paused"] .ss-sk, html[data-motion="paused"] .ss-wave span, html[data-motion="paused"] .ss-m-mic::before, html[data-motion="paused"] .ss-m-mic::after { animation: none; }
 html[data-motion="paused"] .ss-card, html[data-motion="paused"] .ss-m-item { animation: none; opacity: 1; }
