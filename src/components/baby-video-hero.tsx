@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import video from '@/assets/home/baby-hero.mp4.asset.json';
+import webm from '@/assets/home/baby-hero.webm.asset.json';
 import poster from '@/assets/home/baby-hero-poster.jpg.asset.json';
 import '@/styles/baby-video-hero.css';
 
@@ -17,7 +18,7 @@ export function BabyVideoHero() {
     return () => document.removeEventListener('visibilitychange', resume);
   }, []);
   return <div className="bvh" aria-label="Everything for your little one">
-    <video ref={ref} className="bvh-video" src={video.url} poster={poster.url} autoPlay muted loop playsInline preload="auto" disablePictureInPicture aria-hidden="true" />
+    <video ref={ref} className="bvh-video" poster={poster.url} autoPlay muted loop playsInline preload="auto" disablePictureInPicture aria-hidden="true"><source src={webm.url} type="video/webm"/><source src={video.url} type="video/mp4"/></video>
     <div className="bvh-copy">
       <span className="bvh-tag">PLAY • LEARN • GROW</span>
       <p className="bvh-title"><span>Everything</span><span>for your</span><span className="bvh-pink">little one</span></p>
