@@ -318,6 +318,7 @@ function StageCard({ stage, setStage }: { stage: (typeof STAGES)[number]; setSta
             const on = st.id === stage.id;
             return (
               <button key={st.id} type="button" aria-pressed={on} className={on ? "on" : ""} onClick={() => setStage(st.id)}>
+                <img src={st.img} alt="" className="mh-stage-img" loading="lazy" />
                 <b>{st.label}</b>
                 <small>{st.sub}</small>
               </button>
@@ -336,7 +337,6 @@ function StageCard({ stage, setStage }: { stage: (typeof STAGES)[number]; setSta
 function Offers() {
   const [i, setI] = useState(0);
   const s = SLIDES[i] ?? SLIDES[0]!;
-  const p = getProduct(s.slug);
   const cta = (
     <>
       {s.cta} <span aria-hidden="true">→</span>
@@ -346,22 +346,16 @@ function Offers() {
     <section className="mh-sec">
       <div className="mh-offer" aria-roledescription="carousel" aria-label="Offers" style={{ background: s.bg }}>
         <span className="mh-offer-blob" style={{ background: s.blob }} />
-        {p && <img src={p.image} alt={s.alt} className="mh-offer-img" />}
+        <img src={s.img} alt={s.alt} className="mh-offer-img" />
         <div className="mh-offer-copy" aria-live="polite">
           <span className="mh-offer-tag" style={{ color: s.ink }}>
             {s.tag}
           </span>
           <h2 className="mh-offer-title">{s.title}</h2>
           <p>{s.sub}</p>
-          {s.cat ? (
-            <Link to="/categories/$cat" params={{ cat: s.cat }} className="mh-offer-cta">
-              {cta}
-            </Link>
-          ) : (
-            <a href={`#${s.anchor}`} className="mh-offer-cta">
-              {cta}
-            </a>
-          )}
+          <Link to="/categories/$cat" params={{ cat: s.cat }} className="mh-offer-cta">
+            {cta}
+          </Link>
         </div>
         <div className="mh-dots">
           {SLIDES.map((x, n) => (
@@ -428,15 +422,14 @@ function Categories() {
         </Link>
       </div>
       <div className="mh-cats">
-        {CATS.map((c) => {
-          const p = getProduct(c.slug);
-          return (
-            <Link key={c.label} to="/categories/$cat" params={{ cat: c.cat }} className="mh-cat">
-              <span style={{ background: c.bg }}>{p && <img src={p.image} alt="" loading="lazy" />}</span>
-              {c.label}
-            </Link>
-          );
-        })}
+        {CATS.map((c) => (
+          <Link key={c.label} to="/categories/$cat" params={{ cat: c.cat }} className="mh-cat">
+            <span style={{ background: c.bg }}>
+              <img src={c.img} alt="" loading="lazy" />
+            </span>
+            {c.label}
+          </Link>
+        ))}
       </div>
     </section>
   );
