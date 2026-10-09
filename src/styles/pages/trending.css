@@ -136,7 +136,7 @@ main.trd-page h2.trd-ph-h2{font-size:22px}
   .trd-dk-well3{height:180px;flex:0 0 auto}
   .trd-dk-well3 img{width:66%;height:80%}
   .trd-page .trd-dk-brand3{margin-top:12px;font-size:11px}
-  .trd-dk-g-name{font-size:15px;font-weight:900;line-height:1.3;min-height:39px;margin-top:2px}
+  .trd-page h3.trd-dk-g-name{font-size:15px;font-weight:900;line-height:1.3;min-height:39px;margin-top:2px}
   .trd-dk-g-buy{display:flex;align-items:flex-end;justify-content:space-between;margin-top:10px}
   .trd-dk-g-buy b{display:block;font-size:22px;color:#3b1a6b;line-height:1}
   .trd-dk-bottom{display:grid;grid-template-columns:2fr 1fr;gap:20px}
