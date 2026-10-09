@@ -1,4 +1,6 @@
 import { brandSlug } from "@/lib/brands";
+import { homeCategoryIntros } from "@/lib/home-category-intros";
+import { HomeCategoryIntro } from "@/components/home-category-intro";
 import { useEffect, useState, type FormEvent, type MouseEvent } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
@@ -14,7 +16,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { useCart, FREE_DELIVERY } from "@/lib/cart-store";
-import { getProduct, off, pick, tk, type Product } from "@/lib/products";
+import { getProduct, off, pick, products, tk, type Product } from "@/lib/products";
 import { slugify } from "@/lib/live-head";
 import { MobileTabBar } from "@/components/pages/page-shell";
 import heroMain from "@/assets/home/hero-main.png.asset.json";
@@ -646,6 +648,26 @@ function Picks({ stage }: { stage: (typeof STAGES)[number] }) {
   );
 }
 
+function CategoryRails() {
+  return (
+    <section className="mh-sec mh-category-rails" aria-label="Shop every category">
+      <h2 className="mh-h2">Shop every category</h2>
+      {homeCategoryIntros.map((intro) => {
+        const items = products.filter((p) => p.category === intro.category).slice(0, 6);
+        if (!items.length) return null;
+        return (
+          <section key={intro.cat} className="mh-category-rail" aria-label={intro.title}>
+            <HomeCategoryIntro intro={intro} className="mh-category-intro" />
+            <div className="mh-grid2">
+              {items.map((p) => <ProductCard key={p.slug} p={p} />)}
+            </div>
+          </section>
+        );
+      })}
+    </section>
+  );
+}
+
 function FlashDeals() {
   const left = useCountdownToMidnight();
   const parts =
@@ -1042,6 +1064,7 @@ export function MobileHome() {
         <Reorder />
         <SizeFinder />
         <Picks stage={stage} />
+        <CategoryRails />
         <FlashDeals />
         <Needs />
         <Safety />

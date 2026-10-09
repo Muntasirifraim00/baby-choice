@@ -36,3 +36,4 @@
 - /offers is a 1:1 translation of public/design-ref/offers-{phone,desktop}.html (ofr- prefix, PageShell + MobileTabBar); tabs use pinned approved first-8 lists plus a rule for the rest so approved order survives catalogue changes.
 
 - /categories is a 1:1 translation of public/design-ref/categories-{phone,desktop}.html (alc- prefix, PageShell + MobileTabBar); groups sort by live catalogue counts and choose tile layouts by count so search results never leave orphan tiles.
+- Homepage category product rails share one intro data map and responsive picture component for paired CDN banners, keeping desktop/mobile artwork and category destinations synchronized.

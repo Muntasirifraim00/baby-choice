@@ -209,7 +209,11 @@
 .hd-chips::-webkit-scrollbar { display: none; }
 .hd-chips a { flex: 0 0 auto; height: 42px; padding: 0 18px; border-radius: 999px; font-size: 14px; font-weight: 900; display: inline-flex; align-items: center; white-space: nowrap; }
 .hd-rails { display: flex; flex-direction: column; gap: 26px; margin-top: 22px; }
-.hd-rail { scroll-margin-top: 140px; display: flex; flex-wrap: wrap; gap: 16px; padding: 16px; border-radius: 32px; }
+.hd-rail { scroll-margin-top: 140px; display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 16px; padding: 16px; border-radius: 32px; }
+.hd-rail-intro { display: block; min-width: 0; align-self: start; }
+.hd-rail-intro picture, .hd-rail-intro img { display: block; width: 100%; }
+.hd-rail-intro img { height: auto; }
+.hd-rail-intro:focus-visible { outline: 3px solid var(--purple); outline-offset: 4px; }
 .hd-rail-tile { flex: 1 1 210px; min-width: 0; position: relative; min-height: 220px; border-radius: 24px; background: #fff; padding: 22px; display: flex; flex-direction: column; overflow: hidden; }
 .hd-rail-blob { position: absolute; right: -40px; bottom: -40px; width: 160px; height: 160px; border-radius: 999px; }
 .hd-rail-tile > span { position: relative; }

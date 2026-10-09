@@ -1,4 +1,6 @@
 import { brandSlug } from "@/lib/brands";
+import { homeCategoryIntros } from "@/lib/home-category-intros";
+import { HomeCategoryIntro } from "@/components/home-category-intro";
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
@@ -232,71 +234,7 @@ const PICK_BG = ["#e9f2ff", "#fff4d1", "#f1eaff", "#ffeef4"];
 const DEAL_BG = ["#fff1f1", "#eaf2ff", "#ffeef4", "#e2f8ee"];
 const flashDeals = [...products].sort((a, b) => off(b) - off(a)).slice(0, 4);
 
-const RAILS = [
-  {
-    title: "Clothing",
-    sub: "Soft cotton for every day",
-    category: "Clothing",
-    cat: "baby-clothing",
-    bg: "#e6f2ff",
-    deep: "#2f5bd3",
-    art: "onesie" as CatArt,
-  },
-  {
-    title: "Diapering",
-    sub: "Diapers, wipes & care",
-    category: "Diapers",
-    cat: "diapers-and-wipes",
-    bg: "#ffe6ef",
-    deep: "#c21e55",
-    art: "diaper" as CatArt,
-  },
-  {
-    title: "Feeding",
-    sub: "Bottles, bowls & first foods",
-    category: "Feeding",
-    cat: "feeding-and-nursing",
-    bg: "#fff3d1",
-    deep: "#b06d00",
-    art: "bottle" as CatArt,
-  },
-  {
-    title: "Bath & care",
-    sub: "Gentle washes & lotions",
-    category: "Bath & Skin",
-    cat: "bath-and-hygiene",
-    bg: "#e3f4ff",
-    deep: "#2f7de0",
-    art: "wash" as CatArt,
-  },
-  {
-    title: "Toys",
-    sub: "Play, learn & grow",
-    category: "Toys",
-    cat: "toys-and-learning",
-    bg: "#e2f8ee",
-    deep: "#136b40",
-    art: "toy" as CatArt,
-  },
-  {
-    title: "Health",
-    sub: "Care essentials for parents",
-    category: "Health",
-    cat: "health-and-safety",
-    bg: "#fff0e4",
-    deep: "#b4470f",
-    art: "can" as CatArt,
-  },
-  {
-    title: "Gear & gifts",
-    sub: "Strollers, carriers & gift sets",
-    category: "Baby Care",
-    cat: "baby-accessories",
-    bg: "#efe8ff",
-    deep: "#4c22b8",
-    art: "stroller" as CatArt,
-  },
-];
+const RAILS = homeCategoryIntros;
 
 const BUNDLE = [
   { slug: "pampers-new-baby-diapers", short: "NB", tile: "#e9f2ff" },
@@ -958,20 +896,7 @@ function CategoryRails() {
       <div className="hd-rails">
         {rails.map((r) => (
           <div key={r.title} id={`cat-${r.cat}`} className="hd-rail" style={{ background: r.bg }}>
-            <CatLink cat={r.cat} className="hd-rail-tile hd-tile">
-              <span className="hd-rail-blob" style={{ background: r.bg }} />
-              <span className="hd-rail-count" style={{ color: r.deep }}>
-                {r.items.length} top picks
-              </span>
-              <span className="hd-rail-title">{r.title}</span>
-              <span className="hd-rail-sub">{r.sub}</span>
-              <span className="hd-rail-btn" style={{ background: r.deep }}>
-                Shop all →
-              </span>
-              <span className="hd-rail-art">
-                <CategoryArt kind={r.art} className="hd-float" />
-              </span>
-            </CatLink>
+            <HomeCategoryIntro intro={r} className="hd-rail-intro" />
             <div className="hd-rail-grid">
               {r.items.map((p) => (
                 <RailCard key={p.slug} product={p} bg={r.bg} deep={r.deep} />

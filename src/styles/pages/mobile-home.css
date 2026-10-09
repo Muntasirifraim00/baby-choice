@@ -282,3 +282,10 @@
 .mh-stage-grid button { gap: 1px; padding-top: 3px; }
 .mh-stage-img { width: 26px; height: 26px; object-fit: cover; object-position: top; border-radius: 999px; background: #fff; }
 .mh-stage-grid button b { font-size: 13px; line-height: 1; }
+
+/* Paired category intro artwork; complete landscape banners on phones. */
+.mh-category-rails { display: flex; flex-direction: column; gap: 20px; }
+.mh-category-rail { min-width: 0; }
+.mh-category-intro, .mh-category-intro picture, .mh-category-intro img { display: block; width: 100%; }
+.mh-category-intro img { height: auto; }
+.mh-category-rail .mh-grid2 { margin-top: 12px; }
