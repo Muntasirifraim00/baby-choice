@@ -1,85 +1,251 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Heart, Minus, Phone, Plus, Search, ShoppingCart, Sparkles, Star, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { PageShell, MobileTabBar } from "@/components/pages/page-shell";
+import { useEffect, useMemo, useState, type MouseEvent } from "react";
+import { Link, useRouter } from "@tanstack/react-router";
+import { PageShell, MobileTabBar } from "./page-shell";
 import { catalogCategories } from "@/lib/catalog-demo";
 import { getCategoryListing } from "@/lib/home-categories";
 import { slugify } from "@/lib/live-head";
-import { getProduct, off, products, tk, type Product } from "@/lib/products";
-import { ShopProductCard } from "./shop-product-card";
+import { getProduct, products, tk, type Product } from "@/lib/products";
 import { useCart } from "@/lib/cart-store";
 
-const groups = [
-  { id: "clothing", name: "Clothing & sleep", names: ["Baby Clothing", "Panjabi & Pajamas", "Bedding & Blankets", "Baby Accessories"] },
-  { id: "care", name: "Feeding & everyday care", names: ["Feeding & Nursing", "Diapers & Wipes", "Bath & Hygiene", "Skin Care", "Health & Safety"] },
-  { id: "play", name: "Play & gear", names: ["Toys & Learning", "Strollers & Prams", "High Chairs & Boosters", "Outdoor & Travel", "School & Activity"] },
-  { id: "mum", name: "Mum & gifts", names: ["Mother & Maternity", "Gifts & Hampers"] },
-].map(group => ({ ...group, categories: group.names.flatMap(name => {
-  const category = catalogCategories.find(c => c.name === name);
-  if (!category) return [];
-  const slug = slugify(name);
-  return [{ ...category, slug, realCount: getCategoryListing(slug).items.length }];
-}) }));
-const trending = [...products].sort((a, b) => b.reviews - a.reviews).slice(0, 8);
-const heroProducts = ["pampers-new-baby-diapers", "johnsons-baby-shampoo", "baby-rattle-set"].flatMap(slug => {
-  const product = getProduct(slug);
-  return product ? [product] : [];
-});
-const countText = (n: number) => n === 0 ? "Coming soon" : `${n} ${n === 1 ? "product" : "products"}`;
+/* /categories — 1:1 translation of public/design-ref/categories-{phone,desktop}.html, wired to the catalogue. */
 
-function CategorySearch({ query, onChange, id }: { query: string; onChange: (value: string) => void; id: string }) {
-  return <div className="alc-searchbox">
-    <label htmlFor={id}>Find a category</label>
-    <div className="alc-searchfield"><Search aria-hidden="true" /><input id={id} type="search" placeholder="Try clothing, feeding or toys…" value={query} onChange={e => onChange(e.target.value)} autoComplete="off" />
-      {query && <Button type="button" variant="ghost" className="alc-clear" aria-label="Clear category search" onClick={() => onChange("")}><X /></Button>}
-    </div>
+const IMG: Record<string, string> = {
+  "Bedding & Blankets": "carters-honey-cotton-wash-cloth", "Baby Accessories": "baby-nail-care-set", "Baby Clothing": "baby-clothing-set",
+  "Panjabi & Pajamas": "girl-pajama-set", "Skin Care": "aveeno-baby-lotion", "Bath & Hygiene": "baby-hooded-towel",
+  "Feeding & Nursing": "baby-feeding-set", "Diapers & Wipes": "pampers-new-baby-diapers", "Health & Safety": "digital-baby-thermometer",
+  "Toys & Learning": "baby-rattle-set", "Outdoor & Travel": "baby-carrier", "School & Activity": "baby-activity-walker",
+  "Strollers & Prams": "baby-stroller", "High Chairs & Boosters": "baby-high-chair", "Mother & Maternity": "electric-breast-pump",
+  "Gifts & Hampers": "johnsons-baby-care-gift-set",
+};
+
+const GROUPS = [
+  { id: "clothing", name: "Clothing & sleep", eyebrow: "WEAR & SLEEP", tint: "#e6f2ff", ink: "#2f5bd3", names: ["Baby Clothing", "Panjabi & Pajamas", "Bedding & Blankets", "Baby Accessories"] },
+  { id: "care", name: "Feeding & everyday care", eyebrow: "EVERY DAY", tint: "#fff3d1", ink: "#b06d00", names: ["Feeding & Nursing", "Diapers & Wipes", "Bath & Hygiene", "Skin Care", "Health & Safety"] },
+  { id: "play", name: "Play & gear", eyebrow: "PLAY & GO", tint: "#e2f8ee", ink: "#136b40", names: ["Toys & Learning", "Strollers & Prams", "High Chairs & Boosters", "Outdoor & Travel", "School & Activity"] },
+  { id: "mum", name: "Mum & gifts", eyebrow: "FOR MUM & GIFTING", tint: "#ffe6ef", ink: "#c21e55", names: ["Mother & Maternity", "Gifts & Hampers"] },
+].map(g => ({
+  ...g,
+  cats: g.names
+    .filter(n => catalogCategories.some(c => c.name === n))
+    .map((name, i) => { const slug = slugify(name); return { name, slug, i, count: getCategoryListing(slug).items.length, image: getProduct(IMG[name] ?? "")?.image ?? "" }; })
+    .sort((a, b) => b.count - a.count || a.i - b.i),
+}));
+type Group = (typeof GROUPS)[number];
+type Cat = Group["cats"][number];
+
+if (import.meta.env.DEV) {
+  const got = GROUPS.map(g => g.cats.map(c => `${c.name} ${c.count}`).join(", ")).join(" · ");
+  const want = "Bedding & Blankets 12, Baby Accessories 10, Baby Clothing 7, Panjabi & Pajamas 1 · Skin Care 21, Bath & Hygiene 16, Feeding & Nursing 6, Diapers & Wipes 5, Health & Safety 5 · Toys & Learning 5, Outdoor & Travel 5, School & Activity 5, Strollers & Prams 1, High Chairs & Boosters 1 · Mother & Maternity 11, Gifts & Hampers 10";
+  if (got !== want) console.warn(`[categories] unexpected counts: ${got}`);
+}
+
+const SHORT: Record<string, string> = { "aptamil-advance-follow-on-milk": "Aptamil Advance Follow On Milk" };
+const TINT: Record<string, string> = { "pampers-new-baby-diapers": "#e9f2ff", "aptamil-advance-follow-on-milk": "#fff4d1", "philips-avent-bottle-set": "#e6f2ff", "johnsons-baby-shampoo": "#fff4d1" };
+const ROTATE = ["#e9f2ff", "#fff4d1", "#ffeef4", "#e2f8ee", "#f1eaff"];
+const popular = products.map((p, i) => ({ p, i })).sort((a, b) => b.p.reviews - a.p.reviews || a.i - b.i).map(x => x.p);
+const nameOf = (p: Product) => SHORT[p.slug] ?? p.name;
+const tintOf = (p: Product) => TINT[p.slug] ?? ROTATE[products.indexOf(p) % ROTATE.length]!;
+const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? "" : "s"}`;
+
+function Arrow({ size }: { size: number }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>;
+}
+function SearchIcon() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6d3bea" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>;
+}
+function CatLink({ c, className, children }: { c: Cat; className: string; children: React.ReactNode }) {
+  return c.slug === "baby-clothing"
+    ? <Link to="/categories/baby-clothing" className={className}>{children}</Link>
+    : <Link to="/categories/$cat" params={{ cat: c.slug }} className={className}>{children}</Link>;
+}
+
+function SearchBox({ q, setQ, cls }: { q: string; setQ: (v: string) => void; cls: string }) {
+  return <div className={cls}>
+    <SearchIcon />
+    <label htmlFor={cls === "alc-ph-search" ? "cq" : "cq-d"} className="alc-sr">Find a category</label>
+    <input id={cls === "alc-ph-search" ? "cq" : "cq-d"} type="search" placeholder="Find a category: bath, toys, clothing…" value={q} onChange={e => setQ(e.target.value)} />
   </div>;
 }
 
+function Empty({ q }: { q: string }) {
+  return <section className="alc-empty">
+    <h2 className="alc-bl">No category called “{q}”</h2>
+    <p>It may still be a product. Try searching all {products.length} products.</p>
+    <Link to="/search" search={{ q } as never}>Search products for “{q}”</Link>
+  </section>;
+}
+
+/* ---------- phone group ---------- */
+function PhGroup({ g, cats }: { g: Group; cats: Cat[] }) {
+  const feat = cats.length % 2 === 1 ? cats[0] : undefined;
+  const rest = feat ? cats.slice(1) : cats;
+  return <section id={g.id} className="alc-ph-group alc-anchor">
+    <div className="alc-ph-ghead"><div><span className="alc-eb" style={{ color: g.ink }}>{g.eyebrow}</span><h2 className="alc-bl">{g.name}</h2></div><span>{plural(cats.length, "category").replace("categorys", "categories")}</span></div>
+    {feat && <CatLink c={feat} className="alc-feat">
+      <span className="alc-art" style={{ background: g.tint }}><img src={feat.image} alt="" /></span>
+      <span className="alc-feat-copy"><span className="alc-eb" style={{ color: g.ink }}>MOST PRODUCTS</span><b className="alc-bl">{feat.name}</b><small>{plural(feat.count, "product")}</small><span className="alc-pill" style={{ background: g.ink }}>Shop now →</span></span>
+    </CatLink>}
+    {rest.length > 0 && <div className="alc-ph-grid">{rest.map(c => <CatLink key={c.slug} c={c} className="alc-tile">
+      <span className="alc-art" style={{ background: g.tint }}><img src={c.image} alt="" /></span>
+      <b>{c.name}</b>
+      <span className="alc-tile-foot"><small>{plural(c.count, "product")}</small><span className="alc-go" style={{ background: g.tint, color: g.ink }}><Arrow size={14} /></span></span>
+    </CatLink>)}</div>}
+  </section>;
+}
+
+/* ---------- desktop group ---------- */
+function DkTile({ g, c, big }: { g: Group; c: Cat; big?: boolean }) {
+  return <CatLink c={c} className={`alc-tile${big ? " alc-tile-big" : ""}`}>
+    <span className="alc-art" style={{ background: g.tint }}><img src={c.image} alt="" /></span>
+    <b>{c.name}</b>
+    <span className="alc-tile-foot"><small>{plural(c.count, "product")}</small><span className="alc-go" style={{ background: g.tint, color: g.ink }}><Arrow size={16} /></span></span>
+  </CatLink>;
+}
+function DkGroup({ g, cats }: { g: Group; cats: Cat[] }) {
+  const n = cats.length;
+  let body;
+  if (n === 4) body = <div className="alc-dk-four">{cats.map(c => <DkTile key={c.slug} g={g} c={c} big />)}</div>;
+  else if (n === 2) body = <div className="alc-dk-two">{cats.map(c => <CatLink key={c.slug} c={c} className="alc-tile alc-wide">
+    <span className="alc-art" style={{ background: g.tint }}><img src={c.image} alt="" /></span>
+    <span className="alc-wide-copy"><b className="alc-bl">{c.name}</b><small>{plural(c.count, "product")}</small><span className="alc-pill2" style={{ background: g.ink }}>Shop now →</span></span>
+  </CatLink>)}</div>;
+  else {
+    const [f, ...rest] = cats;
+    body = <div className={`alc-dk-feat alc-dk-n${n}`}>
+      <CatLink c={f!} className="alc-tile alc-dk-feature">
+        <span className="alc-eb" style={{ color: g.ink }}>MOST PRODUCTS IN THIS GROUP</span>
+        <b className="alc-bl">{f!.name}</b>
+        <small>{plural(f!.count, "product")}</small>
+        <span className="alc-art"><img src={f!.image} alt="" /></span>
+        <span className="alc-pill2 alc-pill3" style={{ background: g.ink }}>Shop {f!.name} →</span>
+      </CatLink>
+      {rest.map(c => <DkTile key={c.slug} g={g} c={c} />)}
+    </div>;
+    // tint the feature background
+    body = <div style={{ ["--alc-ft" as string]: g.tint }}>{body}</div>;
+  }
+  return <section id={`${g.id}-d`} className="alc-anchor">
+    <div className="alc-dk-ghead"><div><span className="alc-eb" style={{ color: g.ink }}>{g.eyebrow}</span><h2 className="alc-bl">{g.name}</h2></div><span>{n === 1 ? "1 category" : `${n} categories`}</span></div>
+    {body}
+  </section>;
+}
+
 export function AllCategoriesPage() {
-  const navigate = useNavigate();
-  const { lines } = useCart();
-  const [query, setQuery] = useState("");
-  const [activeGroup, setActiveGroup] = useState("clothing");
-  const itemCount = lines.reduce((n, line) => n + line.qty, 0);
-  const filteredGroups = useMemo(() => groups.map(group => ({ ...group, categories: group.categories.filter(c => c.name.toLowerCase().includes(query.trim().toLowerCase())) })).filter(group => group.categories.length > 0), [query]);
-  useEffect(() => {
-    if (!filteredGroups.length) return;
-    let frame = 0;
-    const update = () => {
-      const positions = filteredGroups.map(group => ({ id: group.id, top: document.getElementById(`alc-group-${group.id}`)?.getBoundingClientRect().top ?? Infinity }));
-      const current = positions.filter(position => position.top <= 180).at(-1) ?? positions[0];
-      if (current) setActiveGroup(current.id);
-    };
-    const onScroll = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
-    const observer = new IntersectionObserver(update, { rootMargin: "-140px 0px -45% 0px", threshold: 0 });
-    filteredGroups.forEach(group => { const element = document.getElementById(`alc-group-${group.id}`); if (element) observer.observe(element); });
-    window.addEventListener("scroll", onScroll, { passive: true });
-    update();
-    return () => { observer.disconnect(); window.removeEventListener("scroll", onScroll); cancelAnimationFrame(frame); };
-  }, [filteredGroups]);
-  const back = () => {
-    if (window.history.length > 1) window.history.back();
-    else void navigate({ to: "/" });
+  const [q, setQ] = useState("");
+  const [active, setActive] = useState("clothing");
+  const { lines, add } = useCart();
+  const count = lines.reduce((n, l) => n + l.qty, 0);
+  const router = useRouter();
+  const term = q.trim().toLowerCase();
+  const shown = useMemo(() => GROUPS.map(g => ({ g, cats: term ? g.cats.filter(c => c.name.toLowerCase().includes(term) || g.name.toLowerCase().includes(term)) : g.cats })).filter(x => x.cats.length), [term]);
+  const total = shown.reduce((n, x) => n + x.cats.length, 0);
+  const back = () => { if (window.history.length > 1) router.history.back(); else router.navigate({ to: "/" }); };
+  const jump = (id: string, dk: boolean) => (e: MouseEvent) => {
+    e.preventDefault();
+    if (dk) setActive(id);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById(dk ? `${id}-d` : id)?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   };
-  const summary = `${catalogCategories.length} categories · ${products.length} products`;
+  const onAdd = (p: Product) => (e: MouseEvent<HTMLButtonElement>) => add(p, p.sizes[0], 1, e.currentTarget);
+
+  useEffect(() => {
+    const els = shown.map(x => document.getElementById(`${x.g.id}-d`)).filter(Boolean) as HTMLElement[];
+    if (!els.length) return;
+    if (!shown.some(x => x.g.id === active)) setActive(shown[0]!.g.id);
+    const io = new IntersectionObserver(entries => {
+      const vis = entries.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if (vis) setActive(vis.target.id.replace(/-d$/, ""));
+    }, { rootMargin: "-20% 0px -60% 0px" });
+    els.forEach(el => io.observe(el));
+    return () => io.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shown]);
+
+  const subtitle = `${total} categories · ${products.length} products`;
+
   return <PageShell className="alc-page">
-    <header className="alc-topbar"><Button type="button" variant="ghost" className="alc-icon" aria-label="Go back" onClick={back}><ArrowLeft /></Button><div className="alc-top-title"><h2>All categories</h2><p>{summary}</p></div><Button variant="ghost" asChild className="alc-icon"><Link to="/search" aria-label="Search products"><Search /></Link></Button><Button variant="ghost" asChild className="alc-icon alc-cart"><Link to="/cart" aria-label={`Cart, ${itemCount} items`}><ShoppingCart /><span className="alc-cart-count" aria-live="polite">{itemCount}</span></Link></Button></header>
-    <div className="alc-wrap">
-      <div className="alc-desktop-title"><nav className="alc-breadcrumb" aria-label="Breadcrumb"><Link to="/">Home</Link><span aria-hidden="true">›</span><span aria-current="page">Categories</span></nav><div className="alc-titleline"><h1>All categories</h1><p>{summary}</p></div></div>
-      <div className="alc-phone-search"><CategorySearch id="alc-phone-search" query={query} onChange={setQuery} /></div>
-      <nav className="alc-jumps" aria-label="Category groups">{filteredGroups.map(group => <a key={group.id} href={`#alc-group-${group.id}`} className={`alc-chip alc-tone-${group.id}`} onClick={() => setActiveGroup(group.id)}>{group.name}</a>)}</nav>
-      <section className="alc-hero" aria-label="Everything for your little one"><div className="alc-hero-copy"><span className="alc-hero-eyebrow">EVERYTHING FOR YOUR LITTLE ONE</span><h2>{catalogCategories.length} categories, <br />one happy basket</h2><p>Original brands · Cash on delivery all over Bangladesh</p><div className="alc-desktop-search"><CategorySearch id="alc-desktop-search" query={query} onChange={setQuery} /></div></div><div className="alc-hero-art" aria-hidden="true">{heroProducts.map((product, index) => <div key={product.slug} className={`alc-photo alc-photo-${index}`}><img src={product.image} alt="" /></div>)}</div></section>
-      <div className="alc-body"><aside className="alc-sidebar"><h2>Jump to</h2><nav aria-label="Jump to category group">{filteredGroups.map(group => <a href={`#alc-group-${group.id}`} key={group.id} className={`alc-side-link alc-tone-${group.id} ${activeGroup === group.id ? "alc-current" : ""}`} aria-current={activeGroup === group.id ? "location" : undefined} onClick={() => setActiveGroup(group.id)}><span className="alc-dot" /><span>{group.name}</span><small>{group.categories.length}</small></a>)}</nav><div className="alc-popular"><h3>Popular right now</h3>{trending.slice(0,3).map(p=><Link key={p.slug} to="/product/$slug" params={{slug:p.slug}}><img src={p.image} alt=""/><span>{p.name}<strong>৳ {tk(p.price)}</strong></span></Link>)}</div><div className="alc-side-help"><Phone aria-hidden="true" /><a href="tel:+8801712345678">Call +880 1712 345678</a><Link to="/support">Visit our help centre <ArrowRight /></Link></div></aside>
-        <div className="alc-groups" aria-live="polite">{filteredGroups.length === 0 ? <section className="alc-empty"><Search aria-hidden="true" /><h2>No categories found</h2><p>Try another name, or look for “{query}” in all products.</p><Button variant="ghost" asChild className="alc-empty-link"><Link to="/search" search={{ q: query }}>Search all products <ArrowRight /></Link></Button></section> : filteredGroups.map(group => <section id={`alc-group-${group.id}`} key={group.id} className={`alc-group alc-tone-${group.id}`}><div className="alc-group-head"><div><span className="alc-eyebrow">{group.name.toUpperCase()}</span><h2>{group.name}</h2></div><span className="alc-group-count">{group.categories.length} {group.categories.length === 1 ? "category" : "categories"}</span></div><div className="alc-tile-grid">{group.categories.map(category => {
-          const content = <><span className="alc-tile-art"><img src={category.image.url} alt="" loading="lazy" /></span><span className="alc-tile-info"><strong>{category.name}</strong><small>{countText(category.realCount)}</small><span className="alc-shop"><span className="alc-phone-label">Shop</span><span className="alc-desktop-label">Shop now</span><ArrowRight aria-hidden="true" /></span></span></>;
-          return category.name === "Baby Clothing" ? <Link className="alc-tile" to="/categories/baby-clothing" key={category.slug}>{content}</Link> : <Link className="alc-tile" to="/categories/$cat" params={{ cat: category.slug }} key={category.slug}>{content}</Link>;
-        })}</div></section>)}</div>
+    {/* ---------- PHONE ---------- */}
+    <div className="alc-ph">
+      <header className="alc-ph-top">
+        <div className="alc-ph-row">
+          <button type="button" className="alc-ib" aria-label="Back" onClick={back}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg></button>
+          <div className="alc-ph-title"><h1 className="alc-bl">All categories</h1><p>{subtitle}</p></div>
+          <Link to="/cart" className="alc-ib alc-cart" aria-label={`Cart, ${count} items`} data-cart-target="">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5" /><circle cx="18" cy="20" r="1.5" /><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 7H6" /></svg>
+            {count > 0 && <span className="alc-badge">{count}</span>}
+          </Link>
+        </div>
+        <SearchBox q={q} setQ={setQ} cls="alc-ph-search" />
+        {shown.length > 0 && <nav aria-label="Jump to group" className="alc-ph-chips">
+          {shown.map(({ g, cats }) => <a key={g.id} href={`#${g.id}`} onClick={jump(g.id, false)} style={{ background: g.tint, color: g.ink }}>{g.name} <span>{cats.length}</span></a>)}
+        </nav>}
+      </header>
+      <div className="alc-ph-body">
+        {shown.length ? <>
+          {shown.map(({ g, cats }) => <PhGroup key={g.id} g={g} cats={cats} />)}
+          <p className="alc-ph-note">Some products sit in more than one category.</p>
+        </> : <Empty q={q.trim()} />}
+        <section>
+          <span className="alc-eb alc-pink">MOST REVIEWED</span>
+          <h2 className="alc-bl alc-h22">Popular right now</h2>
+          <div className="alc-ph-pop">
+            {popular.slice(0, 4).map(p => <article key={p.slug}>
+              <Link to="/product/$slug" params={{ slug: p.slug }} className="alc-pop-art" style={{ background: tintOf(p) }}><img src={p.image} alt={nameOf(p)} /></Link>
+              <h3><Link to="/product/$slug" params={{ slug: p.slug }}>{nameOf(p)}</Link></h3>
+              <span className="alc-pop-rate">★ {p.rating.toFixed(1)} <span>({p.reviews})</span></span>
+              <div className="alc-pop-foot"><b className="alc-bl">৳ {tk(p.price)}</b><button type="button" className="alc-add" aria-label={`Add ${nameOf(p)} to cart`} onClick={onAdd(p)}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.2" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></button></div>
+            </article>)}
+          </div>
+        </section>
+        <section className="alc-ph-help">
+          <span className="alc-eb alc-brown">CAN’T FIND IT?</span>
+          <h2 className="alc-bl alc-h22">Ask a real person</h2>
+          <div><a href="tel:+8801712345678" className="alc-dark">Call us</a><Link to="/support" className="alc-green">Help centre</Link></div>
+        </section>
+        <div style={{ height: 8 }} />
       </div>
-      <section className="alc-trending"><div className="alc-section-head"><div><span className="alc-eyebrow">LITTLE FAVOURITES</span><h2>Trending right now</h2></div><Sparkles aria-hidden="true" /></div><div className="alc-trending-grid">{trending.map((product, index) => <ShopProductCard key={product.slug} product={product} tint={index} variant="rail" />)}</div></section>
-      <section className="alc-help"><span className="alc-eyebrow">CAN'T FIND IT?</span><h2>Ask a real person</h2><div className="alc-help-actions"><Button variant="ghost" asChild className="alc-call"><a href="tel:+8801712345678"><Phone />Call us</a></Button><Button variant="ghost" asChild className="alc-support"><Link to="/support">Help centre <ArrowRight /></Link></Button></div></section>
+      <MobileTabBar active="categories" />
     </div>
-    <MobileTabBar active="categories" />
+
+    {/* ---------- DESKTOP ---------- */}
+    <div className="alc-dk">
+      <section className="alc-dk-head">
+        <div>
+          <nav aria-label="Breadcrumb" className="alc-crumb"><Link to="/">Home</Link> › <span>All categories</span></nav>
+          <div className="alc-dk-title"><h2 className="alc-bl" aria-hidden="false">All categories</h2><span>{subtitle}</span></div>
+        </div>
+        <SearchBox q={q} setQ={setQ} cls="alc-dk-search" />
+      </section>
+      <div className="alc-dk-cols">
+        <aside className="alc-side">
+          <nav className="alc-jump" aria-label="Jump to group">
+            <h2 className="alc-bl">Jump to</h2>
+            {shown.map(({ g, cats }) => { const on = active === g.id; return <a key={g.id} href={`#${g.id}-d`} onClick={jump(g.id, true)} aria-current={on ? "location" : "false"} style={on ? { background: g.tint, color: g.ink } : undefined}>
+              <span className="alc-dot" style={{ background: g.ink }} /><span className="alc-grow">{g.name}</span><small>{cats.length}</small>
+            </a>; })}
+          </nav>
+          <section className="alc-side-pop">
+            <span className="alc-eb alc-pink">MOST REVIEWED</span>
+            <h2 className="alc-bl">Popular right now</h2>
+            <div>{popular.slice(0, 3).map(p => <Link key={p.slug} to="/product/$slug" params={{ slug: p.slug }}>
+              <span className="alc-side-art" style={{ background: tintOf(p) }}><img src={p.image} alt="" /></span>
+              <span className="alc-min0"><b>{nameOf(p)}</b><small>৳ {tk(p.price)} <span>· ★ {p.rating.toFixed(1)}</span></small></span>
+            </Link>)}</div>
+          </section>
+          <section className="alc-side-help">
+            <span className="alc-eb alc-brown">CAN’T FIND IT?</span>
+            <h2 className="alc-bl">Ask a real person</h2>
+            <a href="tel:+8801712345678" className="alc-dark">Call +880 1712 345678</a>
+            <Link to="/support" className="alc-green">Visit help centre</Link>
+          </section>
+        </aside>
+        <div className="alc-dk-main">
+          {shown.length ? <>
+            {shown.map(({ g, cats }) => <DkGroup key={g.id} g={g} cats={cats} />)}
+            <p className="alc-dk-note">Some products sit in more than one category, so category counts add up to more than {products.length}.</p>
+          </> : <Empty q={q.trim()} />}
+        </div>
+      </div>
+    </div>
   </PageShell>;
 }
