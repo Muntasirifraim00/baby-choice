@@ -1,4 +1,4 @@
-import { useState, type MouseEvent } from "react";
+import { useState, type MouseEvent, type CSSProperties, type ReactNode } from "react";
 import { Link, useRouter } from "@tanstack/react-router";
 import { PageShell, MobileTabBar } from "./page-shell";
 import { products, off, tk, getProduct, type Product } from "@/lib/products";
@@ -75,10 +75,10 @@ const price = (n: number) => `৳ ${tk(n)}`;
 function Plus({ size }: { size: number }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.2" strokeLinecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>;
 }
-function PLink({ p, className, style, children }: { p: Product; className?: string; style?: React.CSSProperties; children: React.ReactNode }) {
+function PLink({ p, className, style, children }: { p: Product; className?: string; style?: CSSProperties; children: ReactNode }) {
   return <Link to="/product/$slug" params={{ slug: p.slug }} className={className} style={style}>{children}</Link>;
 }
-function CatLink({ c, className, style, children }: { c: (typeof CATS)[number]; className: string; style?: React.CSSProperties; children: React.ReactNode }) {
+function CatLink({ c, className, style, children }: { c: (typeof CATS)[number]; className: string; style?: CSSProperties; children: ReactNode }) {
   return c.slug === "baby-clothing"
     ? <Link to="/categories/baby-clothing" className={className} style={style}>{children}</Link>
     : <Link to="/categories/$cat" params={{ cat: c.slug }} className={className} style={style}>{children}</Link>;
