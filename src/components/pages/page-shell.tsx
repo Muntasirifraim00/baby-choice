@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { House, LayoutGrid, RefreshCw, ShoppingCart, UserRound } from "lucide-react";
+import { CartIco, GridIco, HomeIco, TagIco, UserIco } from "@/components/header-motion";
 import { useCart } from "@/lib/cart-store";
 import { HdGradients } from "@/components/home-design/art";
 import { Announcement, Footer, Header } from "@/components/home-design/home-design";
@@ -28,33 +28,33 @@ export function PageShell({ children, className }: { children: ReactNode; classN
   );
 }
 
-type Tab = "home" | "categories" | "reorder" | "cart" | "account";
+type Tab = "home" | "categories" | "offers" | "reorder" | "cart" | "account";
 
-/** Phone-only bottom navigation used by browse pages. */
+/** Phone-only bottom navigation used by browse pages (reference: public/design-ref/header-mobile.html). */
 export function MobileTabBar({ active }: { active?: Tab }) {
   const { lines } = useCart();
   const count = lines.reduce((n, l) => n + l.qty, 0);
   const cls = (t: Tab) => `pg-tab ${active === t ? "on" : ""}`;
   return (
     <nav aria-label="App" className="pg-tabbar pg-mob">
-      <Link to="/" className={cls("home")}>
-        <House aria-hidden="true" />
+      <Link to="/" className={cls("home")} aria-current={active === "home" ? "page" : undefined}>
+        <HomeIco />
         Home
       </Link>
-      <Link to="/categories" className={cls("categories")}>
-        <LayoutGrid aria-hidden="true" />
+      <Link to="/categories" className={cls("categories")} aria-current={active === "categories" ? "page" : undefined}>
+        <GridIco s={21} />
         Categories
       </Link>
-      <Link to="/account/$section" params={{ section: "orders" }} className={cls("reorder")}>
-        <RefreshCw aria-hidden="true" />
-        Reorder
+      <Link to="/offers" className={`${cls("offers")} pg-tab-offers`} aria-current={active === "offers" ? "page" : undefined}>
+        <TagIco s={21} />
+        Offers<span className="pg-tbadge" aria-hidden="true">%</span>
       </Link>
-      <Link to="/cart" className={cls("cart")}>
-        <ShoppingCart aria-hidden="true" />
+      <Link to="/cart" className={cls("cart")} aria-current={active === "cart" ? "page" : undefined}>
+        <CartIco s={21} />
         Cart{count > 0 ? ` (${count})` : ""}
       </Link>
-      <Link to="/account" className={cls("account")}>
-        <UserRound aria-hidden="true" />
+      <Link to="/account" className={cls("account")} aria-current={active === "account" ? "page" : undefined}>
+        <UserIco s={21} />
         Account
       </Link>
     </nav>

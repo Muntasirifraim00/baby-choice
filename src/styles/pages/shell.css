@@ -9,10 +9,13 @@
   .pg-mob { display: flex !important; }
 }
 
-/* phone bottom tab bar */
+/* phone bottom tab bar (public/design-ref/header-mobile.html) */
 .pg-tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #fff; border-top: 1px solid #efe6fb;
-  padding: 0 6px calc(8px + env(safe-area-inset-bottom)); box-shadow: 0 -8px 20px rgba(59,26,107,.08); }
-.pg-tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding-top: 8px; min-height: 56px;
-  font-size: 10.5px; font-weight: 900; color: #6b5f86 !important; }
-.pg-tab svg { width: 22px; height: 22px; stroke-width: 2.3; }
+  padding: 0 6px calc(12px + env(safe-area-inset-bottom)); box-shadow: rgba(59,26,107,.08) 0 -8px 20px; }
+.pg-tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding-top: 8px; min-height: 54px;
+  font-size: 10px; font-weight: 900; color: #6b5f86 !important; position: relative; text-decoration: none; font-family: Nunito, sans-serif; }
+.pg-tab svg { width: 21px; height: 21px; }
 .pg-tab.on { color: #6d3bea !important; }
+.pg-tab-offers.on { color: #c21e55 !important; }
+.pg-tbadge { position: absolute; top: 3px; left: 50%; margin-left: 5px; height: 16px; min-width: 16px; padding: 0 4px; border-radius: 999px;
+  background: #f0457a; color: #fff; font-size: 9.5px; font-weight: 900; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; }
