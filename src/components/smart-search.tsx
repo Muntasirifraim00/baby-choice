@@ -246,8 +246,14 @@ export function DesktopSmartSearch({ placeholder }: { placeholder: string }) {
     void navigate({ to: "/product/$slug", params: { slug: p.slug } });
   };
   const submit = (e: FormEvent) => { e.preventDefault(); go(q); };
+  const onEscape = (e: KeyboardEvent<HTMLElement>) => {
+    if (e.key !== "Escape") return;
+    e.preventDefault();
+    e.stopPropagation();
+    input.current?.focus();
+    close();
+  };
   const onKey = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Escape") { if (voice.listening) voice.stop(); else close(); e.preventDefault(); return; }
     if (!open || !options.length) return;
     if (e.key === "ArrowDown") { e.preventDefault(); setOpen(true); setActive((a) => (a + 1) % options.length); }
     else if (e.key === "ArrowUp") { e.preventDefault(); setActive((a) => (a <= 0 ? options.length - 1 : a - 1)); }
@@ -369,7 +375,7 @@ export function DesktopSmartSearch({ placeholder }: { placeholder: string }) {
 
   return (
     <>
-      <div ref={ring} className={`ss-ring${open ? " on" : ""}`}>
+      <div ref={ring} className={`ss-ring${open ? " on" : ""}`} onKeyDown={onEscape}>
         <form role="search" className="hm-search ss-field" onSubmit={submit}>
           {I.search(20, 2.5)}
           <label htmlFor={`ss-in-${uid}`} className="hm-sr">Search products</label>
@@ -398,7 +404,7 @@ export function DesktopSmartSearch({ placeholder }: { placeholder: string }) {
       {open && typeof document !== "undefined" && createPortal(
         <div className="ss-root">
           <div className="ss-dim" style={{ top: box.dim }} onClick={close} aria-hidden="true" />
-          <div ref={panel} id={listId} className="ss-panel" role="listbox" aria-label="Search suggestions" style={{ left: box.left, top: box.top, width: box.width }}>{body}</div>
+          <div ref={panel} id={listId} className="ss-panel" role="listbox" aria-label="Search suggestions" onKeyDown={onEscape} style={{ left: box.left, top: box.top, width: box.width }}>{body}</div>
         </div>,
         document.body,
       )}

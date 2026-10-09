@@ -67,13 +67,15 @@ export function resolve(q: string): { query: string; corrected?: string } {
   return fixed !== n ? { query: fixed, corrected: fixed } : { query: n };
 }
 
-type Indexed = { p: Product; i: number; name: string; nameWords: string[]; brand: string; hay: string };
+type Indexed = { p: Product; i: number; name: string; nameWords: string[]; brand: string; direct: string; hay: string };
 const INDEX: Indexed[] = products.map((p, i) => {
   const rawName = normalize(p.name);
   const name = `${rawName} ${aliasWords(rawName)}`;
   const brand = normalize(p.brand);
+  // Explicit category-name queries (e.g. Diapers) are intentional, not keyword filler.
+  const direct = normalize(`${p.name} ${p.brand} ${p.category}`);
   const hay = normalize(`${p.name} ${p.brand} ${p.category} ${p.sub} ${p.type ?? ""} ${KEYWORDS[p.category] ?? ""}`);
-  return { p, i, name: rawName, nameWords: name.split(" "), brand, hay: `${hay} ${aliasWords(hay)}` };
+  return { p, i, name: rawName, nameWords: name.split(" "), brand, direct: `${direct} ${aliasWords(direct)}`, hay: `${hay} ${aliasWords(hay)}` };
 });
 
 export type SearchResult = { query: string; corrected?: string; typed: string; results: Product[] };
@@ -83,17 +85,19 @@ export function search(q: string): SearchResult {
   if (!query) return { query, typed: q, results: [] };
   const all = query.split(" ");
   const words = all.some((w) => !SIZE_TOKENS.has(w)) ? all.filter((w) => !SIZE_TOKENS.has(w)) : all;
-  const scored: { p: Product; s: number; i: number }[] = [];
+  const scored: { p: Product; s: number; i: number; strong: boolean }[] = [];
   for (const x of INDEX) {
     if (!words.every((w) => x.hay.includes(w))) continue;
     let s = 0;
     for (const w of words) {
       s += x.name.startsWith(w) ? 100 : x.nameWords.some((nw) => nw.startsWith(w)) ? 80 : x.brand.includes(w) ? 60 : x.name.includes(w) ? 40 : 20;
     }
-    scored.push({ p: x.p, s, i: x.i });
+    scored.push({ p: x.p, s, i: x.i, strong: words.every((w) => x.direct.includes(w)) });
   }
   scored.sort((a, b) => b.s - a.s || b.p.reviews - a.p.reviews || a.i - b.i);
-  return { query, ...(corrected ? { corrected } : {}), typed: q, results: scored.map((x) => x.p) };
+  const matches = scored.filter((x) => x.strong);
+  const relevant = matches.length >= 3 ? matches : scored;
+  return { query, ...(corrected ? { corrected } : {}), typed: q, results: relevant.map((x) => x.p) };
 }
 
 export function suggest(q: string): string[] {
