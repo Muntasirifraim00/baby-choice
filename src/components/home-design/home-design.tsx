@@ -529,7 +529,7 @@ function AgeAndPicks() {
   const circ = 2 * Math.PI * 38;
   return (
     <>
-      <section className="hd-wrap hd-section hd-two">
+      <section className="hd-wrap hd-section hd-two" id="picks">
         <div className="hd-age">
           <div className="hd-age-head">
             <Teddy className="hd-float-sm" />
