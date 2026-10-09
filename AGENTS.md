@@ -34,3 +34,4 @@
 - Render the illustrated desktop masthead through one DesktopHeader used by DeskHeader, with isolated desktop-only CSS and query-string search handoff, so all desktop pages remain consistent without changing mobile presentation.
 
 - Search, Wishlist, Offers and Trending share ShopProductCard and shopping primitives inside PageShell with their own namespaced styles; ownsChrome excludes the legacy wrapper to prevent duplicate desktop headers.
+- /offers is a 1:1 translation of public/design-ref/offers-{phone,desktop}.html (ofr- prefix, PageShell + MobileTabBar); tabs use pinned approved first-8 lists plus a rule for the rest so approved order survives catalogue changes.
