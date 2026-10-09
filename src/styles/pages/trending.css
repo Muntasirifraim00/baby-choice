@@ -39,7 +39,7 @@
 .trd-ph-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;background:#efe8ff;padding:5px;border-radius:18px}
 .trd-page [role=tab]{height:44px;border:0;border-radius:14px;background:transparent;color:#4c22b8;font-size:13px;font-weight:900;box-shadow:none;padding:0}
 .trd-page [role=tab].on{background:#6d3bea;color:#fff;box-shadow:#4c22b8 0 3px 0}
-.trd-ph-cap{font-size:12px;font-weight:800;color:#6b5f86;margin-top:8px;text-align:center}
+.trd-page .trd-ph-cap{font-size:12px;font-weight:800;color:#6b5f86;margin-top:8px;text-align:center}
 .trd-ph-pod{display:flex;flex-direction:column;gap:10px}
 .trd-ph-one{position:relative;display:flex;gap:14px;align-items:center;background:#fff;border-radius:24px;padding:12px;box-shadow:#ffd166 0 0 0 3px,rgba(59,26,107,.1) 0 12px 26px}
 .trd-ph-m1{position:absolute;top:-10px;left:-6px;z-index:1;width:40px;height:40px;border-radius:999px;background:#ffd166;color:#2a1650;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:#e0a100 0 4px 0}
