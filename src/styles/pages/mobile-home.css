@@ -73,23 +73,22 @@
 .mh-stage-tip svg { flex: 0 0 auto; width: 18px; height: 18px; color: #ffd166; stroke-width: 2.4; }
 .mh-stage-tip p { flex: 1; font-size: 12px; font-weight: 700; color: #f1eaff; line-height: 1.35; }
 
-/* offers banner */
-.mh-offer { position: relative; height: 216px; border-radius: 26px; overflow: hidden; transition: background .25s; }
-.mh-offer-blob { position: absolute; right: -40px; bottom: -60px; width: 220px; height: 220px; border-radius: 999px; }
-.mh-offer-img { position: absolute; right: 8px; bottom: 26px; width: 150px; height: 150px; object-fit: contain; }
-.mh-offer-copy { position: relative; padding: 18px 0 0 18px; max-width: 220px; }
-.mh-offer-tag { display: inline-flex; background: #fff; font-size: 10.5px; font-weight: 900; letter-spacing: .5px; padding: 5px 10px; border-radius: 999px; }
-.mh .mh-offer-title { margin-top: 10px; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 26px; line-height: .98; color: var(--ink); white-space: pre-line; }
-.mh-offer-copy p { margin-top: 6px; font-size: 12px; font-weight: 700; line-height: 1.35; color: #4b3d6b; }
-.mh .mh-offer-cta { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px; border-radius: 999px; background: var(--ink); color: #fff;
-  font-size: 13px; font-weight: 900; }
-.mh-dots { position: absolute; left: 18px; bottom: 12px; display: flex; gap: 6px; }
-.mh-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: rgba(42,22,80,.25); transition: width .2s; position: relative; }
+/* offers banner — full-width artwork, the wording is baked into the image */
+.mh-sec-full { padding: 0; }
+.mh-offer { position: relative; overflow: hidden; background: #fff; }
+.mh-offer-track { display: flex; transition: transform .5s ease; }
+.mh-offer-slide { flex: 0 0 100%; min-width: 100%; }
+.mh-offer-link { display: block; line-height: 0; }
+.mh-offer-slide img { display: block; width: 100%; height: auto; }
+.mh-dots { position: absolute; left: 16px; bottom: 12px; display: flex; gap: 6px; }
+.mh-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: rgba(255,255,255,.6); box-shadow: 0 1px 3px rgba(42,22,80,.3); transition: width .2s; position: relative; }
 .mh-dots button::after { content: ""; position: absolute; inset: -10px -4px; }
-.mh-dots button.on { width: 26px; background: var(--ink); }
-.mh-offer-next { position: absolute; right: 12px; top: 12px; width: 36px; height: 36px; border: 0; border-radius: 999px; background: #fff; color: var(--ink); display: flex;
+.mh-dots button.on { width: 26px; background: #fff; }
+.mh-offer-next { position: absolute; right: 12px; top: 12px; width: 36px; height: 36px; border: 0; border-radius: 999px; background: rgba(255,255,255,.9); color: var(--ink); display: flex;
   align-items: center; justify-content: center; padding: 0; }
 .mh-offer-next svg { width: 18px; height: 18px; stroke-width: 3; }
+@media (prefers-reduced-motion: reduce) { .mh-offer-track { transition: none; } }
+
 
 /* trust strip */
 .mh-trust { display: flex; gap: 10px; padding: 0 16px 4px; }
