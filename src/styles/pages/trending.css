@@ -1,5 +1,5 @@
 /* /trending — 1:1 translation of public/design-ref/trending-{phone,desktop}.html */
-.trd-page{background:#fff8f1;color:#2a1650;font-family:Nunito,sans-serif;line-height:normal}
+.trd-page{background:#fff8f1;color:#2a1650;font-family:Nunito,sans-serif;line-height:normal;font-size:16px}
 .trd-page *{box-sizing:border-box}
 .trd-page h1,.trd-page h2,.trd-page h3,.trd-page p{margin:0;letter-spacing:normal}
 .trd-page a{text-decoration:none;color:inherit}
