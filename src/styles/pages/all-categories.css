@@ -13,7 +13,7 @@ main.alc-page h1,main.alc-page h2,main.alc-page h3{line-height:normal;font-size:
 .alc-anchor{scroll-margin-top:200px}
 .alc-art{display:flex;align-items:center;justify-content:center;overflow:hidden}
 .alc-art img{object-fit:contain;mix-blend-mode:multiply}
-.alc-page input[type=search]{flex:1 1 0%;min-width:0;border:0;outline:none;background:transparent;font-family:inherit;font-size:14px;font-weight:700;color:#2a1650;box-shadow:none}
+.alc-page input[type=search]{flex:1 1 0%;min-width:0;border:0;outline:none;background:transparent;font-family:inherit;font-size:14px;font-weight:700;color:#2a1650;padding:1px 2px;box-shadow:none}
 .alc-page input[type=search]::placeholder{color:#757575;opacity:1}
 .alc-empty{background:#fff;border-radius:24px;padding:26px 18px;text-align:center;box-shadow:0 8px 20px rgba(59,26,107,.06)}
 .alc-page .alc-empty h2{font-size:22px}
