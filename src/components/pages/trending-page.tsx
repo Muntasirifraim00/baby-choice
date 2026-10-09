@@ -42,7 +42,8 @@ const TINT: Record<string, string> = {
 const ROTATE = ["#e9f2ff", "#fff4d1", "#ffeef4", "#e2f8ee", "#f1eaff"];
 const tintOf = (p: Product) => TINT[p.slug] ?? ROTATE[products.indexOf(p) % ROTATE.length];
 
-const avg = (Math.round(products.reduce((s, p) => s + p.rating, 0) / products.length * 10) / 10).toFixed(1);
+// Review-weighted average across all parent reviews (matches the reference 4.8).
+const avg = (products.reduce((s, p) => s + p.rating * p.reviews, 0) / products.reduce((s, p) => s + p.reviews, 0)).toFixed(1);
 const totalReviews = tk(products.reduce((s, p) => s + p.reviews, 0));
 
 const BRAND_TONES = [["#ffe6ef", "#c21e55"], ["#e6f2ff", "#2f5bd3"], ["#e2f8ee", "#136b40"], ["#fff3d1", "#b06d00"], ["#efe8ff", "#4c22b8"], ["#e3f4ff", "#2f5bd3"]];
