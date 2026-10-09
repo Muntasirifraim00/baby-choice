@@ -17,6 +17,22 @@ import { useCart, FREE_DELIVERY } from "@/lib/cart-store";
 import { getProduct, off, pick, tk, type Product } from "@/lib/products";
 import { slugify } from "@/lib/live-head";
 import { MobileTabBar } from "@/components/pages/page-shell";
+import heroMain from "@/assets/home/hero-main.png.asset.json";
+import heroBath from "@/assets/home/hero-bath.png.asset.json";
+import heroFeeding from "@/assets/home/hero-feeding.png.asset.json";
+import catClothing from "@/assets/home/cat-clothing.png";
+import catFeeding from "@/assets/home/cat-feeding.png";
+import catDiapering from "@/assets/home/cat-diapering.png";
+import catToys from "@/assets/home/cat-toys.png";
+import catGear from "@/assets/home/cat-gear.png";
+import catBath from "@/assets/home/cat-bath.png";
+import catFormula from "@/assets/home/cat-formula.png";
+import catGifts from "@/assets/home/cat-gifts.png";
+import stageNew from "@/assets/home/stage-new.png";
+import stage6m from "@/assets/home/stage-6m.png";
+import stage12m from "@/assets/home/stage-12m.png";
+import stage2y from "@/assets/home/stage-2y.png";
+import stage4y from "@/assets/home/stage-4y.png";
 
 /* Phone homepage (< 900px). Built from the approved "Main.dc" phone design. */
 
@@ -50,29 +66,29 @@ const SHORT: Record<string, string> = {
 const nameOf = (p: Product) => SHORT[p.slug] ?? p.name;
 
 type StageId = "nb" | "m6" | "m12" | "y2" | "y4";
-const STAGES: { id: StageId; label: string; sub: string; long: string; caps: string; tip: string; picks: string[] }[] = [
+const STAGES: { id: StageId; label: string; sub: string; long: string; caps: string; tip: string; picks: string[]; img: string }[] = [
   {
-    id: "nb", label: "New", sub: "0–3 mo", long: "Newborn, 0–3 months", caps: "NEWBORNS",
+    id: "nb", img: stageNew, label: "New", sub: "0–3 mo", long: "Newborn, 0–3 months", caps: "NEWBORNS",
     tip: "Newborns go through 8–12 diapers a day. Keep a spare pack and wipes in the bag.",
     picks: ["pampers-new-baby-diapers", "johnsons-baby-wipes", "johnsons-baby-shampoo", "sudocrem-nappy-rash-cream"],
   },
   {
-    id: "m6", label: "3–6", sub: "months", long: "Baby, 3–6 months", caps: "3–6 MONTHS",
+    id: "m6", img: stage6m, label: "3–6", sub: "months", long: "Baby, 3–6 months", caps: "3–6 MONTHS",
     tip: "Rattles and play mats help with reaching, grabbing and rolling.",
     picks: ["chicco-feeding-bottle", "baby-rattle-set", "baby-play-mat", "aveeno-baby-lotion"],
   },
   {
-    id: "m12", label: "6–12", sub: "months", long: "Baby, 6–12 months", caps: "6–12 MONTHS",
+    id: "m12", img: stage12m, label: "6–12", sub: "months", long: "Baby, 6–12 months", caps: "6–12 MONTHS",
     tip: "Starting solids? Begin with single-grain cereals and one new food at a time.",
     picks: ["nestle-cerelac-wheat-apple", "aptamil-advance-follow-on-milk", "nuby-sippy-cup", "cetaphil-baby-wash"],
   },
   {
-    id: "y2", label: "1–2", sub: "years", long: "Toddler, 1–2 years", caps: "1–2 YEARS",
+    id: "y2", img: stage2y, label: "1–2", sub: "years", long: "Toddler, 1–2 years", caps: "1–2 YEARS",
     tip: "Spill-proof cups make the switch from bottles easier.",
     picks: ["nuby-sippy-cup", "baby-play-mat", "cetaphil-baby-wash", "johnsons-baby-wipes"],
   },
   {
-    id: "y4", label: "2–4", sub: "years", long: "Little one, 2–4 years", caps: "2–4 YEARS",
+    id: "y4", img: stage4y, label: "2–4", sub: "years", long: "Little one, 2–4 years", caps: "2–4 YEARS",
     tip: "Gentle bath care and a calm routine help bedtime go smoothly.",
     picks: ["johnsons-baby-care-gift-set", "aveeno-baby-lotion", "johnsons-baby-shampoo", "philips-avent-bottle-set"],
   },
