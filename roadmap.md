@@ -1,5 +1,5 @@
 # Requested work
-- [ ] Use supplied paired category intro banners in homepage product sections; verify desktop/mobile imagery, links, cart and overflow.
+- [x] Use all 14 supplied paired category intro banners in homepage product sections; verified portrait/landscape selection at 1440/1024/390/360px, image loading, mobile cart and Clothing link, no sideways scroll or browser errors; routing test and automatic build passed.
 - [x] Part 1: Fix Offers, Trending, Search, Wishlist and All Categories review findings.
 - [x] Part 2: Build device-only demo login and complete Account area.
 - [x] Part 3: Unify brand links/data and rebuild all five brand pages.
