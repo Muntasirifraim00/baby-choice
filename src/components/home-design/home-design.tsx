@@ -1,6 +1,7 @@
 import { brandSlug } from "@/lib/brands";
 import { homeCategoryIntros } from "@/lib/home-category-intros";
 import { HomeCategoryIntro } from "@/components/home-category-intro";
+import { HmAnnouncement, HmHeader } from "@/components/header-motion";
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
@@ -69,7 +70,6 @@ const NAV: {
   to?: "/trending" | "/brands" | "/offers";
   hot?: boolean;
 }[] = [
-  { label: "New in", to: "/trending" },
   { label: "Newborn", cat: "baby-clothing" },
   { label: "Clothing", cat: "baby-clothing" },
   { label: "Feeding", cat: "feeding-and-nursing" },
@@ -79,7 +79,6 @@ const NAV: {
   { label: "Bath & care", cat: "bath-and-hygiene" },
   { label: "Gift sets", cat: "gifts-and-hampers" },
   { label: "Brands", to: "/brands" },
-  { label: "Sale ✦", to: "/offers", hot: true },
 ];
 
 const MEGA = [
@@ -357,130 +356,26 @@ function ProductImg({ product, className }: { product: Product; className?: stri
 /* ---------------------------------------------------------------- header */
 
 export function Announcement() {
-  const items = [
-    ["Free gift wrapping on every order", ""],
-    ["Cash on delivery all over Bangladesh", "y"],
-    ["Earn Little Stars points on every taka", ""],
-    ["New winter collection is here", "p"],
-    [`Free delivery on orders over ৳${tk(FREE_DELIVERY)}`, ""],
-  ];
-  const row = items.map(([t, c], i) => (
-    <span key={i} className={c === "y" ? "y" : c === "p" ? "p" : ""}>
-      ✦ {t}
-    </span>
-  ));
-  return (
-    <div className="hd-announce" aria-label="Store announcements">
-      <div className="hd-marquee">
-        {row}
-        {row}
-      </div>
-    </div>
-  );
+  return <HmAnnouncement />;
 }
 
 export function Header() {
-  const { lines, wish } = useCart();
-  const count = lines.reduce((n, l) => n + l.qty, 0);
-  const [mega, setMega] = useState(false);
-  const [q, setQ] = useState("");
-  const navigate = useNavigate();
-  const submit = (e: FormEvent) => {
-    e.preventDefault();
-    navigate({ to: "/search", search: { q: q.trim() } });
-  };
   return (
-    <header className="hd-header">
-      <div className="hd-wrap hd-header-top">
-        <Link to="/" className="hd-logo" aria-label="Baby Choice home">
-          <LogoHeart className="hd-wiggle" />
-          <span>
-            <b>
-              <span>Baby</span>
-              <em>Choice</em>
-            </b>
-            <small>Everything for your little one</small>
-          </span>
-        </Link>
-        <form role="search" className="hd-search" onSubmit={submit}>
-          <Search className="hd-search-ico" aria-hidden="true" />
-          <label htmlFor="hd-q" className="sr-only">
-            Search
-          </label>
-          <input
-            id="hd-q"
-            type="search"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search diapers, formula, toys, brands…"
-          />
-          <Link
-            to="/search"
-            search={{ q: "" }}
-            className="hd-photo"
-            aria-label="Browse all products"
-          >
-            <Camera />
-          </Link>
-          <button type="submit" className="hd-search-btn">
-            Search
-          </button>
-        </form>
-        <div className="hd-actions">
-          <Link to="/account" className="hd-points" aria-label="Little Stars points">
-            <Star className="hd-spin" />
-            <span>
-              <b>320</b>
-              <small>points</small>
-            </span>
-          </Link>
-          <Link
-            to="/wishlist"
-            className="hd-icon-btn"
-            aria-label={`Wishlist, ${wish.length} items`}
-          >
-            <Heart />
-            {wish.length > 0 && <span className="hd-badge pink">{wish.length}</span>}
-          </Link>
-          <Link to="/account" className="hd-account">
-            <UserRound />
-            Account
-          </Link>
-          <Link to="/cart" className="hd-cart hd-pulse">
-            <ShoppingCart />
-            Cart
-            <span className="hd-cart-count" aria-live="polite">
-              {count}
-            </span>
-          </Link>
-        </div>
-      </div>
-      <nav aria-label="Main" className="hd-wrap hd-nav">
-        <button
-          type="button"
-          className="hd-allcats"
-          aria-expanded={mega}
-          onClick={() => setMega((v) => !v)}
-        >
-          <LayoutGrid />
-          All categories
-          <ChevronDown className={mega ? "flip" : ""} />
-        </button>
-        <div className="hd-navlinks">
-          {NAV.map((n) =>
-            n.cat ? (
-              <CatLink key={n.label} cat={n.cat} className="hd-navlink">
-                {n.label}
-              </CatLink>
-            ) : (
-              <Link key={n.label} to={n.to!} className={`hd-navlink ${n.hot ? "hot" : ""}`}>
-                {n.label}
-              </Link>
-            ),
-          )}
-        </div>
-      </nav>
-      {mega && (
+    <HmHeader
+      catLinks={(cls) =>
+        NAV.map((n) =>
+          n.cat ? (
+            <CatLink key={n.label} cat={n.cat} className={cls}>
+              {n.label}
+            </CatLink>
+          ) : (
+            <Link key={n.label} to={n.to!} className={cls}>
+              {n.label}
+            </Link>
+          ),
+        )
+      }
+      megaPanel={() => (
         <div className="hd-mega hd-drop">
           <div className="hd-wrap">
             <div className="hd-mega-panel">
@@ -510,7 +405,7 @@ export function Header() {
           </div>
         </div>
       )}
-    </header>
+    />
   );
 }
 

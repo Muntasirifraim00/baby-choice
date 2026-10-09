@@ -198,7 +198,7 @@
 .hm-m-trow .hm-tprice { font-size: 14px; color: #3b1a6b; }
 
 /* motion controls */
-html[data-motion="paused"] :is(.hm-marq, .hm-ofr, .hm-ofr::after, .hm-tagic, .hm-pct, .hm-flame, .hm-rk-col, .hm-dot::after, .hm-star, .hm-m-ann, .hm-m-ring::before, .hm-m-tagp) { animation-play-state: paused !important; }
+html[data-motion="paused"] :is(.hm-marq, .hm-ofr, .hm-tagic, .hm-pct, .hm-flame, .hm-rk-col, .hm-star, .hm-m-ann, .hm-m-tagp) { animation-play-state: paused !important; }
 html[data-motion="paused"] .hm-ofr::after, html[data-motion="paused"] .hm-dot::after, html[data-motion="paused"] .hm-m-ring::before { animation-play-state: paused !important; }
 @media (prefers-reduced-motion: reduce) {
   .hm-root *, .hm-root *::before, .hm-root *::after, .hm-m-root *, .hm-m-root *::before, .hm-m-root *::after { animation: none !important; transition: none !important; }

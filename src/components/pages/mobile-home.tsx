@@ -19,6 +19,7 @@ import { useCart, FREE_DELIVERY } from "@/lib/cart-store";
 import { getProduct, off, pick, products, tk, type Product } from "@/lib/products";
 import { slugify } from "@/lib/live-head";
 import { MobileTabBar } from "@/components/pages/page-shell";
+import { MobileHeaderMotion } from "@/components/header-motion";
 import heroMain from "@/assets/home/hero-main.png.asset.json";
 import heroBath from "@/assets/home/hero-bath.png.asset.json";
 import heroFeeding from "@/assets/home/hero-feeding.png.asset.json";
@@ -222,73 +223,7 @@ function Eyebrow({ c, children }: { c: string; children: React.ReactNode }) {
 /* --------------------------------------------------------------- sections */
 
 function TopBar() {
-  const { lines, wish } = useCart();
-  const count = lines.reduce((n, l) => n + l.qty, 0);
-  const [q, setQ] = useState("");
-  const navigate = useNavigate();
-  const submit = (e: FormEvent) => {
-    e.preventDefault();
-    navigate({ to: "/search", search: { q: q.trim() } });
-  };
-  return (
-    <>
-      <div className="mh-announce">
-        <span className="y">Cash on delivery</span>
-        <span>·</span>
-        <span>Free delivery over {money(FREE_DELIVERY)}</span>
-      </div>
-      <header className="mh-header">
-        <div className="mh-header-row">
-          <Link to="/" className="mh-logo" aria-label="Baby Choice home">
-            <svg width="34" height="31" viewBox="0 0 44 40" aria-hidden="true">
-              <path d="M22 38C8 28 2 20 2 12 2 6 7 2 12.5 2c4 0 7.5 2.3 9.5 5.6C24 4.3 27.5 2 31.5 2 37 2 42 6 42 12c0 8-6 16-20 26z" fill="#f0457a" />
-              <circle cx="22" cy="18" r="9" fill="#ffdcc6" />
-              <circle cx="19" cy="17" r="1.3" fill="#2a1650" />
-              <circle cx="25" cy="17" r="1.3" fill="#2a1650" />
-              <path d="M19 21q3 2.6 6 0" fill="none" stroke="#c2334a" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-            <span>
-              Baby<em>Choice</em>
-            </span>
-          </Link>
-          <span className="mh-grow" />
-          <Link to="/wishlist" className="mh-ibtn" aria-label={`Wishlist, ${wish.length} items`}>
-            <Heart aria-hidden="true" />
-            {wish.length > 0 && <span className="mh-wbadge">{wish.length}</span>}
-          </Link>
-          <Link to="/cart" className="mh-cartbtn" aria-label={`Cart, ${count} items`}>
-            <ShoppingCart aria-hidden="true" />
-            <span className="mh-cbadge">{count}</span>
-          </Link>
-        </div>
-        <div className="mh-deliver">
-          <MapPin aria-hidden="true" />
-          Deliver to <b>[Area], Dhaka</b>
-        </div>
-        <form role="search" className="mh-search" onSubmit={submit}>
-          <Search aria-hidden="true" />
-          <label htmlFor="mh-q" className="sr-only">
-            Search
-          </label>
-          <input
-            id="mh-q"
-            type="search"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search diapers, formula, brands…"
-          />
-          <button type="submit">Search</button>
-        </form>
-        <div className="mh-popular mh-scroll">
-          {POPULAR.map((s) => (
-            <Link key={s.label} to="/search" search={{ q: s.q }}>
-              {s.label}
-            </Link>
-          ))}
-        </div>
-      </header>
-    </>
-  );
+  return <MobileHeaderMotion />;
 }
 
 function StageCard({ stage, setStage }: { stage: (typeof STAGES)[number]; setStage: (id: StageId) => void }) {

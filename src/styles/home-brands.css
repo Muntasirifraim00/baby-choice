@@ -1,5 +1,6 @@
 /* Homepage design (src/components/home-design) */
 @import "./home-design.css";
+@import "./header-motion.css";
 @import "./pages.css";
 .home-brands{margin-top:24px;margin-bottom:28px}
 .home-brands .section-heading{height:auto;min-height:36px;margin-bottom:18px}
