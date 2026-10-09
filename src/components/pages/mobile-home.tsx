@@ -564,7 +564,7 @@ function ProductCard({ p }: { p: Product }) {
 function Picks({ stage }: { stage: (typeof STAGES)[number] }) {
   const items = pick(...stage.picks);
   return (
-    <section className="mh-sec">
+    <section className="mh-sec" id="picks">
       <div className="mh-head">
         <div>
           <Eyebrow c="#6d3bea">PERFECT FOR {stage.caps}</Eyebrow>
@@ -978,6 +978,9 @@ export function MobileHome() {
     } catch {
       /* storage unavailable */
     }
+    const on = (e: Event) => { const v = (e as CustomEvent<string>).detail; if (STAGES.some((s) => s.id === v)) setStageId(v as StageId); };
+    window.addEventListener("bc-stage", on);
+    return () => window.removeEventListener("bc-stage", on);
   }, []);
   const setStage = (id: StageId) => {
     setStageId(id);

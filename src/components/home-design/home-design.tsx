@@ -510,7 +510,20 @@ function PickCard({ product, bg }: { product: Product; bg: string }) {
 }
 
 function AgeAndPicks() {
-  const [id, setId] = useState("nb");
+  const [id, setIdState] = useState("nb");
+  useEffect(() => {
+    try {
+      const v = localStorage.getItem("baby-choice-stage");
+      if (v && STAGES.some((x) => x.id === v)) setIdState(v);
+    } catch { /* storage unavailable */ }
+    const on = (e: Event) => { const v = (e as CustomEvent<string>).detail; if (STAGES.some((x) => x.id === v)) setIdState(v); };
+    window.addEventListener("bc-stage", on);
+    return () => window.removeEventListener("bc-stage", on);
+  }, []);
+  const setId = (v: string) => {
+    setIdState(v);
+    try { localStorage.setItem("baby-choice-stage", v); } catch { /* storage unavailable */ }
+  };
   const st = STAGES.find((x) => x.id === id) ?? STAGES[0]!;
   const picks = pick(...st.picks);
   const circ = 2 * Math.PI * 38;
