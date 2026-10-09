@@ -4,7 +4,7 @@
 .hm-root button, .hm-m-root button { font-family: inherit; cursor: pointer; }
 .hm-bl { font-family: "Baloo 2", sans-serif; font-weight: 800; }
 .hm-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
-.hm-root, .hm-m-root { font-family: Nunito, sans-serif; color: #2a1650; }
+.hm-root, .hm-m-root { font-family: Nunito, sans-serif; color: #2a1650; line-height: normal; }
 
 /* announcement */
 .hm-announce { height: 40px; background: #3b1a6b; color: #fff; display: flex; align-items: center; position: relative; overflow: hidden; }
