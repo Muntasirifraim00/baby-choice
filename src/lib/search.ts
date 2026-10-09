@@ -60,7 +60,7 @@ export const displayName = (p: Product) => SEARCH_NAMES[p.slug] ?? shortName(p);
 
 const aliasWords = (s: string) => s.split(" ").map((w) => ALIASES[w] ?? w).join(" ");
 
-export function resolve(q: string): { query: string; corrected?: string } {
+export function resolve(q: string): { query: string; corrected?: string | undefined } {
   const n = normalize(q);
   if (!n) return { query: "" };
   const fixed = ALIASES[n] ?? aliasWords(n);
@@ -76,7 +76,7 @@ const INDEX: Indexed[] = products.map((p, i) => {
   return { p, i, name: rawName, nameWords: name.split(" "), brand, hay: `${hay} ${aliasWords(hay)}` };
 });
 
-export type SearchResult = { query: string; corrected?: string; typed: string; results: Product[] };
+export type SearchResult = { query: string; corrected?: string | undefined; typed: string; results: Product[] };
 
 export function search(q: string): SearchResult {
   const { query, corrected } = resolve(q);
