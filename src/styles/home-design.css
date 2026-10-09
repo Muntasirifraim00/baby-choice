@@ -94,12 +94,12 @@
 .hd-pill-white { display: inline-flex; margin-top: 14px; height: 38px; padding: 0 16px; align-items: center; border-radius: 999px; background: #fff; color: var(--purple-d); font-size: 13px; font-weight: 900; }
 .hd .hd-mega-art { position: absolute; right: 14px; bottom: 14px; width: 110px; height: 92px; z-index: 2; }
 
-/* hero — full-width banner carousel (text is baked into the artwork) */
-.hd-banner { position: relative; width: 100%; overflow: hidden; background: #fff; }
-.hd-banner-track { display: flex; transition: transform .65s cubic-bezier(.4,0,.2,1); }
-.hd-banner-slide { flex: 0 0 100%; min-width: 100%; }
-.hd-banner-link { display: block; line-height: 0; }
-.hd-banner-slide img { display: block; width: 100%; height: auto; }
+/* Desktop hero: complete supplied artwork, large left + two stacked right. */
+.hd-hero-layout { display: grid; grid-template-columns: minmax(0, calc((200% - 8px) / 3)) minmax(0, 1fr); gap: 16px; padding-top: 20px; }
+.hd-hero-image-link { display: block; min-width: 0; overflow: hidden; line-height: 0; }
+.hd-hero-image-main { grid-row: span 2; }
+.hd-hero-image-link img { display: block; width: 100%; height: auto; }
+.hd-hero-image-link:focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
 .hd-btn-dark { display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 24px; border-radius: 999px; background: var(--ink); color: #fff !important; font-size: 15px; font-weight: 900; box-shadow: 0 8px 0 rgba(42,22,80,.18); }
 .hd-btn-dark svg { width: 15px; height: 15px; stroke-width: 3; }
 .hd-btn-white { display: inline-flex; align-items: center; height: 52px; padding: 0 22px; border-radius: 999px; background: #fff; color: var(--ink) !important; font-size: 15px; font-weight: 900; }

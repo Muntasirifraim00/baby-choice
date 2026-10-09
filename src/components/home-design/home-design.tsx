@@ -412,80 +412,24 @@ export function Header() {
 /* ------------------------------------------------------------------ hero */
 
 function Hero() {
-  const [i, setI] = useState(0);
-  const [paused, setPaused] = useState(false);
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
-    if (paused || document.hidden) return;
-    const t = setInterval(() => setI((n) => (n + 1) % SLIDES.length), 5000);
-    return () => clearInterval(t);
-  }, [paused]);
   return (
-    <section
-      className="hd-banner"
-      aria-roledescription="carousel"
-      aria-label="Featured offers"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
-    >
+    <section className="hd-wrap hd-hero-layout" aria-label="Featured offers">
       <h1 className="sr-only">Baby Choice — everything for your little one</h1>
-      <div
-        className="hd-banner-track"
-        style={{ transform: `translateX(${-i * 100}%)` }}
-      >
-        {SLIDES.map((x, n) => (
-          <div
-            key={x.tag}
-            className="hd-banner-slide"
-            aria-hidden={n !== i}
-            inert={n !== i}
-          >
-            <CatLink cat={x.cat} className="hd-banner-link">
-              <img
-                src={x.img}
-                alt={x.alt}
-                width={1536}
-                height={1024}
-                loading={n === 0 ? "eager" : "lazy"}
-              />
-            </CatLink>
-          </div>
-        ))}
-      </div>
-      <div className="hd-hero-dots hd-banner-dots">
-        {SLIDES.map((x, n) => (
-          <button
-            type="button"
-            key={x.tag}
-            aria-label={`Show slide ${n + 1}`}
-            aria-current={n === i}
-            className={n === i ? "on" : ""}
-            onClick={() => setI(n)}
+      {SLIDES.map((banner, index) => (
+        <CatLink
+          key={banner.tag}
+          cat={banner.cat}
+          className={`hd-hero-image-link${index === 0 ? " hd-hero-image-main" : ""}`}
+        >
+          <img
+            src={banner.img}
+            alt={banner.alt}
+            width={1536}
+            height={1024}
+            loading="eager"
           />
-        ))}
-      </div>
-      <div className="hd-hero-arrows hd-banner-arrows">
-        <button
-          type="button"
-          aria-label="Previous slide"
-          onClick={() => setI((n) => (n + SLIDES.length - 1) % SLIDES.length)}
-        >
-          <ChevronLeft />
-        </button>
-        <button
-          type="button"
-          aria-label="Next slide"
-          onClick={() => setI((n) => (n + 1) % SLIDES.length)}
-        >
-          <ChevronRight />
-        </button>
-      </div>
+        </CatLink>
+      ))}
     </section>
   );
 }
