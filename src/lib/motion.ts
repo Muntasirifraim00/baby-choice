@@ -97,9 +97,13 @@ export function useTypewriter(phrases: string[], active: boolean) {
 /** Returns a key that changes whenever `count` increases (used to replay the bump animation). */
 export function useBumpKey(count: number) {
   const prev = useRef(count);
+  const born = useRef(0);
+  useEffect(() => {
+    born.current = Date.now();
+  }, []);
   const [key, setKey] = useState(0);
   useEffect(() => {
-    if (count > prev.current) setKey((k) => k + 1);
+    if (count > prev.current && Date.now() - born.current > 800) setKey((k) => k + 1);
     prev.current = count;
   }, [count]);
   return key;
