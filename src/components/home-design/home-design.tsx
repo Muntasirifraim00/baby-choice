@@ -37,8 +37,23 @@ import {
   Star,
   Teddy,
   Truck,
-  type CatArt,
 } from "@/components/home-design/art";
+import heroMain from "@/assets/home/hero-main.png.asset.json";
+import heroBath from "@/assets/home/hero-bath.png.asset.json";
+import heroFeeding from "@/assets/home/hero-feeding.png.asset.json";
+import catClothing from "@/assets/home/cat-clothing.png";
+import catFeeding from "@/assets/home/cat-feeding.png";
+import catDiapering from "@/assets/home/cat-diapering.png";
+import catToys from "@/assets/home/cat-toys.png";
+import catGear from "@/assets/home/cat-gear.png";
+import catBath from "@/assets/home/cat-bath.png";
+import catFormula from "@/assets/home/cat-formula.png";
+import catGifts from "@/assets/home/cat-gifts.png";
+import stageNew from "@/assets/home/stage-new.png";
+import stage6m from "@/assets/home/stage-6m.png";
+import stage12m from "@/assets/home/stage-12m.png";
+import stage2y from "@/assets/home/stage-2y.png";
+import stage4y from "@/assets/home/stage-4y.png";
 
 /* ------------------------------------------------------------------ data */
 
@@ -117,48 +132,48 @@ const MEGA = [
 const SLIDES = [
   {
     tag: "NEW ARRIVALS",
-    title: "Hello,\ntiny world!",
-    sub: "Soft, safe picks for your newest family member, delivered to your door.",
+    title: "Everything for\nyour little one",
+    sub: "Up to 30% OFF on soft, safe picks — delivered to your door.",
     cta: "Shop newborn",
     cat: "baby-clothing",
     bg: "#ffe3ec",
     blob: "#ffd0de",
     ink: "#c21e55",
-    art: "baby",
+    img: heroMain.url,
   },
   {
     tag: "BATH TIME",
-    title: "Splash-time\nfavourites",
+    title: "Gentle care for\nhappy baths",
     sub: "Towels, toys and gentle washes for happy, giggly baths.",
     cta: "Shop bath",
     cat: "bath-and-hygiene",
     bg: "#ddf1ff",
     blob: "#c7e6ff",
     ink: "#2f5bd3",
-    art: "duck",
+    img: heroBath.url,
   },
   {
-    tag: "PLAY & LEARN",
-    title: "Play, learn,\ngrow!",
-    sub: "Toys that grow with every new milestone.",
-    cta: "Shop toys",
-    cat: "toys-and-learning",
+    tag: "FEEDING",
+    title: "Healthy beginnings\nevery day",
+    sub: "Bottles, bowls and weaning picks for every little appetite.",
+    cta: "Shop feeding",
+    cat: "feeding-and-nursing",
     bg: "#fff1c4",
     blob: "#ffe59a",
     ink: "#8a5a00",
-    art: "teddy",
+    img: heroFeeding.url,
   },
 ] as const;
 
-const CATS: { label: string; k: CatArt; bg: string; shade: string; cat: string }[] = [
-  { label: "Clothing", k: "onesie", bg: "#e6f2ff", shade: "#cfe3fb", cat: "baby-clothing" },
-  { label: "Feeding", k: "bottle", bg: "#fff3d1", shade: "#f8e2a6", cat: "feeding-and-nursing" },
-  { label: "Diapering", k: "diaper", bg: "#ffe6ef", shade: "#fbcfdd", cat: "diapers-and-wipes" },
-  { label: "Toys", k: "toy", bg: "#e2f8ee", shade: "#c4ecda", cat: "toys-and-learning" },
-  { label: "Gear", k: "stroller", bg: "#efe8ff", shade: "#ddd0fb", cat: "strollers-and-prams" },
-  { label: "Bath & care", k: "wash", bg: "#e3f4ff", shade: "#c9e6fb", cat: "bath-and-hygiene" },
-  { label: "Formula", k: "can", bg: "#fff0e4", shade: "#fbdcc4", cat: "feeding-and-nursing" },
-  { label: "Gift sets", k: "gift", bg: "#ffe6ef", shade: "#fbcfdd", cat: "gifts-and-hampers" },
+const CATS: { label: string; img: string; bg: string; shade: string; cat: string }[] = [
+  { label: "Clothing", img: catClothing, bg: "#e6f2ff", shade: "#cfe3fb", cat: "baby-clothing" },
+  { label: "Feeding", img: catFeeding, bg: "#fff3d1", shade: "#f8e2a6", cat: "feeding-and-nursing" },
+  { label: "Diapering", img: catDiapering, bg: "#ffe6ef", shade: "#fbcfdd", cat: "diapers-and-wipes" },
+  { label: "Toys", img: catToys, bg: "#e2f8ee", shade: "#c4ecda", cat: "toys-and-learning" },
+  { label: "Gear", img: catGear, bg: "#efe8ff", shade: "#ddd0fb", cat: "strollers-and-prams" },
+  { label: "Bath & care", img: catBath, bg: "#e3f4ff", shade: "#c9e6fb", cat: "bath-and-hygiene" },
+  { label: "Formula", img: catFormula, bg: "#fff0e4", shade: "#fbdcc4", cat: "baby-formula-and-milk" },
+  { label: "Gift sets", img: catGifts, bg: "#ffe6ef", shade: "#fbcfdd", cat: "gifts-and-hampers" },
 ];
 
 const STAGES = [
