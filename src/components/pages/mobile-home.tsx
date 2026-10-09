@@ -96,36 +96,36 @@ const STAGES: { id: StageId; label: string; sub: string; long: string; caps: str
 const STAGE_KEY = "baby-choice-stage";
 
 type Slide = {
-  tag: string; title: string; sub: string; cta: string; bg: string; blob: string; ink: string; slug: string; alt: string;
-  cat?: string; anchor?: string;
+  tag: string; title: string; sub: string; cta: string; bg: string; blob: string; ink: string; img: string; alt: string;
+  cat: string;
 };
 const SLIDES: Slide[] = [
   {
-    tag: "NEW PARENT KIT", title: "Everything for\nthe first 30 days", sub: "Diapers, wipes, bath care and a gift box, picked by parents.",
-    cta: "Build my kit", bg: "#ffe3ec", blob: "#ffcadb", ink: "#c21e55", slug: "johnsons-baby-care-gift-set", alt: "Johnson’s baby care gift set",
-    anchor: "mh-bundle",
+    tag: "NEW ARRIVALS", title: "Everything for\nyour little one", sub: "Up to 30% OFF on soft, safe picks for your newest family member.",
+    cta: "Shop newborn", bg: "#ffe3ec", blob: "#ffcadb", ink: "#c21e55", img: heroMain.url, alt: "Baby in a bear hoodie",
+    cat: "baby-clothing",
   },
   {
-    tag: "FEEDING WEEK", title: "Bottles & formula,\nsave up to 20%", sub: "BPA-free bottles and trusted formula brands.",
-    cta: "Shop feeding", bg: "#e3ebff", blob: "#cddafe", ink: "#3b28b8", slug: "philips-avent-bottle-set", alt: "Philips Avent bottle set",
-    cat: "feeding-and-nursing",
-  },
-  {
-    tag: "BATH TIME", title: "Gentle, tear-free\nbath time", sub: "Mild washes and lotions for delicate skin.",
-    cta: "Shop bath", bg: "#ddf6ea", blob: "#c3eed9", ink: "#136b40", slug: "johnsons-baby-shampoo", alt: "Johnson’s baby shampoo",
+    tag: "BATH TIME", title: "Gentle care for\nhappy baths", sub: "Mild washes, towels and toys for giggly baths.",
+    cta: "Shop bath", bg: "#ddf1ff", blob: "#c7e6ff", ink: "#2f5bd3", img: heroBath.url, alt: "Baby at bath time",
     cat: "bath-and-hygiene",
+  },
+  {
+    tag: "FEEDING", title: "Healthy beginnings\nevery day", sub: "Bottles, bowls and weaning picks for little appetites.",
+    cta: "Shop feeding", bg: "#fff1c4", blob: "#ffe59a", ink: "#8a5a00", img: heroFeeding.url, alt: "Baby at feeding time",
+    cat: "feeding-and-nursing",
   },
 ];
 
 const CATS = [
-  { label: "Diapers", slug: "pampers-new-baby-diapers", bg: "#e9f2ff", cat: "diapers-and-wipes" },
-  { label: "Wipes", slug: "johnsons-baby-wipes", bg: "#e2f8ee", cat: "diapers-and-wipes" },
-  { label: "Formula", slug: "aptamil-advance-follow-on-milk", bg: "#fff4d1", cat: "baby-formula-and-milk" },
-  { label: "Feeding", slug: "philips-avent-bottle-set", bg: "#e6f2ff", cat: "feeding-and-nursing" },
-  { label: "Baby food", slug: "nestle-cerelac-wheat-apple", bg: "#fff0e4", cat: "feeding-and-nursing" },
-  { label: "Bath", slug: "johnsons-baby-shampoo", bg: "#fff4d1", cat: "bath-and-hygiene" },
-  { label: "Skin care", slug: "aveeno-baby-lotion", bg: "#f1eaff", cat: "skin-care" },
-  { label: "Toys", slug: "baby-rattle-set", bg: "#ffeef4", cat: "toys-and-learning" },
+  { label: "Diapers", img: catDiapering, bg: "#e9f2ff", cat: "diapers-and-wipes" },
+  { label: "Wipes", img: catDiapering, bg: "#e2f8ee", cat: "diapers-and-wipes" },
+  { label: "Formula", img: catFormula, bg: "#fff4d1", cat: "baby-formula-and-milk" },
+  { label: "Feeding", img: catFeeding, bg: "#e6f2ff", cat: "feeding-and-nursing" },
+  { label: "Baby food", img: catFeeding, bg: "#fff0e4", cat: "feeding-and-nursing" },
+  { label: "Bath", img: catBath, bg: "#fff4d1", cat: "bath-and-hygiene" },
+  { label: "Skin care", img: catBath, bg: "#f1eaff", cat: "skin-care" },
+  { label: "Toys", img: catToys, bg: "#ffeef4", cat: "toys-and-learning" },
 ];
 
 /** Popular searches: each one returns results in the current catalogue. */
