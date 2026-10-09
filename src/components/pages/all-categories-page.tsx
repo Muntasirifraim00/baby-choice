@@ -159,7 +159,7 @@ export function AllCategoriesPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shown]);
 
-  const subtitle = `${total} categories · ${products.length} products`;
+  const subtitle = `${total === 1 ? "1 category" : `${total} categories`} · ${products.length} products`;
 
   return <PageShell className="alc-page">
     {/* ---------- PHONE ---------- */}
