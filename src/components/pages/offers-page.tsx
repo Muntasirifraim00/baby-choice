@@ -1,3 +1,4 @@
+import { shortName } from "@/lib/header-data";
 import { useState, type MouseEvent, type CSSProperties, type ReactNode } from "react";
 import { Link, useRouter } from "@tanstack/react-router";
 import { PageShell, MobileTabBar } from "./page-shell";
@@ -13,15 +14,7 @@ const maxOff = Math.max(...deals.map(off));
 const biggestSave = [...deals].sort((a, b) => saved(b) - saved(a))[0]!;
 const spotlight = [...deals].sort((a, b) => off(b) - off(a))[0]!;
 
-const SHORT: Record<string, string> = {
-  "winter-romper-panda": "Baby Winter Romper (Panda)",
-  "aveeno-baby-shampoo": "Aveeno Baby Shampoo",
-  "himalaya-baby-shampoo": "Himalaya Baby Shampoo",
-  "carters-girl-bodysuit-set": "Baby Girl 3-Pack Bodysuit Set",
-  "carters-boy-bodysuit-pack": "Baby Boy Bodysuit Pack (3 pcs)",
-  "aptamil-advance-follow-on-milk": "Aptamil Advance Follow On Milk",
-};
-const nameOf = (p: Product) => SHORT[p.slug] ?? p.name;
+const nameOf = shortName;
 
 const TINT: Record<string, string> = {
   "nestle-cerelac-wheat-apple": "#fff0e4", "winter-romper-panda": "#f1eaff", "johnsons-baby-oil": "#fff4d1", "pampers-new-baby-diapers": "#e9f2ff",
@@ -183,7 +176,7 @@ export function OffersPage() {
         </section>
         <div style={{ height: 8 }} />
       </div>
-      <MobileTabBar />
+      <MobileTabBar active="offers" />
     </div>
 
     {/* ---------- DESKTOP ---------- */}

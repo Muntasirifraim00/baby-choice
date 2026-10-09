@@ -37,3 +37,5 @@
 
 - /categories is a 1:1 translation of public/design-ref/categories-{phone,desktop}.html (alc- prefix, PageShell + MobileTabBar); groups sort by live catalogue counts and choose tile layouts by count so search results never leave orphan tiles.
 - Homepage category product rails share one intro data map and responsive picture component for paired CDN banners, keeping desktop/mobile artwork and category destinations synchronized.
+- Site header motion lives in src/components/header-motion.tsx + src/styles/header-motion.css (hm-/hm-m- prefixes), copied 1:1 from public/design-ref/header-{desktop,mobile}.html; menu/peek contents derive from src/lib/header-data.ts so they track the catalogue.
+- One header motion pause state (src/lib/motion.ts): data-motion="paused" on <html>, persisted in localStorage bc-motion; CSS pauses named loops and JS stops typewriter/peeks, so desktop and phone stay in sync.
