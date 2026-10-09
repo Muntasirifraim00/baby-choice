@@ -179,6 +179,7 @@ const CATS: { label: string; img: string; bg: string; shade: string; cat: string
 const STAGES = [
   {
     id: "nb",
+    img: stageNew,
     label: "New",
     sub: "0–3 mo",
     caps: "NEWBORNS",
@@ -194,6 +195,7 @@ const STAGES = [
   },
   {
     id: "m6",
+    img: stage6m,
     label: "3–6",
     sub: "months",
     caps: "3–6 MONTHS",
@@ -204,6 +206,7 @@ const STAGES = [
   },
   {
     id: "m12",
+    img: stage12m,
     label: "6–12",
     sub: "months",
     caps: "6–12 MONTHS",
@@ -219,6 +222,7 @@ const STAGES = [
   },
   {
     id: "y2",
+    img: stage2y,
     label: "1–2",
     sub: "years",
     caps: "1–2 YEARS",
@@ -229,6 +233,7 @@ const STAGES = [
   },
   {
     id: "y4",
+    img: stage4y,
     label: "2–4",
     sub: "years",
     caps: "2–4 YEARS",
@@ -614,13 +619,7 @@ function Hero() {
         <Balloon className="hd-float-b hd-balloon-b" tone="Purple" width={42} height={72} />
         <Star className="hd-float-sm hd-hero-star" width={34} height={34} />
         <div className="hd-hero-art" key={`a${i}`}>
-          {s.art === "baby" ? (
-            <HeroBaby className="hd-fade" />
-          ) : s.art === "duck" ? (
-            <HeroDuck className="hd-fade" />
-          ) : (
-            <HeroTeddy className="hd-fade" />
-          )}
+          <img src={s.img} alt="" className="hd-fade hd-hero-img" />
         </div>
         <div className="hd-hero-copy hd-fade" key={`c${i}`}>
           <span className="hd-hero-tag" style={{ color: s.ink }}>
@@ -679,7 +678,7 @@ function Hero() {
           <span className="hd-pill" style={{ background: "#f0457a" }}>
             Shop bath →
           </span>
-          <Duck className="hd-float hd-side-art" />
+          <img src={heroBath.url} alt="" className="hd-float hd-side-art hd-side-img" loading="lazy" />
         </CatLink>
         <CatLink cat="feeding-and-nursing" className="hd-side-card hd-lift blue">
           <span className="hd-eyebrow" style={{ color: "#3b28b8" }}>
@@ -693,7 +692,7 @@ function Hero() {
           <span className="hd-pill" style={{ background: "#6d3bea" }}>
             Explore →
           </span>
-          <Bottle className="hd-float-b hd-side-art bottle" />
+          <img src={heroFeeding.url} alt="" className="hd-float-b hd-side-art hd-side-img" loading="lazy" />
         </CatLink>
       </div>
     </section>
@@ -738,7 +737,7 @@ function Categories() {
               className="hd-tile-art"
               style={{ background: c.bg, boxShadow: `inset 0 -8px 0 ${c.shade}` }}
             >
-              <CategoryArt kind={c.k} className="hd-float" />
+              <img src={c.img} alt="" className="hd-float hd-tile-img" loading="lazy" />
             </span>
             <span>{c.label}</span>
           </CatLink>
@@ -799,6 +798,7 @@ function AgeAndPicks() {
                 className={x.id === id ? "on" : ""}
                 onClick={() => setId(x.id)}
               >
+                <img src={x.img} alt="" className="hd-stage-img" loading="lazy" />
                 <b>{x.label}</b>
                 <small>{x.sub}</small>
               </button>
