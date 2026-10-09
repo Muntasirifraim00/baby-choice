@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent, type ReactNode } from "react";
 import { Link, useRouter } from "@tanstack/react-router";
 import { PageShell, MobileTabBar } from "./page-shell";
 import { catalogCategories } from "@/lib/catalog-demo";
@@ -53,10 +53,10 @@ function Arrow({ size }: { size: number }) {
 function SearchIcon() {
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6d3bea" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>;
 }
-function CatLink({ c, className, children }: { c: Cat; className: string; children: React.ReactNode }) {
+function CatLink({ c, className, style, children }: { c: Cat; className: string; style?: CSSProperties; children: ReactNode }) {
   return c.slug === "baby-clothing"
-    ? <Link to="/categories/baby-clothing" className={className}>{children}</Link>
-    : <Link to="/categories/$cat" params={{ cat: c.slug }} className={className}>{children}</Link>;
+    ? <Link to="/categories/baby-clothing" className={className} style={style}>{children}</Link>
+    : <Link to="/categories/$cat" params={{ cat: c.slug }} className={className} style={style}>{children}</Link>;
 }
 
 function SearchBox({ q, setQ, cls }: { q: string; setQ: (v: string) => void; cls: string }) {
@@ -80,7 +80,7 @@ function PhGroup({ g, cats }: { g: Group; cats: Cat[] }) {
   const feat = cats.length % 2 === 1 ? cats[0] : undefined;
   const rest = feat ? cats.slice(1) : cats;
   return <section id={g.id} className="alc-ph-group alc-anchor">
-    <div className="alc-ph-ghead"><div><span className="alc-eb" style={{ color: g.ink }}>{g.eyebrow}</span><h2 className="alc-bl">{g.name}</h2></div><span>{plural(cats.length, "category").replace("categorys", "categories")}</span></div>
+    <div className="alc-ph-ghead"><div><span className="alc-eb" style={{ color: g.ink }}>{g.eyebrow}</span><h2 className="alc-bl">{g.name}</h2></div><span>{cats.length === 1 ? "1 category" : `${cats.length} categories`}</span></div>
     {feat && <CatLink c={feat} className="alc-feat">
       <span className="alc-art" style={{ background: g.tint }}><img src={feat.image} alt="" /></span>
       <span className="alc-feat-copy"><span className="alc-eb" style={{ color: g.ink }}>MOST PRODUCTS</span><b className="alc-bl">{feat.name}</b><small>{plural(feat.count, "product")}</small><span className="alc-pill" style={{ background: g.ink }}>Shop now →</span></span>
@@ -112,7 +112,7 @@ function DkGroup({ g, cats }: { g: Group; cats: Cat[] }) {
   else {
     const [f, ...rest] = cats;
     body = <div className={`alc-dk-feat alc-dk-n${n}`}>
-      <CatLink c={f!} className="alc-tile alc-dk-feature">
+      <CatLink c={f!} className="alc-tile alc-dk-feature" style={{ background: g.tint }}>
         <span className="alc-eb" style={{ color: g.ink }}>MOST PRODUCTS IN THIS GROUP</span>
         <b className="alc-bl">{f!.name}</b>
         <small>{plural(f!.count, "product")}</small>
@@ -121,8 +121,6 @@ function DkGroup({ g, cats }: { g: Group; cats: Cat[] }) {
       </CatLink>
       {rest.map(c => <DkTile key={c.slug} g={g} c={c} />)}
     </div>;
-    // tint the feature background
-    body = <div style={{ ["--alc-ft" as string]: g.tint }}>{body}</div>;
   }
   return <section id={`${g.id}-d`} className="alc-anchor">
     <div className="alc-dk-ghead"><div><span className="alc-eb" style={{ color: g.ink }}>{g.eyebrow}</span><h2 className="alc-bl">{g.name}</h2></div><span>{n === 1 ? "1 category" : `${n} categories`}</span></div>
@@ -212,7 +210,7 @@ export function AllCategoriesPage() {
       <section className="alc-dk-head">
         <div>
           <nav aria-label="Breadcrumb" className="alc-crumb"><Link to="/">Home</Link> › <span>All categories</span></nav>
-          <div className="alc-dk-title"><h2 className="alc-bl" aria-hidden="false">All categories</h2><span>{subtitle}</span></div>
+          <div className="alc-dk-title"><h1 className="alc-bl">All categories</h1><span>{subtitle}</span></div>
         </div>
         <SearchBox q={q} setQ={setQ} cls="alc-dk-search" />
       </section>
